@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+GOA_biomass/data/local_nodc/
+GOA_biomass/data/local_race_data/
+GOA_biomass/data/local_racebase/
+GOA_biomass/data/length_ADFG.csv
+GOA_biomass/data/specimen_ADFG.csv
+GOA_biomass/results/
