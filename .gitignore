@@ -8,3 +8,9 @@ GOA_biomass/data/local_racebase/
 GOA_biomass/data/length_ADFG.csv
 GOA_biomass/data/specimen_ADFG.csv
 GOA_biomass/results/
+GOA_dietcomp/results/
+GOA_dietcomp/data/local_nodc/
+GOA_dietcomp/data/local_race_data/
+GOA_dietcomp/data/local_racebase/
+GOA_dietcomp/data/length_ADFG.csv
+GOA_dietcomp/data/specimen_ADFG.csv
