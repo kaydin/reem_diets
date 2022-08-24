@@ -1,7 +1,7 @@
 library(getPass)
 
 # Define RODBC connection to ORACLE
-get.connected <- function(schema = "AFSCP1", username, password) { #BF changed from AFSC to AFSCP1 - that's how it's set up on my computer
+get.connected <- function(schema = "AFSC", username, password) { #BF changed from AFSC to AFSCP1 - that's how it's set up on my computer
   (echo <- FALSE)
   if (!hasArg(username)) {
     username <- getPass(msg = "Enter your ORACLE Username: ")

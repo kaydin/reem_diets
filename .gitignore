@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+data/
 GOA_biomass/data/local_nodc/
 GOA_biomass/data/local_race_data/
 GOA_biomass/data/local_racebase/

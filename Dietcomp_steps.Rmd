@@ -1,0 +1,48 @@
+---
+title: "Dietcomp_steps"
+author: "Kerim Aydin"
+date: "8/24/2022"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## REEM Diet Composition Tools
+
+This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE.  All of these steps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed.  This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).
+
+```{r environ}
+#setwd() if needed here
+base_wd <- getwd()
+source("./user.R")
+source("R/REEM_fooddata_functions.R")
+REEM.package.load(c("tidyverse", "RODBC", "janitor", "lubridate", "getPass"))
+```
+
+## Querying Oracle
+
+Query the Oracle database and downloads needed files (both RACE and REEM) in the data directory.  It needs to be run while on internal network or VPN, requires an AFSC username and password, and is slow.  This is separated so RACE and REEM data can be loaded independently.
+
+First, open the connection (password dialog will open):
+```{r query_open, eval=FALSE}
+oracle.channel <- REEM.oracle.connect()
+```
+
+This loads RACE data (lots of length data etc., very slow):
+```{r query_RACE, eval=FALSE}
+source("./R/010_RACE_data_from_oracle.R")
+```
+
+This loads REEM data.  These are not loaded completely "RAW", the query script performs some lookups on the Oracle end as contained in these scripts, and does not pull all fields:
+```{r query_REEM, eval=FALSE}
+source("./R/015_REEM_data_from_oracle.R")
+```
+
+Closing the connection once finished:
+```{r query_close, eval=FALSE}
+odbcClose(oracle.channel)
+```
+
+

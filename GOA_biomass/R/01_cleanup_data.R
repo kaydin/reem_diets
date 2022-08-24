@@ -6,17 +6,13 @@ library(tidyverse)
 
 # Load Oracle data (takes a while) ----------------------------------------
 # This local folder contains csv files of all the RACEBASE tables.
-a <- list.files(
-  path = ("C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_biomass/data/local_racebase"),
-  #path = here::here("data","local_racebase"),
-  pattern = "\\.csv"
-)
+
+bio_path <- here::here("GOA_Biomass")
+
+a <- list.files(paste(bio_path,"data/local_racebase",sep="/"), pattern = "\\.csv")
 
 for (i in 1:length(a)) {
-  b <- read.csv(file = paste0("C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_biomass/data/local_racebase/", a[i]
-  #b <- read.csv(file = paste0(here::here(
-   # "data","local_racebase", a[i]
-  ))
+  b <- read.csv(file = paste(bio_path,"data/local_racebase", a[i], sep="/"))
   b <- janitor::clean_names(b)
   if (names(b)[1] %in% "x1") {
     b$x1 <- NULL
@@ -26,10 +22,7 @@ for (i in 1:length(a)) {
 
 
 # Get stratum areas from GOA_STRATA table----------------------------------
-goa_ai_strata <- read.csv("C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_biomass/data/goa_strata.csv")
-#goa_ai_strata <- read.csv(here::here(
-#  "data",  "goa_strata.csv"
-#))
+goa_ai_strata <- read.csv(paste(bio_path,"data/goa_strata.csv",sep="/"))
 
 goa_strata <- goa_ai_strata %>%
   janitor::clean_names() %>%
