@@ -49,4 +49,6 @@ Now the processing starts
 ```{r load_RACE, eval=FALSE}
 REEM.loadclean.RACE()
 ```
-
+```{r clean_RACE, eval=FALSE}
+source("./R/020_cleanup_data.R")
+```
