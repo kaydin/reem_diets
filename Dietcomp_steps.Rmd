@@ -45,4 +45,8 @@ Closing the connection once finished:
 odbcClose(oracle.channel)
 ```
 
+Now the processing starts
+```{r load_RACE, eval=FALSE}
+REEM.loadclean.RACE()
+```
 

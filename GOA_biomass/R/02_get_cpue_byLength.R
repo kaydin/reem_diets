@@ -18,6 +18,11 @@ speciescode_list<-LWparam %>%
   select(sp_code)%>%
   distinct(.keep_all = TRUE) 
 
+speciescode_list<-LWparam %>%
+  filter(sp_Cname=="Pacific cod")%>%
+  select(sp_code)%>%
+  distinct(.keep_all = TRUE) 
+
 
 get_cpue_Length <- function(racebase_tables = list(
                        cruisedat = cruisedat,
@@ -27,7 +32,7 @@ get_cpue_Length <- function(racebase_tables = list(
                      ),                             #BF added length file
                      speciescode = speciescode_list$sp_code, # 21741, #predators, # POP
                      #survey_area = "AI") 
-                     survey_area = "GOA")   {
+                     survey_area = "BS")   {
 
   #convert predator list to species codes (RACE)
   
@@ -50,7 +55,7 @@ get_cpue_Length <- function(racebase_tables = list(
 
     dplyr::select(
       species_code,
-      cruisejoin.x, vessel.x, haul.x,
+      cruisejoin.x, vessel.x, haul.x, hauljoin,
       haul_type, performance, duration,
       stratum, stationid,
       distance_fished, weight, year,
@@ -82,7 +87,7 @@ get_cpue_Length <- function(racebase_tables = list(
     mutate (WgtLBin_CPUE_km2 = NumLBin_CPUE_km2*weight_Lbin) %>% # Length step: calc weight for all fish in Lbin using proportion of CPUE (number fish in Lbin *weight)
     #replace_na(list(species_code = speciescode)) %>% #THIS DOESN"T WORK
     select(
-      year, survey, Vessel, haul.x, stationid,
+      year, survey, Vessel, haul.x, hauljoin, stationid, performance,
       stratum, distance_fished,
       species_code, Catch_KG, number_fish,
       AreaSwept_km2, WGTCPUE, NUMCPUE, length, NumLBin_CPUE_km2, WgtLBin_CPUE_km2
@@ -97,7 +102,7 @@ get_cpue_Length <- function(racebase_tables = list(
 # sablefish: 20510
 
 # RACEBASE equivalent table: CPUE
-x <- get_cpue_Length(survey_area = "GOA", speciescode = speciescode_list$sp_code)# 21741) #POP 30060)
+x <- get_cpue_Length(survey_area = "BS", speciescode = speciescode_list$sp_code)# 21741) #POP 30060)
 head(x)
 
 
