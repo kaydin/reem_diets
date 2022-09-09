@@ -11,7 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## REEM Diet Composition Tools
 
-This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE.  All of these steps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed.  This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).
+This set of tools generates diet composition estimates from REEM BTS data, 
+includes queries for bottom-trawl survey data provided by RACE.  All of these 
+steps should be run from the top directory of this package, so please ensure
+that the working directory is set correctly, and add a directory-setting command
+if needed.  This also loads user-supplied parameters from user.R (most R files
+are in the R subdirectory; user.R is in the top directory).
 
 ```{r environ}
 #setwd() if needed here
@@ -23,7 +28,10 @@ REEM.package.load(c("tidyverse", "RODBC", "janitor", "lubridate", "getPass"))
 
 ## Querying Oracle
 
-Query the Oracle database and downloads needed files (both RACE and REEM) in the data directory.  It needs to be run while on internal network or VPN, requires an AFSC username and password, and is slow.  This is separated so RACE and REEM data can be loaded independently.
+Query the Oracle database and downloads needed files (both RACE and REEM) in the
+data directory.  It needs to be run while on internal network or VPN, requires
+an AFSC username and password, and is slow.  This is separated so RACE and REEM
+data can be loaded independently.
 
 First, open the connection (password dialog will open):
 ```{r query_open, eval=FALSE}
