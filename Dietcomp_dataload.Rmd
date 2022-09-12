@@ -6,46 +6,63 @@ output: html_notebook
 ---
 ## REEM Diet Composition Tools
 This set of tools generates diet composition estimates from REEM BTS data, 
-includes queries for bottom-trawl survey data provided by RACE.  All of these 
-steps should be run from the top directory of this package, so please ensure
-that the working directory is set correctly, and add a directory-setting command
-if needed.  This also loads user-supplied parameters from user.R (most R files
-are in the R subdirectory; user.R is in the top directory).
+includes queries for bottom-trawl survey data provided by RACE.  This also 
+loads user-supplied parameters from user.R (most R files are in the R
+subdirectory; user.R is in the top directory).
 
-```{r environ}
+## Open Oracle connection
+```{r query_open, eval=FALSE}
 library("RODBC")
 library("getPass")
-source("R/010_RACE_data_from_oracle.R")
+source("R/REEM_download_functions.R")
 
-# setwd() here if needed - code assumes everything runs from main repo directory.
-channel <- oracle.connect("AFSC")  # Oracle connection name in odbc, may differ by user (eg "AFSCP1")
+# add setwd() here if needed - code assumes everything runs from main repo directory
+# (subdirectories should include /data and /R").
+
+# oracle.connect input argument is the connection name in installed odbc driver,
+# may differ by user (e.g. "AFSC" or "AFSCP1" etc.).  This function should bring
+# up a username and password interface to log in to Oracle.
+channel <- oracle.connect("AFSC")  
 
 ```
 
-## Querying Oracle
+## Querying RACEBASE tables
 Here, we download tables from RACEBASE (Oracle tables with names prefixed by RACEBASE
 like RACEBACE.HAUL) and save them as .csvs in the given path directory.  This does *not*
 put the data in the workspace.  The list of tables can be changed (e.g. to refresh a
 single table only).  These queries select all table fields (no data manipulations).
-
 ```{r query_RACE, eval=FALSE}
 
-racebase.tables   <- c("CATCH","HAUL","LENGTH","SPECIMEN", "STRATUM", "STATIONS",
+racebase.tables   <- c("CATCH", "HAUL", "LENGTH", "SPECIMEN", "STRATUM", "STATIONS",
                        "SPECIES", "CRUISE", "SPECIES_CLASSIFICATION", "SIZECOMP_TOTAL")
 
 racebase.download(channel, tables=racebase.tables, path="data/local_racebase")
 
 ```
 
+## Querying REEM diet tables
 This loads REEM data.  These are not loaded completely "RAW", the query script
 performs some lookups on the Oracle end as contained in these scripts, and
-does not pull all fields:
-
+does not pull all fields.  It selects
 ```{r query_REEM, eval=FALSE}
-source("./R/015_REEM_data_from_oracle.R")
+
+# TODO - find query to join EBS strata to GOA/AI strata
+#query.to.csv(channel, query="SELECT * FROM GOA.GOA_STRATA", file="data/goa_strata.csv")
+query.to.csv(channel,  query="SELECT * FROM FOODLAB.NODC", file="data/local_reem_data/nodc.csv")
+
+# Predprey queries
+reem.download.bts.predprey(channel, region="EBS", path="data/local_reem_data") 
+reem.download.bts.predprey(channel, region="GOA", path="data/local_reem_data") 
+reem.download.bts.predprey(channel, region="AI",  path="data/local_reem_data") 
+
+# Prey length query
+reem.download.bts.preylenths(channel, region="EBS", path="data/local_reem_data")
+reem.download.bts.preylenths(channel, region="GOA", path="data/local_reem_data")
+reem.download.bts.preylenths(channel, region="AI",  path="data/local_reem_data")
+
 ```
 
-Closing the connection once finished:
+## Closing the connection once finished
 ```{r query_close, eval=FALSE}
 
 oracle.disconnect(channel)
