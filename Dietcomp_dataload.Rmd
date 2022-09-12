@@ -46,21 +46,22 @@ performs some lookups on the Oracle end as contained in these scripts, and
 does not pull all fields.  It selects
 ```{r query_REEM, eval=FALSE}
 
-# TODO - find query to join EBS strata to GOA/AI strata
-# note query.to.data does not create directories
-#query.to.csv(channel, query="SELECT * FROM GOA.GOA_STRATA", file="data/goa_strata.csv")
-# data/combined_BTS_strata.csv is hand-made
-query.to.csv(channel,  query="SELECT * FROM FOODLAB.NODC", file="data/local_reem_data/nodc.csv")
-
 # Predprey queries
-reem.download.bts.predprey(channel, region="EBS", path="data/local_reem_data") 
+reem.download.bts.predprey(channel, region="BS",  path="data/local_reem_data") 
 reem.download.bts.predprey(channel, region="GOA", path="data/local_reem_data") 
 reem.download.bts.predprey(channel, region="AI",  path="data/local_reem_data") 
 
 # Prey length query
-reem.download.bts.preylenths(channel, region="EBS", path="data/local_reem_data")
+reem.download.bts.preylenths(channel, region="BS",  path="data/local_reem_data")
 reem.download.bts.preylenths(channel, region="GOA", path="data/local_reem_data")
 reem.download.bts.preylenths(channel, region="AI",  path="data/local_reem_data")
+
+# TODO - find query to join EBS strata to GOA/AI strata
+#       data/combined_BTS_strata.csv is hand-made
+
+# note query.to.data does not create directories - may need to fix that
+#query.to.csv(channel, query="SELECT * FROM GOA.GOA_STRATA", file="data/goa_strata.csv")
+query.to.csv(channel,  query="SELECT * FROM FOODLAB.NODC", file="data/local_reem_data/nodc.csv")
 
 ```
 
