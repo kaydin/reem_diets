@@ -5,8 +5,8 @@
 # runs the query over the channel, and writes the results to the csv file. 
 query.to.csv <- function(channel, query, file){
   a <- RODBC::sqlQuery(channel, query)
-  cat("saving", nrow(a), "obs. of", ncol(a), "variables to", fout, ".\n");  flush.console()
-  write.csv(x=a, fout, row.names = FALSE)
+  cat("saving", nrow(a), "obs. of", ncol(a), "variables to", file, ".\n");  flush.console()
+  write.csv(x=a, file, row.names = FALSE)
 }
 
 
