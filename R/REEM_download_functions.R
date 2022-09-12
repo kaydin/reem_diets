@@ -33,7 +33,8 @@ racebase.download <- function(channel, tables="HAUL", path="./data/local_racebas
 reem.download.bts.predprey <- function(channel, region="GOA", path="data/local_reem_data"){
 
   if(!file.exists(path)) dir.create(path, recursive = TRUE)
-
+  cat("Loading", region, "predprey ... "); flush.console()
+  
   query_text <- paste(
       "SELECT",
       "NPRED.nodc as PRED_NODC, NPRED.name as PRED_NAME,",
@@ -73,6 +74,7 @@ reem.download.bts.predprey <- function(channel, region="GOA", path="data/local_r
 reem.download.bts.preylenths <-function(channel, region="GOA", path=("data/local_reem_data")){
 
   if(!file.exists(path)) dir.create(path, recursive = TRUE)  
+  cat("Loading", region, "preylengths ... "); flush.console()
   
   query_text <- paste(
     "SELECT",
