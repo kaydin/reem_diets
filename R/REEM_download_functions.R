@@ -65,7 +65,7 @@ reem.download.bts.predprey <- function(channel, region="GOA", path="data/local_r
   
       query.to.csv(channel = channel,
                query   = query_text,
-               file    = paste(path,"/", region, "predprey.csv", sep=""))
+               file    = paste(path,"/", region, "_predprey.csv", sep=""))
 }
 
 ################################
@@ -105,7 +105,7 @@ reem.download.bts.preylenths <-function(channel, region="GOA", path=("data/local
   
     query.to.csv(channel = channel,
                query   = query_text,
-               file    = paste(path,"/", region, "preylengths.csv", sep=""))
+               file    = paste(path,"/", region, "_preylengths.csv", sep=""))
   
 }
 
