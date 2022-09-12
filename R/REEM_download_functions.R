@@ -5,7 +5,7 @@
 # runs the query over the channel, and writes the results to the csv file. 
 query.to.csv <- function(channel, query, file){
   a <- RODBC::sqlQuery(channel, query)
-  cat(tab, "Saving", nrow(a), "obs. of", ncol(a), "variables to", fout, ".\n");  flush.console()
+  cat("saving", nrow(a), "obs. of", ncol(a), "variables to", fout, ".\n");  flush.console()
   write.csv(x=a, fout, row.names = FALSE)
 }
 
@@ -17,8 +17,9 @@ racebase.download <- function(channel, tables="HAUL", path="./data/local_racebas
   
   # Setup folders for local files -------------------------------------------
   if(!file.exists(path)) dir.create(path, recursive = TRUE)
-
+  
   for (tab in tables){
+    cat("Loading",tab,"... "); flush.console()
     query.to.csv(channel = channel,
                  query   = paste("SELECT * FROM RACEBASE.", tab , sep=""),
                  file    = paste(path,"/", tolower(tab), ".csv", sep=""))

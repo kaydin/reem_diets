@@ -47,7 +47,9 @@ does not pull all fields.  It selects
 ```{r query_REEM, eval=FALSE}
 
 # TODO - find query to join EBS strata to GOA/AI strata
+# note query.to.data does not create directories
 #query.to.csv(channel, query="SELECT * FROM GOA.GOA_STRATA", file="data/goa_strata.csv")
+# data/combined_BTS_strata.csv is hand-made
 query.to.csv(channel,  query="SELECT * FROM FOODLAB.NODC", file="data/local_reem_data/nodc.csv")
 
 # Predprey queries
