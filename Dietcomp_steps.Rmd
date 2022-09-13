@@ -9,54 +9,95 @@ output: html_notebook
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Data loading from Oracle
+To load data into the data directory from Oracle, see Dietcomp_dataload.Rmd.  To load the data, you need a VPN connection to the AFSC Oracle database, an account, and obdc drivers installed/set up.  If you are running the rest of this script without first doing direct download from Oracle, check the data/ directory to ensure a complete set of data files have been provided.
+
 ## REEM Diet Composition Tools
-
-This set of tools generates diet composition estimates from REEM BTS data, 
-includes queries for bottom-trawl survey data provided by RACE.  All of these 
-steps should be run from the top directory of this package, so please ensure
-that the working directory is set correctly, and add a directory-setting command
-if needed.  This also loads user-supplied parameters from user.R (most R files
-are in the R subdirectory; user.R is in the top directory).
-
+This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE.  All of thesesteps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed.  This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).
 ```{r environ}
 #setwd() if needed here
-base_wd <- getwd()
-source("./user.R")
-source("R/REEM_fooddata_functions.R")
-REEM.package.load(c("tidyverse", "RODBC", "janitor", "lubridate", "getPass"))
+library("tidyverse")
+library("janitor") 
+library("lubridate")
+
+# User supplied stuff
+  REGION    <- "GOA"
+  SUBMODEL  <- "WGOA"
+  #source("./user.R")
+  
+# Load functions - note: reload these if you change user inputs above.
+  source("R/REEM_fooddata_functions.R")
+  
 ```
 
-## Querying Oracle
 
-Query the Oracle database and downloads needed files (both RACE and REEM) in the
-data directory.  It needs to be run while on internal network or VPN, requires
-an AFSC username and password, and is slow.  This is separated so RACE and REEM
-data can be loaded independently.
+## Now the processing starts
+```{r load_clean_data, eval=FALSE}
 
-First, open the connection (password dialog will open):
-```{r query_open, eval=FALSE}
-oracle.channel <- REEM.oracle.connect()
+# REEM.loadclean.RACE loads all files with a .csv extension that are in the 
+# directory indicated by path and names them after the file.  Any csv file
+# in the directory will be loaded.
+  REEM.loadclean.RACE(path = "data/local_racebase")
+
+# Above RACE data is all regions.  For food habits and strata, only the
+# region-specific data is loaded (re-run from here if switching regions).
+# REEM.loadclean.diets [region]_predprey and _predlength data.
+  REEM.loadclean.diets(region=REGION, path="data/local_reem_data")
+  
+# Load the table of combined survey strata.  
+  raw_strata <- read.csv("lookups/combined_BTS_strata.csv") %>% janitor::clean_names()
+  region_strata <- raw_strata %>% filter(survey == REGION)
+  model_strata  <- raw_strata %>% filter(submodel == SUBMODEL)
+  
+# Load length/weight regression parameters (currently from pre-made file, could
+# re-generate here)  
+  LWparam=read.csv("lookups/LengthWeightRegressionParams.csv") %>%
+    filter(EwEReg == SUBMODEL)  
+
+## Raw data should be loaded into the Workspace at this point
+  
+# Cleanup-type data manipulations
+  # convert to area in km given width in m
+    haul <- haul %>% 
+            mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
+  # Simple tidy up function for the dates in the cruise data  
+    cruisedat <- tidy.cruise.dates(cruise) 
+  # Add length/weight regressions to length table
+    lengthdat<-length %>%
+      filter(region == REGION)%>%
+      group_by (cruise, haul, species_code)%>%
+      mutate(NumSamp_SpHaul=sum(frequency))%>%
+      ungroup()%>%
+      left_join(LWparam, by=c("species_code"="sp_code"))%>%
+      mutate(PropLength_Num = frequency/NumSamp_SpHaul)%>%
+      mutate (weight_Lbin=LW.intercept_a*length^LW.slope_b) #weight of fish (sp, haul) in given length bin
+  # KYA - not sure if the below are needed  
+    #lengthhaul <- lengthdat %>%
+    #  left_join(haul,by=c("hauljoin"="hauljoin"))
+    #length_sp <- lengthhaul %>%
+    #  filter()  
 ```
 
-This loads RACE data (lots of length data etc., very slow):
-```{r query_RACE, eval=FALSE}
-source("./R/010_RACE_data_from_oracle.R")
+## Some tests to see if length data is working
+```{r biomass_tests, eval=FALSE}
+
+#racebase_data <- list(cruisedat=cruisedat, haul=haul, catch=catch, lengthdat=lengthdat)
+test1 <- get_cpue_noLength(survey_area = "GOA", speciescode = 21740)
+test2 <- get_cpue_Length(survey_area = "GOA", speciescode = 21740)
+# The below functions don't include year (all years pooled)?
+test3 <- get_biomass_stratum_noLength(survey_area = "GOA", speciescode = 21740, strata=model_strata) 
+test4 <- get_biomass_stratum_Length(survey_area = "GOA", speciescode = 21740) 
 ```
 
-This loads REEM data.  These are not loaded completely "RAW", the query script performs some lookups on the Oracle end as contained in these scripts, and does not pull all fields:
-```{r query_REEM, eval=FALSE}
-source("./R/015_REEM_data_from_oracle.R")
+## 04_BiomassCalc_Stratum_Length
+```{r 04_Biomass, eval=FALSE}
+FunGrp=read.csv("lookups/ModelSpeciesList_GAP_Biomass.csv")
+
+
+
 ```
 
-Closing the connection once finished:
-```{r query_close, eval=FALSE}
-odbcClose(oracle.channel)
-```
 
-Now the processing starts
-```{r load_RACE, eval=FALSE}
-REEM.loadclean.RACE()
-```
-```{r clean_RACE, eval=FALSE}
-source("./R/020_cleanup_data.R")
-```
+
+
+

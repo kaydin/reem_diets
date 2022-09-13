@@ -34,7 +34,7 @@ single table only).  These queries select all table fields (no data manipulation
 ```{r query_RACE, eval=FALSE}
 
 racebase.tables   <- c("CATCH", "HAUL", "LENGTH", "SPECIMEN", "STRATUM", "STATIONS",
-                       "SPECIES", "CRUISE", "SPECIES_CLASSIFICATION", "SIZECOMP_TOTAL")
+                       "SPECIES", "CRUISE", "SPECIES_CLASSIFICATION") #"SIZECOMP_TOTAL"
 
 racebase.download(channel, tables=racebase.tables, path="data/local_racebase")
 

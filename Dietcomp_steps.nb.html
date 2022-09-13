@@ -1742,88 +1742,112 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-text-begin -->
+<div id="data-loading-from-oracle" class="section level2">
+<h2>Data loading from Oracle</h2>
+<p>To load data into the data directory from Oracle, see Dietcomp_dataload.Rmd. To load the data, you need a VPN connection to the AFSC Oracle database, an account, and obdc drivers installed/set up. If you are running the rest of this script without first doing direct download from Oracle, check the data/ directory to ensure a complete set of data files have been provided.</p>
+</div>
 <div id="reem-diet-composition-tools" class="section level2">
 <h2>REEM Diet Composition Tools</h2>
-<p>This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE. All of these steps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed. This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).</p>
+<p>This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE. All of thesesteps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed. This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI3NldHdkKCkgaWYgbmVlZGVkIGhlcmVcbmJhc2Vfd2QgPC0gZ2V0d2QoKVxuc291cmNlKFxcLi91c2VyLlJcXClcbnNvdXJjZShcXFIvUkVFTV9mb29kZGF0YV9mdW5jdGlvbnMuUlxcKVxuUkVFTS5wYWNrYWdlLmxvYWQoYyhcXHRpZHl2ZXJzZVxcLCBcXFJPREJDXFwsIFxcamFuaXRvclxcLCBcXGx1YnJpZGF0ZVxcLCBcXGdldFBhc3NcXCkpXG5gYGBcbmBgYCJ9 -->
-<pre class="r"><code>```r
-#setwd() if needed here
-base_wd &lt;- getwd()
-source(\./user.R\)
-source(\R/REEM_fooddata_functions.R\)
-REEM.package.load(c(\tidyverse\, \RODBC\, \janitor\, \lubridate\, \getPass\))</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3NldHdkKCkgaWYgbmVlZGVkIGhlcmVcbmxpYnJhcnkoXCJ0aWR5dmVyc2VcIilcbmxpYnJhcnkoXCJqYW5pdG9yXCIpIFxubGlicmFyeShcImx1YnJpZGF0ZVwiKVxuXG4jIFVzZXIgc3VwcGxpZWQgc3R1ZmZcbiAgUkVHSU9OICAgIDwtIFwiR09BXCJcbiAgU1VCTU9ERUwgIDwtIFwiV0dPQVwiXG4gICNzb3VyY2UoXCIuL3VzZXIuUlwiKVxuICBcbiMgTG9hZCBmdW5jdGlvbnMgLSBub3RlOiByZWxvYWQgdGhlc2UgaWYgeW91IGNoYW5nZSB1c2VyIGlucHV0cyBhYm92ZS5cbiAgc291cmNlKFwiUi9SRUVNX2Zvb2RkYXRhX2Z1bmN0aW9ucy5SXCIpXG4gIFxuYGBgIn0= -->
+<pre class="r"><code>#setwd() if needed here
+library(&quot;tidyverse&quot;)
+library(&quot;janitor&quot;) 
+library(&quot;lubridate&quot;)
 
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-## Querying Oracle
-
-Query the Oracle database and downloads needed files (both RACE and REEM) in the
-data directory.  It needs to be run while on internal network or VPN, requires
-an AFSC username and password, and is slow.  This is separated so RACE and REEM
-data can be loaded independently.
-
-First, open the connection (password dialog will open):
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoib3JhY2xlLmNoYW5uZWwgPC0gUkVFTS5vcmFjbGUuY29ubmVjdCgpIn0= --&gt;
-
-```r
-oracle.channel &lt;- REEM.oracle.connect()</code></pre>
+# User supplied stuff
+  REGION    &lt;- &quot;GOA&quot;
+  SUBMODEL  &lt;- &quot;WGOA&quot;
+  #source(&quot;./user.R&quot;)
+  
+# Load functions - note: reload these if you change user inputs above.
+  source(&quot;R/REEM_fooddata_functions.R&quot;)
+  </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>This loads RACE data (lots of length data etc., very slow):</p>
+</div>
+<div id="now-the-processing-starts" class="section level2">
+<h2>Now the processing starts</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic291cmNlKFwiLi9SLzAxMF9SQUNFX2RhdGFfZnJvbV9vcmFjbGUuUlwiKSJ9 -->
-<pre class="r"><code>source(&quot;./R/010_RACE_data_from_oracle.R&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjpbIiMgUkVFTS5sb2FkY2xlYW4uUkFDRSBsb2FkcyBhbGwgZmlsZXMgd2l0aCBhIC5jc3YgZXh0ZW5zaW9uIHRoYXQgYXJlIGluIHRoZSAiLCIjIGRpcmVjdG9yeSBpbmRpY2F0ZWQgYnkgcGF0aCBhbmQgbmFtZXMgdGhlbSBhZnRlciB0aGUgZmlsZS4gIEFueSBjc3YgZmlsZSIsIiMgaW4gdGhlIGRpcmVjdG9yeSB3aWxsIGJlIGxvYWRlZC4iLCIgIFJFRU0ubG9hZGNsZWFuLlJBQ0UocGF0aCA9IFwiZGF0YS9sb2NhbF9yYWNlYmFzZVwiKSIsIiIsIiMgQWJvdmUgUkFDRSBkYXRhIGlzIGFsbCByZWdpb25zLiAgRm9yIGZvb2QgaGFiaXRzIGFuZCBzdHJhdGEsIG9ubHkgdGhlIiwiIyByZWdpb24tc3BlY2lmaWMgZGF0YSBpcyBsb2FkZWQgKHJlLXJ1biBmcm9tIGhlcmUgaWYgc3dpdGNoaW5nIHJlZ2lvbnMpLiIsIiMgUkVFTS5sb2FkY2xlYW4uZGlldHMgW3JlZ2lvbl1fcHJlZHByZXkgYW5kIF9wcmVkbGVuZ3RoIGRhdGEuIiwiICBSRUVNLmxvYWRjbGVhbi5kaWV0cyhyZWdpb249UkVHSU9OLCBwYXRoPVwiZGF0YS9sb2NhbF9yZWVtX2RhdGFcIikiLCIgICIsIiMgTG9hZCB0aGUgdGFibGUgb2YgY29tYmluZWQgc3VydmV5IHN0cmF0YS4gICIsIiAgcmF3X3N0cmF0YSA8LSByZWFkLmNzdihcImxvb2t1cHMvY29tYmluZWRfQlRTX3N0cmF0YS5jc3ZcIikgJT4lIGphbml0b3I6OmNsZWFuX25hbWVzKCkiLCIgIHJlZ2lvbl9zdHJhdGEgPC0gcmF3X3N0cmF0YSAlPiUgZmlsdGVyKHN1cnZleSA9PSBSRUdJT04pIiwiICBtb2RlbF9zdHJhdGEgIDwtIHJhd19zdHJhdGEgJT4lIGZpbHRlcihzdWJtb2RlbCA9PSBTVUJNT0RFTCkiLCIgICIsIiMgTG9hZCBsZW5ndGgvd2VpZ2h0IHJlZ3Jlc3Npb24gcGFyYW1ldGVycyAoY3VycmVudGx5IGZyb20gcHJlLW1hZGUgZmlsZSwgY291bGQiLCIjIHJlLWdlbmVyYXRlIGhlcmUpICAiLCIgIExXcGFyYW09cmVhZC5jc3YoXCJsb29rdXBzL0xlbmd0aFdlaWdodFJlZ3Jlc3Npb25QYXJhbXMuY3N2XCIpICU+JSIsIiAgICBmaWx0ZXIoRXdFUmVnID09IFNVQk1PREVMKSAgIiwiIiwiIyMgUmF3IGRhdGEgc2hvdWxkIGJlIGxvYWRlZCBpbnRvIHRoZSBXb3Jrc3BhY2UgYXQgdGhpcyBwb2ludCIsIiAgIiwiIyBDbGVhbnVwLXR5cGUgZGF0YSBtYW5pcHVsYXRpb25zIiwiICAjIGNvbnZlcnQgdG8gYXJlYSBpbiBrbSBnaXZlbiB3aWR0aCBpbiBtIiwiICAgIGhhdWwgPC0gaGF1bCAlPiUgIiwiICAgICAgICAgICAgbXV0YXRlKEFyZWFTd2VwdF9rbTIgPSBkaXN0YW5jZV9maXNoZWQgKiAoMC4wMDEgKiBuZXRfd2lkdGgpKSAiLCIgICMgU2ltcGxlIHRpZHkgdXAgZnVuY3Rpb24gZm9yIHRoZSBkYXRlcyBpbiB0aGUgY3J1aXNlIGRhdGEgICIsIiAgICBjcnVpc2VkYXQgPC0gdGlkeS5jcnVpc2UuZGF0ZXMoY3J1aXNlKSAiLCIgICMgQWRkIGxlbmd0aC93ZWlnaHQgcmVncmVzc2lvbnMgdG8gbGVuZ3RoIHRhYmxlIiwiICAgIGxlbmd0aGRhdDwtbGVuZ3RoICU+JSIsIiAgICAgIGZpbHRlcihyZWdpb24gPT0gUkVHSU9OKSU+JSIsIiAgICAgIGdyb3VwX2J5IChjcnVpc2UsIGhhdWwsIHNwZWNpZXNfY29kZSklPiUiLCIgICAgICBtdXRhdGUoTnVtU2FtcF9TcEhhdWw9c3VtKGZyZXF1ZW5jeSkpJT4lIiwiICAgICAgdW5ncm91cCgpJT4lIiwiICAgICAgbGVmdF9qb2luKExXcGFyYW0sIGJ5PWMoXCJzcGVjaWVzX2NvZGVcIj1cInNwX2NvZGVcIikpJT4lIiwiICAgICAgbXV0YXRlKFByb3BMZW5ndGhfTnVtID0gZnJlcXVlbmN5L051bVNhbXBfU3BIYXVsKSU+JSIsIiAgICAgIG11dGF0ZSAod2VpZ2h0X0xiaW49TFcuaW50ZXJjZXB0X2EqbGVuZ3RoXkxXLnNsb3BlX2IpICN3ZWlnaHQgb2YgZmlzaCAoc3AsIGhhdWwpIGluIGdpdmVuIGxlbmd0aCBiaW4iLCIgICMgS1lBIC0gbm90IHN1cmUgaWYgdGhlIGJlbG93IGFyZSBuZWVkZWQgICIsIiAgICAjbGVuZ3RoaGF1bCA8LSBsZW5ndGhkYXQgJT4lIiwiICAgICMgIGxlZnRfam9pbihoYXVsLGJ5PWMoXCJoYXVsam9pblwiPVwiaGF1bGpvaW5cIikpIiwiICAgICNsZW5ndGhfc3AgPC0gbGVuZ3RoaGF1bCAlPiUiLCIgICAgIyAgZmlsdGVyKCkgICJdfQ== -->
+<pre class="r"><code># REEM.loadclean.RACE loads all files with a .csv extension that are in the 
+# directory indicated by path and names them after the file.  Any csv file
+# in the directory will be loaded.
+  REEM.loadclean.RACE(path = &quot;data/local_racebase&quot;)
+
+# Above RACE data is all regions.  For food habits and strata, only the
+# region-specific data is loaded (re-run from here if switching regions).
+# REEM.loadclean.diets [region]_predprey and _predlength data.
+  REEM.loadclean.diets(region=REGION, path=&quot;data/local_reem_data&quot;)
+  
+# Load the table of combined survey strata.  
+  raw_strata &lt;- read.csv(&quot;lookups/combined_BTS_strata.csv&quot;) %&gt;% janitor::clean_names()
+  region_strata &lt;- raw_strata %&gt;% filter(survey == REGION)
+  model_strata  &lt;- raw_strata %&gt;% filter(submodel == SUBMODEL)
+  
+# Load length/weight regression parameters (currently from pre-made file, could
+# re-generate here)  
+  LWparam=read.csv(&quot;lookups/LengthWeightRegressionParams.csv&quot;) %&gt;%
+    filter(EwEReg == SUBMODEL)  
+
+## Raw data should be loaded into the Workspace at this point
+  
+# Cleanup-type data manipulations
+  # convert to area in km given width in m
+    haul &lt;- haul %&gt;% 
+            mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
+  # Simple tidy up function for the dates in the cruise data  
+    cruisedat &lt;- tidy.cruise.dates(cruise) 
+  # Add length/weight regressions to length table
+    lengthdat&lt;-length %&gt;%
+      filter(region == REGION)%&gt;%
+      group_by (cruise, haul, species_code)%&gt;%
+      mutate(NumSamp_SpHaul=sum(frequency))%&gt;%
+      ungroup()%&gt;%
+      left_join(LWparam, by=c(&quot;species_code&quot;=&quot;sp_code&quot;))%&gt;%
+      mutate(PropLength_Num = frequency/NumSamp_SpHaul)%&gt;%
+      mutate (weight_Lbin=LW.intercept_a*length^LW.slope_b) #weight of fish (sp, haul) in given length bin
+  # KYA - not sure if the below are needed  
+    #lengthhaul &lt;- lengthdat %&gt;%
+    #  left_join(haul,by=c(&quot;hauljoin&quot;=&quot;hauljoin&quot;))
+    #length_sp &lt;- lengthhaul %&gt;%
+    #  filter()  </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>This loads REEM data. These are not loaded completely “RAW”, the query script performs some lookups on the Oracle end as contained in these scripts, and does not pull all fields:</p>
+</div>
+<div id="some-tests-to-see-if-length-data-is-working" class="section level2">
+<h2>Some tests to see if length data is working</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic291cmNlKFwiLi9SLzAxNV9SRUVNX2RhdGFfZnJvbV9vcmFjbGUuUlwiKSJ9 -->
-<pre class="r"><code>source(&quot;./R/015_REEM_data_from_oracle.R&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjpbIiNyYWNlYmFzZV9kYXRhIDwtIGxpc3QoY3J1aXNlZGF0PWNydWlzZWRhdCwgaGF1bD1oYXVsLCBjYXRjaD1jYXRjaCwgbGVuZ3RoZGF0PWxlbmd0aGRhdCkiLCJ0ZXN0MSA8LSBnZXRfY3B1ZV9ub0xlbmd0aChzdXJ2ZXlfYXJlYSA9IFwiR09BXCIsIHNwZWNpZXNjb2RlID0gMjE3NDApIiwidGVzdDIgPC0gZ2V0X2NwdWVfTGVuZ3RoKHN1cnZleV9hcmVhID0gXCJHT0FcIiwgc3BlY2llc2NvZGUgPSAyMTc0MCkiLCIjIFRoZSBiZWxvdyBmdW5jdGlvbnMgZG9uJ3QgaW5jbHVkZSB5ZWFyIChhbGwgeWVhcnMgcG9vbGVkKT8iLCJ0ZXN0MyA8LSBnZXRfYmlvbWFzc19zdHJhdHVtX25vTGVuZ3RoKHN1cnZleV9hcmVhID0gXCJHT0FcIiwgc3BlY2llc2NvZGUgPSAyMTc0MCwgc3RyYXRhPW1vZGVsX3N0cmF0YSkgIiwidGVzdDQgPC0gZ2V0X2Jpb21hc3Nfc3RyYXR1bV9MZW5ndGgoc3VydmV5X2FyZWEgPSBcIkdPQVwiLCBzcGVjaWVzY29kZSA9IDIxNzQwKSAiXX0= -->
+<pre class="r"><code>#racebase_data &lt;- list(cruisedat=cruisedat, haul=haul, catch=catch, lengthdat=lengthdat)
+test1 &lt;- get_cpue_noLength(survey_area = &quot;GOA&quot;, speciescode = 21740)
+test2 &lt;- get_cpue_Length(survey_area = &quot;GOA&quot;, speciescode = 21740)
+# The below functions don&#39;t include year (all years pooled)?
+test3 &lt;- get_biomass_stratum_noLength(survey_area = &quot;GOA&quot;, speciescode = 21740, strata=model_strata) 
+test4 &lt;- get_biomass_stratum_Length(survey_area = &quot;GOA&quot;, speciescode = 21740) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Closing the connection once finished:</p>
+</div>
+<div id="biomasscalc_stratum_length" class="section level2">
+<h2>04_BiomassCalc_Stratum_Length</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoib2RiY0Nsb3NlKG9yYWNsZS5jaGFubmVsKSJ9 -->
-<pre class="r"><code>odbcClose(oracle.channel)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiRnVuR3JwPXJlYWQuY3N2KFwibG9va3Vwcy9Nb2RlbFNwZWNpZXNMaXN0X0dBUF9CaW9tYXNzLmNzdlwiKSJ9 -->
+<pre class="r"><code>FunGrp=read.csv(&quot;lookups/ModelSpeciesList_GAP_Biomass.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Now the processing starts</p>
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiUkVFTS5sb2FkY2xlYW4uUkFDRSgpIn0= -->
-<pre class="r"><code>REEM.loadclean.RACE()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic291cmNlKFwiLi9SLzAyMF9jbGVhbnVwX2RhdGEuUlwiKSJ9 -->
-<pre class="r"><code>source(&quot;./R/020_cleanup_data.R&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRpZXRjb21wX3N0ZXBzIg0KYXV0aG9yOiAiS2VyaW0gQXlkaW4iDQpkYXRlOiAiOC8yNC8yMDIyIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KIyMgUkVFTSBEaWV0IENvbXBvc2l0aW9uIFRvb2xzDQoNClRoaXMgc2V0IG9mIHRvb2xzIGdlbmVyYXRlcyBkaWV0IGNvbXBvc2l0aW9uIGVzdGltYXRlcyBmcm9tIFJFRU0gQlRTIGRhdGEsIA0KaW5jbHVkZXMgcXVlcmllcyBmb3IgYm90dG9tLXRyYXdsIHN1cnZleSBkYXRhIHByb3ZpZGVkIGJ5IFJBQ0UuICBBbGwgb2YgdGhlc2UgDQpzdGVwcyBzaG91bGQgYmUgcnVuIGZyb20gdGhlIHRvcCBkaXJlY3Rvcnkgb2YgdGhpcyBwYWNrYWdlLCBzbyBwbGVhc2UgZW5zdXJlDQp0aGF0IHRoZSB3b3JraW5nIGRpcmVjdG9yeSBpcyBzZXQgY29ycmVjdGx5LCBhbmQgYWRkIGEgZGlyZWN0b3J5LXNldHRpbmcgY29tbWFuZA0KaWYgbmVlZGVkLiAgVGhpcyBhbHNvIGxvYWRzIHVzZXItc3VwcGxpZWQgcGFyYW1ldGVycyBmcm9tIHVzZXIuUiAobW9zdCBSIGZpbGVzDQphcmUgaW4gdGhlIFIgc3ViZGlyZWN0b3J5OyB1c2VyLlIgaXMgaW4gdGhlIHRvcCBkaXJlY3RvcnkpLg0KDQpgYGB7ciBlbnZpcm9ufQ0KI3NldHdkKCkgaWYgbmVlZGVkIGhlcmUNCmJhc2Vfd2QgPC0gZ2V0d2QoKQ0Kc291cmNlKCIuL3VzZXIuUiIpDQpzb3VyY2UoIlIvUkVFTV9mb29kZGF0YV9mdW5jdGlvbnMuUiIpDQpSRUVNLnBhY2thZ2UubG9hZChjKCJ0aWR5dmVyc2UiLCAiUk9EQkMiLCAiamFuaXRvciIsICJsdWJyaWRhdGUiLCAiZ2V0UGFzcyIpKQ0KYGBgDQoNCiMjIFF1ZXJ5aW5nIE9yYWNsZQ0KDQpRdWVyeSB0aGUgT3JhY2xlIGRhdGFiYXNlIGFuZCBkb3dubG9hZHMgbmVlZGVkIGZpbGVzIChib3RoIFJBQ0UgYW5kIFJFRU0pIGluIHRoZQ0KZGF0YSBkaXJlY3RvcnkuICBJdCBuZWVkcyB0byBiZSBydW4gd2hpbGUgb24gaW50ZXJuYWwgbmV0d29yayBvciBWUE4sIHJlcXVpcmVzDQphbiBBRlNDIHVzZXJuYW1lIGFuZCBwYXNzd29yZCwgYW5kIGlzIHNsb3cuICBUaGlzIGlzIHNlcGFyYXRlZCBzbyBSQUNFIGFuZCBSRUVNDQpkYXRhIGNhbiBiZSBsb2FkZWQgaW5kZXBlbmRlbnRseS4NCg0KRmlyc3QsIG9wZW4gdGhlIGNvbm5lY3Rpb24gKHBhc3N3b3JkIGRpYWxvZyB3aWxsIG9wZW4pOg0KYGBge3IgcXVlcnlfb3BlbiwgZXZhbD1GQUxTRX0NCm9yYWNsZS5jaGFubmVsIDwtIFJFRU0ub3JhY2xlLmNvbm5lY3QoKQ0KYGBgDQoNClRoaXMgbG9hZHMgUkFDRSBkYXRhIChsb3RzIG9mIGxlbmd0aCBkYXRhIGV0Yy4sIHZlcnkgc2xvdyk6DQpgYGB7ciBxdWVyeV9SQUNFLCBldmFsPUZBTFNFfQ0Kc291cmNlKCIuL1IvMDEwX1JBQ0VfZGF0YV9mcm9tX29yYWNsZS5SIikNCmBgYA0KDQpUaGlzIGxvYWRzIFJFRU0gZGF0YS4gIFRoZXNlIGFyZSBub3QgbG9hZGVkIGNvbXBsZXRlbHkgIlJBVyIsIHRoZSBxdWVyeSBzY3JpcHQgcGVyZm9ybXMgc29tZSBsb29rdXBzIG9uIHRoZSBPcmFjbGUgZW5kIGFzIGNvbnRhaW5lZCBpbiB0aGVzZSBzY3JpcHRzLCBhbmQgZG9lcyBub3QgcHVsbCBhbGwgZmllbGRzOg0KYGBge3IgcXVlcnlfUkVFTSwgZXZhbD1GQUxTRX0NCnNvdXJjZSgiLi9SLzAxNV9SRUVNX2RhdGFfZnJvbV9vcmFjbGUuUiIpDQpgYGANCg0KQ2xvc2luZyB0aGUgY29ubmVjdGlvbiBvbmNlIGZpbmlzaGVkOg0KYGBge3IgcXVlcnlfY2xvc2UsIGV2YWw9RkFMU0V9DQpvZGJjQ2xvc2Uob3JhY2xlLmNoYW5uZWwpDQpgYGANCg0KTm93IHRoZSBwcm9jZXNzaW5nIHN0YXJ0cw0KYGBge3IgbG9hZF9SQUNFLCBldmFsPUZBTFNFfQ0KUkVFTS5sb2FkY2xlYW4uUkFDRSgpDQpgYGANCmBgYHtyIGNsZWFuX1JBQ0UsIGV2YWw9RkFMU0V9DQpzb3VyY2UoIi4vUi8wMjBfY2xlYW51cF9kYXRhLlIiKQ0KYGBgDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRpZXRjb21wX3N0ZXBzIg0KYXV0aG9yOiAiS2VyaW0gQXlkaW4iDQpkYXRlOiAiOC8yNC8yMDIyIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KIyMgRGF0YSBsb2FkaW5nIGZyb20gT3JhY2xlDQpUbyBsb2FkIGRhdGEgaW50byB0aGUgZGF0YSBkaXJlY3RvcnkgZnJvbSBPcmFjbGUsIHNlZSBEaWV0Y29tcF9kYXRhbG9hZC5SbWQuICBUbyBsb2FkIHRoZSBkYXRhLCB5b3UgbmVlZCBhIFZQTiBjb25uZWN0aW9uIHRvIHRoZSBBRlNDIE9yYWNsZSBkYXRhYmFzZSwgYW4gYWNjb3VudCwgYW5kIG9iZGMgZHJpdmVycyBpbnN0YWxsZWQvc2V0IHVwLiAgSWYgeW91IGFyZSBydW5uaW5nIHRoZSByZXN0IG9mIHRoaXMgc2NyaXB0IHdpdGhvdXQgZmlyc3QgZG9pbmcgZGlyZWN0IGRvd25sb2FkIGZyb20gT3JhY2xlLCBjaGVjayB0aGUgZGF0YS8gZGlyZWN0b3J5IHRvIGVuc3VyZSBhIGNvbXBsZXRlIHNldCBvZiBkYXRhIGZpbGVzIGhhdmUgYmVlbiBwcm92aWRlZC4NCg0KIyMgUkVFTSBEaWV0IENvbXBvc2l0aW9uIFRvb2xzDQpUaGlzIHNldCBvZiB0b29scyBnZW5lcmF0ZXMgZGlldCBjb21wb3NpdGlvbiBlc3RpbWF0ZXMgZnJvbSBSRUVNIEJUUyBkYXRhLCBpbmNsdWRlcyBxdWVyaWVzIGZvciBib3R0b20tdHJhd2wgc3VydmV5IGRhdGEgcHJvdmlkZWQgYnkgUkFDRS4gIEFsbCBvZiB0aGVzZXN0ZXBzIHNob3VsZCBiZSBydW4gZnJvbSB0aGUgdG9wIGRpcmVjdG9yeSBvZiB0aGlzIHBhY2thZ2UsIHNvIHBsZWFzZSBlbnN1cmUgdGhhdCB0aGUgd29ya2luZyBkaXJlY3RvcnkgaXMgc2V0IGNvcnJlY3RseSwgYW5kIGFkZCBhIGRpcmVjdG9yeS1zZXR0aW5nIGNvbW1hbmQgaWYgbmVlZGVkLiAgVGhpcyBhbHNvIGxvYWRzIHVzZXItc3VwcGxpZWQgcGFyYW1ldGVycyBmcm9tIHVzZXIuUiAobW9zdCBSIGZpbGVzIGFyZSBpbiB0aGUgUiBzdWJkaXJlY3Rvcnk7IHVzZXIuUiBpcyBpbiB0aGUgdG9wIGRpcmVjdG9yeSkuDQpgYGB7ciBlbnZpcm9ufQ0KI3NldHdkKCkgaWYgbmVlZGVkIGhlcmUNCmxpYnJhcnkoInRpZHl2ZXJzZSIpDQpsaWJyYXJ5KCJqYW5pdG9yIikgDQpsaWJyYXJ5KCJsdWJyaWRhdGUiKQ0KDQojIFVzZXIgc3VwcGxpZWQgc3R1ZmYNCiAgUkVHSU9OICAgIDwtICJHT0EiDQogIFNVQk1PREVMICA8LSAiV0dPQSINCiAgI3NvdXJjZSgiLi91c2VyLlIiKQ0KICANCiMgTG9hZCBmdW5jdGlvbnMgLSBub3RlOiByZWxvYWQgdGhlc2UgaWYgeW91IGNoYW5nZSB1c2VyIGlucHV0cyBhYm92ZS4NCiAgc291cmNlKCJSL1JFRU1fZm9vZGRhdGFfZnVuY3Rpb25zLlIiKQ0KICANCmBgYA0KDQoNCiMjIE5vdyB0aGUgcHJvY2Vzc2luZyBzdGFydHMNCmBgYHtyIGxvYWRfY2xlYW5fZGF0YSwgZXZhbD1GQUxTRX0NCg0KIyBSRUVNLmxvYWRjbGVhbi5SQUNFIGxvYWRzIGFsbCBmaWxlcyB3aXRoIGEgLmNzdiBleHRlbnNpb24gdGhhdCBhcmUgaW4gdGhlIA0KIyBkaXJlY3RvcnkgaW5kaWNhdGVkIGJ5IHBhdGggYW5kIG5hbWVzIHRoZW0gYWZ0ZXIgdGhlIGZpbGUuICBBbnkgY3N2IGZpbGUNCiMgaW4gdGhlIGRpcmVjdG9yeSB3aWxsIGJlIGxvYWRlZC4NCiAgUkVFTS5sb2FkY2xlYW4uUkFDRShwYXRoID0gImRhdGEvbG9jYWxfcmFjZWJhc2UiKQ0KDQojIEFib3ZlIFJBQ0UgZGF0YSBpcyBhbGwgcmVnaW9ucy4gIEZvciBmb29kIGhhYml0cyBhbmQgc3RyYXRhLCBvbmx5IHRoZQ0KIyByZWdpb24tc3BlY2lmaWMgZGF0YSBpcyBsb2FkZWQgKHJlLXJ1biBmcm9tIGhlcmUgaWYgc3dpdGNoaW5nIHJlZ2lvbnMpLg0KIyBSRUVNLmxvYWRjbGVhbi5kaWV0cyBbcmVnaW9uXV9wcmVkcHJleSBhbmQgX3ByZWRsZW5ndGggZGF0YS4NCiAgUkVFTS5sb2FkY2xlYW4uZGlldHMocmVnaW9uPVJFR0lPTiwgcGF0aD0iZGF0YS9sb2NhbF9yZWVtX2RhdGEiKQ0KICANCiMgTG9hZCB0aGUgdGFibGUgb2YgY29tYmluZWQgc3VydmV5IHN0cmF0YS4gIA0KICByYXdfc3RyYXRhIDwtIHJlYWQuY3N2KCJsb29rdXBzL2NvbWJpbmVkX0JUU19zdHJhdGEuY3N2IikgJT4lIGphbml0b3I6OmNsZWFuX25hbWVzKCkNCiAgcmVnaW9uX3N0cmF0YSA8LSByYXdfc3RyYXRhICU+JSBmaWx0ZXIoc3VydmV5ID09IFJFR0lPTikNCiAgbW9kZWxfc3RyYXRhICA8LSByYXdfc3RyYXRhICU+JSBmaWx0ZXIoc3VibW9kZWwgPT0gU1VCTU9ERUwpDQogIA0KIyBMb2FkIGxlbmd0aC93ZWlnaHQgcmVncmVzc2lvbiBwYXJhbWV0ZXJzIChjdXJyZW50bHkgZnJvbSBwcmUtbWFkZSBmaWxlLCBjb3VsZA0KIyByZS1nZW5lcmF0ZSBoZXJlKSAgDQogIExXcGFyYW09cmVhZC5jc3YoImxvb2t1cHMvTGVuZ3RoV2VpZ2h0UmVncmVzc2lvblBhcmFtcy5jc3YiKSAlPiUNCiAgICBmaWx0ZXIoRXdFUmVnID09IFNVQk1PREVMKSAgDQoNCiMjIFJhdyBkYXRhIHNob3VsZCBiZSBsb2FkZWQgaW50byB0aGUgV29ya3NwYWNlIGF0IHRoaXMgcG9pbnQNCiAgDQojIENsZWFudXAtdHlwZSBkYXRhIG1hbmlwdWxhdGlvbnMNCiAgIyBjb252ZXJ0IHRvIGFyZWEgaW4ga20gZ2l2ZW4gd2lkdGggaW4gbQ0KICAgIGhhdWwgPC0gaGF1bCAlPiUgDQogICAgICAgICAgICBtdXRhdGUoQXJlYVN3ZXB0X2ttMiA9IGRpc3RhbmNlX2Zpc2hlZCAqICgwLjAwMSAqIG5ldF93aWR0aCkpIA0KICAjIFNpbXBsZSB0aWR5IHVwIGZ1bmN0aW9uIGZvciB0aGUgZGF0ZXMgaW4gdGhlIGNydWlzZSBkYXRhICANCiAgICBjcnVpc2VkYXQgPC0gdGlkeS5jcnVpc2UuZGF0ZXMoY3J1aXNlKSANCiAgIyBBZGQgbGVuZ3RoL3dlaWdodCByZWdyZXNzaW9ucyB0byBsZW5ndGggdGFibGUNCiAgICBsZW5ndGhkYXQ8LWxlbmd0aCAlPiUNCiAgICAgIGZpbHRlcihyZWdpb24gPT0gUkVHSU9OKSU+JQ0KICAgICAgZ3JvdXBfYnkgKGNydWlzZSwgaGF1bCwgc3BlY2llc19jb2RlKSU+JQ0KICAgICAgbXV0YXRlKE51bVNhbXBfU3BIYXVsPXN1bShmcmVxdWVuY3kpKSU+JQ0KICAgICAgdW5ncm91cCgpJT4lDQogICAgICBsZWZ0X2pvaW4oTFdwYXJhbSwgYnk9Yygic3BlY2llc19jb2RlIj0ic3BfY29kZSIpKSU+JQ0KICAgICAgbXV0YXRlKFByb3BMZW5ndGhfTnVtID0gZnJlcXVlbmN5L051bVNhbXBfU3BIYXVsKSU+JQ0KICAgICAgbXV0YXRlICh3ZWlnaHRfTGJpbj1MVy5pbnRlcmNlcHRfYSpsZW5ndGheTFcuc2xvcGVfYikgI3dlaWdodCBvZiBmaXNoIChzcCwgaGF1bCkgaW4gZ2l2ZW4gbGVuZ3RoIGJpbg0KICAjIEtZQSAtIG5vdCBzdXJlIGlmIHRoZSBiZWxvdyBhcmUgbmVlZGVkICANCiAgICAjbGVuZ3RoaGF1bCA8LSBsZW5ndGhkYXQgJT4lDQogICAgIyAgbGVmdF9qb2luKGhhdWwsYnk9YygiaGF1bGpvaW4iPSJoYXVsam9pbiIpKQ0KICAgICNsZW5ndGhfc3AgPC0gbGVuZ3RoaGF1bCAlPiUNCiAgICAjICBmaWx0ZXIoKSAgDQpgYGANCg0KIyMgU29tZSB0ZXN0cyB0byBzZWUgaWYgbGVuZ3RoIGRhdGEgaXMgd29ya2luZw0KYGBge3IgYmlvbWFzc190ZXN0cywgZXZhbD1GQUxTRX0NCg0KI3JhY2ViYXNlX2RhdGEgPC0gbGlzdChjcnVpc2VkYXQ9Y3J1aXNlZGF0LCBoYXVsPWhhdWwsIGNhdGNoPWNhdGNoLCBsZW5ndGhkYXQ9bGVuZ3RoZGF0KQ0KdGVzdDEgPC0gZ2V0X2NwdWVfbm9MZW5ndGgoc3VydmV5X2FyZWEgPSAiR09BIiwgc3BlY2llc2NvZGUgPSAyMTc0MCkNCnRlc3QyIDwtIGdldF9jcHVlX0xlbmd0aChzdXJ2ZXlfYXJlYSA9ICJHT0EiLCBzcGVjaWVzY29kZSA9IDIxNzQwKQ0KIyBUaGUgYmVsb3cgZnVuY3Rpb25zIGRvbid0IGluY2x1ZGUgeWVhciAoYWxsIHllYXJzIHBvb2xlZCk/DQp0ZXN0MyA8LSBnZXRfYmlvbWFzc19zdHJhdHVtX25vTGVuZ3RoKHN1cnZleV9hcmVhID0gIkdPQSIsIHNwZWNpZXNjb2RlID0gMjE3NDAsIHN0cmF0YT1tb2RlbF9zdHJhdGEpIA0KdGVzdDQgPC0gZ2V0X2Jpb21hc3Nfc3RyYXR1bV9MZW5ndGgoc3VydmV5X2FyZWEgPSAiR09BIiwgc3BlY2llc2NvZGUgPSAyMTc0MCkgDQpgYGANCg0KIyMgMDRfQmlvbWFzc0NhbGNfU3RyYXR1bV9MZW5ndGgNCmBgYHtyIDA0X0Jpb21hc3MsIGV2YWw9RkFMU0V9DQpGdW5HcnA9cmVhZC5jc3YoImxvb2t1cHMvTW9kZWxTcGVjaWVzTGlzdF9HQVBfQmlvbWFzcy5jc3YiKQ0KDQoNCg0KYGBgDQoNCg0KDQoNCg0K</div>
 
 
 
