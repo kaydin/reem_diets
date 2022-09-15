@@ -35,7 +35,7 @@ get_biomass_stratum_noLength <- function(racebase_tables = list(
   # Total CPUE for species, year, stratum
   # no RACEBASE equivalent (building block of BIOMASS_STRATUM)
   x2 <- x %>%
-    group_by(stratum) %>% #remove year
+    group_by(stratum, year) %>% #remove year
     dplyr::summarize(
       haul_count = length(unique(stationid)), # number of total abundance hauls
       mean_wgt_cpue = mean(WGTCPUE),
@@ -79,7 +79,7 @@ get_biomass_stratum_noLength <- function(racebase_tables = list(
       min_pop = ifelse(min_pop < 0, 0, min_pop)
     ) %>% # set low CI to zero if it's negative
     add_column(RACE=speciescode) %>%
-    select(survey,stratum, RACE, stratum_ratio, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area) %>% #remove year
+    select(survey,stratum, year, RACE, stratum_ratio, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area) %>% #remove year
     mutate(
       Ni = area / 0.01,
       fi = (Ni * (Ni - haul_count)) / haul_count

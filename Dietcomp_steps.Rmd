@@ -87,6 +87,9 @@ test2 <- get_cpue_Length(survey_area = "GOA", speciescode = 21740)
 # The below functions don't include year (all years pooled)?
 test3 <- get_biomass_stratum_noLength(survey_area = "GOA", speciescode = 21740, strata=model_strata) 
 test4 <- get_biomass_stratum_Length(survey_area = "GOA", speciescode = 21740) 
+
+
+testx <- get_biomass_stratum_noLength(survey_area="BS", speciescode = 21740, strata=raw_strata)
 ```
 
 ## 04_BiomassCalc_Stratum_Length
