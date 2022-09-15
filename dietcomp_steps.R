@@ -122,7 +122,7 @@ pred_crosstab <- PP_table %>%
 # The field used (e.g. subarea) should be the group_by column immediately before
 # prey_guild on the above lookup
 preycross <- data.frame(pred_crosstab) %>% 
-             select((which(names(pred_crosstab)=="subarea")+1):last_col())
+  select((which(names(pred_crosstab)=="subarea")+1):last_col())
 
 # Adding predator_specific columns (moving so prey columns are last on table)
 # and apply any final filters (like month)
@@ -131,6 +131,11 @@ preddat <- pred_crosstab %>%
   mutate(bodywt = ppar$A_L * pred_len^ppar$B_L) %>%
   relocate(any_of(c("lbin","bodywt")), .after=pred_len) %>%
   filter(month %in% 5:8)
+
+# Still using a FOR loop to loop through all the strata/length combinations
+# for each species.  For point estimates this could probably be converted to
+# a tibble without loop, but leaving it in look form to allow for error
+# estimation methods (bootstrap estimates) to be spliced in.
 
 
 
