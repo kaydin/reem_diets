@@ -19,7 +19,7 @@ predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], m
     mutate(predator = predator) %>% relocate(predator) %>%
     mutate(model = model, .after=predator) %>%
     # First filter out all predators except the main PRED
-    filter(submodel %in% model)   %>%
+    filter(model_name %in% model)   %>%
     filter(pred_nodc %in% ppar$nodc)  %>%
     filter(!is.na(year_group)) %>%
     filter(month %in% months)   %>%
