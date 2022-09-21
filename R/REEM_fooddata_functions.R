@@ -2,6 +2,87 @@ source("R/function_get_cpue_byLength.R")
 source("R/function_get_cpue_NoLength.R")
 source("R/function_get_biomass_stratum_Length.R")
 source("R/function_get_biomass_stratum_NoLength.R")
+#############################################################
+
+predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8){
+
+  preylookup   <- raw_preynames %>% mutate(prey_guild  = .data[[preylook_col]])
+  stratbins    <- raw_strata    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  yearblock    <- raw_years
+  ppar <- pred_params[[predator]]
+  
+  pred_tab <- ppdat$PP_data %>%
+    # Add lookup tables
+    left_join(preylookup, by=c("prey_nodc"="nodc_code")) %>%
+    left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
+    left_join(yearblock, by=c("year"="year")) %>%
+    mutate(predator = predator) %>% relocate(predator) %>%
+    mutate(model = model, .after=predator) %>%
+    # First filter out all predators except the main PRED
+    filter(submodel %in% model)   %>%
+    filter(pred_nodc %in% ppar$nodc)  %>%
+    filter(!is.na(year_group)) %>%
+    filter(month %in% months)   %>%
+    # Then add predator_specific data and make sure it's located before the prey_guild column
+    #mutate(full = twt>0) %>% 
+    mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
+    mutate(bodywt = ppar$A_L * pred_len^ppar$B_L) %>%
+    relocate(any_of(c("lbin","bodywt")), .before=prey_nodc) %>%
+    # Make crosstab query grouping by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
+    group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year_group, prey_guild) %>%
+    summarize(prey_wt=sum(twt), .groups="keep")
+
+  cat(nrow(pred_tab),"predprey records found, summarizing...\n"); flush.console()
+
+  # This creates one line per predator with stomach weight totals
+  pred_tots <- pred_tab %>%
+    group_by(across(c(1:prey_guild,-prey_guild))) %>%
+    summarize(tot_wt=sum(prey_wt), tot_sci=sum(prey_wt/bodywt), full=(prey_wt>0), prey_nguilds=n(), .groups="keep") %>%
+    unique()
+
+  # For the stratum, year and length get totals
+  strat_tots <- pred_tots %>% 
+    ungroup() %>%
+    select(predator,model,stratum_bin,year_group,lbin,full,tot_wt,tot_sci) %>%
+    group_by(predator,model,stratum_bin,year_group,lbin) %>%
+    summarize(pred_n=n(), pred_full=sum(full), tot_wt=sum(tot_wt), tot_sci=sum(tot_sci), .groups="keep")
+
+  # Sum 
+  strat_dietprop <- pred_tab %>%
+    ungroup() %>%  
+    mutate(prey_sci = prey_wt/bodywt) %>%
+    select(predator,model,stratum_bin,year_group,lbin,prey_guild,prey_wt,prey_sci) %>%  
+    filter(prey_wt>0) %>%
+    group_by(predator,model,stratum_bin,year_group,lbin, prey_guild) %>%
+    summarize(prey_n=n(), prey_wt=sum(prey_wt), prey_sci=sum(prey_sci), .groups="keep") %>%
+    ungroup() %>%
+    left_join(strat_tots, by=c("predator"="predator","model"="model","stratum_bin"="stratum_bin", "year_group"="year_group", "lbin"="lbin")) %>%
+    relocate(any_of(c("pred_n","pred_full","tot_wt","tot_sci")), .before=prey_guild) %>%
+    mutate(dietprop_wt = prey_wt/tot_wt) %>%
+    mutate(dietprop_sci = prey_sci/tot_sci)
+
+  # No longer using the crosstab version - saving here for future reference (may need tweaks)
+  #pred_crosstab <- PP_data %>%
+  #  # Add lookup tables
+  #  left_join(preylookup, by=c("prey_nodc"="NODC_CODE")) %>%
+  #  left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
+  #  # First filter out all predators except the main PRED
+  #  filter(submodel %in% MODEL)   %>%
+  #  filter(pred_nodc %in% ppar$nodc) %>%
+  #  # Then add predator_specific data and make sure it's located before the prey_guild column
+  #  mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
+  #  mutate(bodywt = ppar$A_L * pred_len^ppar$B_L) %>%
+  #  relocate(any_of(c("lbin","bodywt")), .before=prey_nodc) %>%
+  #  # Make crosstab query grouping by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
+  #  group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, prey_guild) %>%
+  #  tally(wt=twt) %>%
+  #  spread(prey_guild, n, fill=0) #%>% select(-"<NA>") <NA> showing up means a prey code is missing?
+    
+  return(list(predprey_table = data.frame(pred_tab),
+              pred_totals    = data.frame(pred_tots), 
+              strat_dietprop = data.frame(strat_dietprop)))
+
+}
 
 #############################################################
 # Minor date function
@@ -32,6 +113,12 @@ REEM.loadclean.RACE <- function(path="data/local_racebase"){
 }
 
 ##################################################################
+#
+read.clean.csv <- function(filename){
+  return(read.csv(filename) %>% janitor::clean_names())
+}
+
+##################################################################
 # Load and name-clean REEM diet files.  This loads 
 # region must be one of 'BS', 'AI', or 'GOA',.
 REEM.loadclean.diets<- function(region=REGION, path="data/local_reem_data"){
@@ -44,7 +131,7 @@ REEM.loadclean.diets<- function(region=REGION, path="data/local_reem_data"){
   if (names(b)[1] %in% "x1") {
     b$x1 <- NULL
   }
-  assign(tname, value = b, envir = .GlobalEnv)
+  PP_data <- b #assign(tname, value = b, envir = .GlobalEnv)
   
   tname <- "PL_data"
   fname <- paste(path, paste(region, "_preylengths.csv",sep=""), sep="/")
@@ -54,182 +141,8 @@ REEM.loadclean.diets<- function(region=REGION, path="data/local_reem_data"){
   if (names(b)[1] %in% "x1") {
     b$x1 <- NULL
   }
-  assign(tname, value = b, envir = .GlobalEnv)  
-
+  PL_data <- b #assign(tname, value = b, envir = .GlobalEnv)    
+  return(list(PP_data=PP_data,PL_data=PL_data))
 }
 
-#' ##################################################################
-#' #From 03_get_biomass_stratum_length
-#' #
-#' # get_biomass_stratum
-#' 
-#' #' Calculate index of total biomass per stratum
-#' #'
-#' #' @param racebase_tables a list of the cruisedat, haul, and catch tables from RACEBASE (all regions, all years)
-#' #' @param speciescode five-digit numeric species code from the GAP species guides
-#' #' @param survey_area a character code for the survey area, either "GOA" or "AI"
-#' #' @param vulnerability the vulnerability of the species to the survey (defaults to 1)
-#' #' @param strata a dataframe with the number and areas of the strata. Defaults to the strata table from RACEBASE.
-#' #'
-#' #' @return a dataframe containing the mean weighted cpue, 
-#' #' @export
-#' #'
-#' #' @examples
-#' #' x <- get_biomass_stratum(speciescode = 30060,survey_area = "GOA")
-#' #' head(x)
-#' get_biomass_stratum_Length <- function(racebase_tables = list(
-#'   cruisedat = cruisedat,
-#'   haul = haul,
-#'   catch = catch,
-#'   lengthdat = lengthdat #BF added length file
-#'   ),
-#'   speciescode = 21741, #speciescode_list$sp_code, #30060, # POP
-#'   survey_area = "GOA",
-#'   vulnerability = 1,
-#'   strata # = switch(survey_area,  "GOA" = goa_strata,  "AI" = ai_strata)
-#' ) {
-#'   At <- sum(strata$area)
-#'   
-#'   # Get cpue table
-#'   x <- get_cpue_Length(
-#'     racebase_tables = racebase_tables,
-#'     survey_area = survey_area,
-#'     speciescode = speciescode
-#'   )
-#'   
-#'   # Total CPUE for species, year, stratum
-#'   # no RACEBASE equivalent (building block of BIOMASS_STRATUM)
-#'   
-#'   x2 <- x %>%
-#'     #group_by(year, stratum, length) %>%  #includes year
-#'     group_by(stratum, length) %>%  
-#'     dplyr::summarize(
-#'       haul_count = length(unique(stationid)), # number of total abundance hauls
-#'       mean_wgtLbin_cpue = mean(WgtLBin_CPUE_km2), #Length step - average biomass (CPUE-/km2) per length bin across hauls
-#'       var_wgtLbin_cpue = ifelse(haul_count <= 1, NA, var(WgtLBin_CPUE_km2) / haul_count),
-#'       mean_numLbin_cpue =mean(NumLBin_CPUE_km2),
-#'       var_numLbin_cpue = ifelse(haul_count <= 1, NA, var(NumLBin_CPUE_km2) / haul_count),
-#'       catch_count = length(which(Catch_KG > 0)) # number of hauls with nonzero catch
-#'     ) %>%
-#'     dplyr::ungroup() %>%
-#'     select(
-#'       stratum,length,
-#'       haul_count, catch_count,
-#'       mean_wgtLbin_cpue, var_wgtLbin_cpue,
-#'       mean_numLbin_cpue, var_numLbin_cpue #year
-#'     )
-#'   
-#'   if (all(x2$catch_count <= x2$haul_count)) {
-#'     print("Number of hauls with positive catches is realistic.")
-#'   }
-#'   
-#'   # RACEBASE equivalent table: BIOMASS_STRATUM
-#'   biomass_stratum.Lbin <- x2 %>%
-#'     dplyr::left_join(strata) %>%
-#'     rowwise() %>% # for applying ifelse() by row
-#'     mutate(
-#'       stratum_biomass.Lbin = area * mean_wgtLbin_cpue / vulnerability * 0.001, # kg --> mt
-#'       stratum_ratio.Lbin = area / At,
-#'       biomass_var.Lbin = area^2 * var_wgtLbin_cpue * 1e-6, # kg--> mt, square it because it's variance
-#'       qt_size = ifelse(haul_count <= 1, 0,
-#'                        qt(p = 0.025, df = haul_count - 1, lower.tail = F)
-#'       ),
-#'       min_biomass.Lbin = stratum_biomass.Lbin - qt_size * sqrt(biomass_var.Lbin),
-#'       max_biomass.Lbin = stratum_biomass.Lbin + qt_size * sqrt(biomass_var.Lbin),
-#'       stratum_pop.Lbin = area * mean_numLbin_cpue, # not sure why this calculation would be different from the stratum_biomass
-#'       pop_var.Lbin = area^2 * var_numLbin_cpue,
-#'       min_pop.Lbin = stratum_pop.Lbin - qt_size * sqrt(pop_var.Lbin),
-#'       max_pop.Lbin = stratum_pop.Lbin + qt_size * sqrt(pop_var.Lbin)
-#'     ) %>%
-#'     mutate(
-#'       min_biomass.Lbin = ifelse(min_biomass.Lbin < 0, 0, min_biomass.Lbin),
-#'       min_pop.Lbin = ifelse(min_pop.Lbin < 0, 0, min_pop.Lbin)
-#'     ) %>% # set low CI to zero if it's negative
-#'     add_column(RACE=speciescode) %>%
-#'     select(survey, RACE, stratum, stratum_ratio.Lbin, haul_count, catch_count, length, mean_wgtLbin_cpue, var_wgtLbin_cpue, mean_numLbin_cpue, var_numLbin_cpue, stratum_biomass.Lbin, biomass_var.Lbin, min_biomass.Lbin, max_biomass.Lbin, stratum_pop.Lbin, pop_var.Lbin, min_pop.Lbin, max_pop.Lbin, area) %>% #removed year
-#'     mutate(
-#'       Ni = area / 0.01,
-#'       fi = (Ni * (Ni - haul_count)) / haul_count
-#'     )
-#'   
-#'   return(biomass_stratum.Lbin)
-#' }
-#' 
-#' 
-#' ##################################################################
-#' # From 02_getCPUE by length (modified for cod/crab 025 version)
-#' #
-#' get_cpue_Length <- function(racebase_tables = list(
-#'   cruisedat = cruisedat,
-#'   haul = haul,
-#'   catch = catch,
-#'   lengthdat = lengthdat 
-#'   ),                             #BF added length file
-#'   speciescode = 21740, #speciescode_list$sp_code, # 21741, #predators, # POP
-#'   survey_area = "GOA")  {   
-#' 
-#'   # survey_area is called region in RACEBASE
-#'   cruisedat <- racebase_tables$cruisedat
-#'   haul <- racebase_tables$haul
-#'   catch <- racebase_tables$catch
-#'   lengthdat <- racebase_tables$lengthdat #BF added
-#'   
-#'   sp_catch <- catch %>%
-#'     filter(species_code %in% speciescode)
-#'   
-#'   dat <- haul %>%
-#'     left_join(cruisedat, by = c("cruisejoin", "region")) %>%
-#'     filter(abundance_haul == "Y" & region == region) %>%
-#'     left_join(sp_catch, by = "hauljoin") %>% 
-#'     replace_na(list( weight = 0, number_fish = 0)) %>%
-#'     left_join(lengthdat, by = c("hauljoin", "species_code")) %>% 
-#'     
-#'     dplyr::select(
-#'       region,species_code,
-#'       cruisejoin.x, vessel.x, haul.x, hauljoin,
-#'       #haul_type, performance, duration,
-#'       stratum, stationid,
-#'       distance_fished, weight, year,
-#'       frequency,sex,
-#'       weight, number_fish, length, NumSamp_SpHaul, PropLength_Num, weight_Lbin,
-#'       start_latitude, start_longitude,
-#'       gear_temperature, surface_temperature,
-#'       AreaSwept_km2
-#'     ) %>%
-#'     dplyr::rename(
-#'       Lat = start_latitude,
-#'       Lon = start_longitude,
-#'       Catch_KG = weight,
-#'       Vessel = vessel.x,
-#'       fish_length = length,
-#'       gear_temp = gear_temperature,
-#'       Surface_temp = surface_temperature
-#'     )
-#'   # %>%
-#'   # filter(year == survey_yr)
-#'   #x <- dat
-#'   x <- dat %>%
-#'     mutate(
-#'       WGTCPUE = Catch_KG / AreaSwept_km2,
-#'       NUMCPUE = number_fish / AreaSwept_km2,
-#'       survey = region
-#'     ) %>%
-#'     mutate (
-#'       NumLBin_CPUE_km2 = PropLength_Num*NUMCPUE  # Length step: convert proportion of number fish in each length bin to numberCPUE in each length bin (#fish/km2)
-#'     )%>%
-#'     mutate (WgtLBin_CPUE_km2 = NumLBin_CPUE_km2*weight_Lbin) %>% # Length step: calc weight for all fish in Lbin using proportion of CPUE (number fish in Lbin *weight)
-#'     #replace_na(list(species_code = speciescode)) %>% #THIS DOESN"T WORK
-#'     #select(
-#'     #  year, survey, Vessel, haul.x, hauljoin, stationid, performance,
-#'     #  stratum, distance_fished,
-#'     #  species_code, Catch_KG, number_fish,
-#'     #  AreaSwept_km2, WGTCPUE, NUMCPUE, length, NumLBin_CPUE_km2, WgtLBin_CPUE_km2
-#'     #) %>%
-#'     arrange(year) %>%
-#'     dplyr::rename(haul_num=year,
-#'                   num_cpue=NUMCPUE,
-#'                   haul_join=hauljoin
-#'     )
-#'   
-#'   return(x)
-#' }
+##################################################################
