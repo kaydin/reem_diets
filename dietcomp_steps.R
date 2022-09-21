@@ -1,17 +1,48 @@
 
-#{r environ}
-#setwd() if needed here
+# setwd() if needed here.  Everything should be run from the main repo
+# directory (that contains the data/ R/ and lookups/ subfolders).  
 library("tidyverse")
 library("janitor") 
 library("lubridate")
 
-# User supplied stuff
-REGION    <- "GOA"
-SUBMODEL  <- "WGOA"
-#source("./user.R")
+####################################################################
 
-# Load functions - note: reload these if you change user inputs above.
 source("R/REEM_fooddata_functions.R")
+
+food <- list()
+food[["BS"]]  <- REEM.loadclean.diets(region="BS", path="data/local_reem_data")
+food[["GOA"]] <- REEM.loadclean.diets(region="GOA", path="data/local_reem_data")
+food[["AI"]]  <- REEM.loadclean.diets(region="AI", path="data/local_reem_data")
+
+preylook_col <- "ecopath_prey"    
+stratbin_col <- "subarea"
+raw_strata    <- read.clean.csv("lookups/combined_BTS_strata.csv")     
+raw_preynames <- read.clean.csv("lookups/Alaska_PreyLookup_MASTER.csv") 
+raw_years     <- data.frame(year=1985:2021, year_group=1985:2021) 
+
+pred_params <- list(
+    "W.pollock"  = list(nodc="8791030701", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
+    "P.cod"      = list(nodc="8791030401", A_L=0.00411781, B_L=3.25325765, LCLASS=c(0,10,30,60,85,999) ),
+    "Arrowtooth" = list(nodc="8857040102", A_L=0.00443866, B_L=3.19894001, LCLASS=c(0,10,30,50,999) ),
+    "P.halibut"  = list(nodc="8857041901", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) )
+    )
+
+
+
+strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8)
+strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", ppdat=food[["GOA"]], months=5:8)
+
+
+
+
+
+#################################################################################
+htest <- haul %>% 
+  filter(abundance_haul == "Y") %>% 
+  mutate(year=floor(cruise/100)) %>% 
+  left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
+  group_by(region,stratum_bin,year) %>% 
+  tally()
 
 
 #########################################################
@@ -59,49 +90,7 @@ lengthdat<-length %>%
 #lengthhaul <- lengthdat %>%
 #  left_join(haul,by=c("hauljoin"="hauljoin"))
 #length_sp <- lengthhaul %>%
-#  filter()  
-
-####################################################################
-
-source("R/REEM_fooddata_functions.R")
-
-food <- list()
-food[["BS"]]  <- REEM.loadclean.diets(region="BS", path="data/local_reem_data")
-food[["GOA"]] <- REEM.loadclean.diets(region="GOA", path="data/local_reem_data")
-food[["AI"]]  <- REEM.loadclean.diets(region="AI", path="data/local_reem_data")
-
-preylook_col <- "ecopath_prey"    
-stratbin_col <- "subarea"
-raw_strata    <- read.clean.csv("lookups/combined_BTS_strata.csv")     
-raw_preynames <- read.clean.csv("lookups/Alaska_PreyLookup_MASTER.csv") 
-raw_years     <- data.frame(year=1985:2021, year_group=1985:2021) 
-
-pred_params <- list(
-    "W.pollock"  = list(nodc="8791030701", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
-    "P.cod"      = list(nodc="8791030401", A_L=0.00411781, B_L=3.25325765, LCLASS=c(0,10,30,60,85,999) ),
-    "Arrowtooth" = list(nodc="8857040102", A_L=0.00443866, B_L=3.19894001, LCLASS=c(0,10,30,50,999) ),
-    "P.halibut"  = list(nodc="8857041901", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) )
-    )
-
-
-
-strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8)
-strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", ppdat=food[["GOA"]], months=5:8)
-
-
-
-
-
-#################################################################################
-htest <- haul %>% 
-  filter(abundance_haul == "Y") %>% 
-  mutate(year=floor(cruise/100)) %>% 
-  left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
-  group_by(region,stratum_bin,year) %>% 
-  tally()
-
-
-  
+#  filter()    
 
 #Species-specific additions  
 #LCLASS=c(0,10,25,40,55,999)
