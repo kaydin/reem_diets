@@ -21,7 +21,7 @@ get_biomass_stratum_noLength <- function(racebase_tables = list(
                                 speciescode = RACE, # 30060, # POP
                                 survey_area = "GOA",
                                 vulnerability = 1,
-                                strata = region_strata #switch(survey_area, "GOA" = goa_strata, "AI" = ai_strata)
+                                strata = raw_strata #switch(survey_area, "GOA" = goa_strata, "AI" = ai_strata)
                                 ) {
   At <- sum(strata$area)
 
@@ -46,7 +46,7 @@ get_biomass_stratum_noLength <- function(racebase_tables = list(
     ) %>%
     dplyr::ungroup() %>%
     select(
-      stratum,
+      stratum, year,
       haul_count, catch_count,
       mean_wgt_cpue, var_wgt_cpue,
       mean_num_cpue, var_num_cpue

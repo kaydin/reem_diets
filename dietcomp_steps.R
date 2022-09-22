@@ -28,6 +28,8 @@ pred_params <- list(
     )
 
 strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8)
+
+
 strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", ppdat=food[["GOA"]], months=5:8)
 
 
@@ -41,9 +43,20 @@ REEM.loadclean.RACE(path = "data/local_racebase")
   cruisedat <- tidy.cruise.dates(cruise) 
 
 source("R/REEM_fooddata_functions.R")
+
+    
+  
 biomass_stratum <- get_biomass_stratum_noLength(speciescode = pred_params[["P.cod"]]$race, survey_area = "GOA")
 
 
+
+source("R/REEM_fooddata_functions.R")
+
+all_species <- unique(catch$species_code)
+biomass_all <- get_cpue_noLength(speciescode=all_species, survey_area="BS")
+
+
+biomass_all <- get_cpue_noLength_all_REEM(survey_area = "BS")
 
 
 #################################################################################
