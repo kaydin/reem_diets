@@ -35,18 +35,27 @@ strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", ppdat=fo
 
 
 #################################################################################
+source("R/REEM_fooddata_functions.R")
 REEM.loadclean.RACE(path = "data/local_racebase")
 
-# convert to area in km given width in m
-  haul <- haul %>% mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
-# Simple tidy up function for the dates in the cruise data  
-  cruisedat <- tidy.cruise.dates(cruise) 
+
 
 source("R/REEM_fooddata_functions.R")
 
     
-  
+all_species <- unique(catch$species_code)
+
+
+cpue_all    <- get_cpue(speciescode=21740, survey_area="BS")
+
+
+
+
+source("R/REEM_fooddata_functions.R")  
 biomass_stratum <- get_biomass_stratum_noLength(speciescode = pred_params[["P.cod"]]$race, survey_area = "GOA")
+
+
+biomass_stratum <- get_biomass_stratum(speciescode = pred_params[["P.cod"]]$race, survey_area = "GOA")
 
 
 
@@ -54,6 +63,7 @@ source("R/REEM_fooddata_functions.R")
 
 all_species <- unique(catch$species_code)
 biomass_all <- get_cpue_noLength(speciescode=all_species, survey_area="BS")
+
 
 
 biomass_all <- get_cpue_noLength_all_REEM(survey_area = "BS")

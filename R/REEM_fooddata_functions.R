@@ -2,6 +2,11 @@ source("R/function_get_cpue_byLength.R")
 source("R/function_get_cpue_NoLength.R")
 source("R/function_get_biomass_stratum_Length.R")
 source("R/function_get_biomass_stratum_NoLength.R")
+
+source("R/GAP_get_cpue.R")
+source("R/GAP_get_biomass_stratum.R")
+source("R/GAP_loadclean.R")
+
 #############################################################
 
 predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8){
@@ -82,34 +87,6 @@ predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], m
               pred_totals    = data.frame(pred_tots), 
               strat_dietprop = data.frame(strat_dietprop)))
 
-}
-
-#############################################################
-# Minor date function
-tidy.cruise.dates <-function(cruise){
-  cdat <- cruise %>% dplyr::select(survey_name, region, cruisejoin, agency_name) 
-  cdat$start_date <- as.Date(cruise$start_date)
-  cdat$year <- lubridate::year(cdat$start_date)
-  return(cdat)
-}
-
-##################################################################
-#Load and name-clean racebase files
-REEM.loadclean.RACE <- function(path="data/local_racebase"){
-
-  a <- list.files(path, pattern = "\\.csv")
-  for (i in 1:length(a)) {
-    tname <- gsub(pattern = "\\.csv", replacement = "", x = a[i])
-    fname <- paste(path, a[i], sep="/")
-    cat("loading and cleaning", tname, "from", fname, "\n"); flush.console()
-    b <- read.csv(file = fname)
-    b <- janitor::clean_names(b)
-    if (names(b)[1] %in% "x1") {
-      b$x1 <- NULL
-    }
-    # KYA Note - assign is a global assigment (to environment)
-    assign(tname, value = b, envir = .GlobalEnv)
-  }
 }
 
 ##################################################################
