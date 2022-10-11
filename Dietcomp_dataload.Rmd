@@ -23,6 +23,7 @@ source("R/REEM_download_functions.R")
 # may differ by user (e.g. "AFSC" or "AFSCP1" etc.).  This function should bring
 # up a username and password interface to log in to Oracle.
 channel <- oracle.connect("AFSC")  
+reem.download.rawfood(channel, path="data/local_reem_data")
 
 ```
 

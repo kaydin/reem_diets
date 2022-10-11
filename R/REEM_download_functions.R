@@ -27,6 +27,18 @@ racebase.download <- function(channel, tables="HAUL", path="./data/local_racebas
 }  
 
 
+
+###################################
+#
+reem.download.rawfood <- function(channel, path="data/local_reem_data"){
+  
+  query.to.csv(channel, "SELECT * from foodlab.haul",     paste(path,"/" , "foodlab_haul.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.predprey", paste(path,"/" , "foodlab_predprey.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.preylen",  paste(path,"/" , "foodlab_preylen.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.nodc",     paste(path,"/" , "foodlab_nodc.csv", sep=""))
+  
+}
+
 ################################
 #
 #
