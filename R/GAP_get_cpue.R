@@ -16,30 +16,42 @@ get_cpue <- function(racebase_tables = list(
                        haul = haul,
                        catch = catch
                      ),
-                     speciescode = 30060, # POP
-                     survey_area = "AI") {
+                     # KYA changed
+                       predator = "P.cod", #speciescode = 30060, # POP
+                       model    = "EBS"    #survey_area = "AI"
+                     ){ 
 
   # survey_area is called region in RACEBASE
   cruisedat <- racebase_tables$cruisedat
   haul <- racebase_tables$haul
   catch <- racebase_tables$catch
-
+  # KYA added
+    speciescode = as.integer(pred_params[[predator]]$race)
+    model_name    <- model    # renamed to avoid name confusion during lookup
+    predator_name <- predator # renamed to avoid name confusion during lookup
+  
   sp_catch <- catch %>%
     filter(species_code == speciescode)
 
-  dat <- haul %>%
+  # KYA added
+    stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+    model_haul <- haul %>%
+       left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
+    
+  dat <- model_haul %>%
     left_join(cruisedat,
       by = c("cruisejoin", "region")
     ) %>%
     filter(abundance_haul == "Y" &
-      region == survey_area) %>%
+      #region == survey_area) %>%
+      model == model_name) %>% # KYA changed
     left_join(sp_catch, by = "hauljoin") %>%
     replace_na(list(
       weight = 0,
       number_fish = 0
     )) %>%
     dplyr::select(
-      species_code,
+      species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
       cruisejoin.x, vessel.x, haul.x, hauljoin,
       haul_type, performance, duration,
       stratum, stationid,
@@ -54,6 +66,7 @@ get_cpue <- function(racebase_tables = list(
       Lon = start_longitude,
       catch_kg = weight,
       Vessel = vessel.x,
+      region = region.x,
       Bottom_temp = gear_temperature,
       Surface_temp = surface_temperature
     )
@@ -64,11 +77,11 @@ get_cpue <- function(racebase_tables = list(
     mutate(
       wgtcpue = catch_kg / AreaSwept_km2,
       numcpue = number_fish / AreaSwept_km2,
-      survey = survey_area
+      survey = region
     ) %>%
     replace_na(list(species_code = speciescode)) %>%
     select(
-      year, survey, Vessel, haul.x, hauljoin,
+      year, model, stratum_bin,survey, Vessel, haul.x, hauljoin,
       stationid,
       stratum, distance_fished,
       species_code, catch_kg, number_fish,

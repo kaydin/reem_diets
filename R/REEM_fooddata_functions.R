@@ -9,36 +9,45 @@ source("R/GAP_loadclean.R")
 
 #############################################################
 
-predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8){
+predprey_tables <- function(predator="P.cod", model="EBS", months=5:8){
 
-  preylookup   <- raw_preynames %>% mutate(prey_guild  = .data[[preylook_col]])
-  stratbins    <- raw_strata    %>% mutate(stratum_bin = .data[[stratbin_col]])
-  yearblock    <- raw_years
-  ppar <- pred_params[[predator]]
-  
-  pred_tab <- ppdat$PP_data %>%
+  # Global variables
+  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup %>% mutate(prey_guild  = .data[[preylook_col]])
+  #yearblock    <- years_lookup
+  ppar          <- pred_params[[predator]]
+  raw_pp        <- predprey
+  model_name    <- model    # renamed to avoid name confusion during lookup
+  predator_name <- predator # renamed to avoid name confusion during lookup
+
+  # Operations done on all predators before selection  
+  allpred_tab <- raw_pp %>%
     # Add lookup tables
     left_join(preylookup, by=c("prey_nodc"="nodc_code")) %>%
     left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
-    left_join(yearblock, by=c("year"="year")) %>%
-    mutate(predator = predator) %>% relocate(predator) %>%
-    mutate(model = model, .after=predator) %>%
-    # First filter out all predators except the main PRED
-    filter(model_name %in% model)   %>%
+    #left_join(yearblock, by=c("year"="year")) %>%
+    relocate(stratum_bin) %>% relocate(model) 
+  
+  # Select predator (and apply other filters like model and months), apply predator-specific values
+  pred_tab <- allpred_tab %>%
+    filter(model %in% model_name)   %>%
     filter(pred_nodc %in% ppar$nodc)  %>%
-    filter(!is.na(year_group)) %>%
+    #filter(!is.na(year)) %>%
     filter(month %in% months)   %>%
+    mutate(predator = predator_name) %>% relocate(predator) %>%
     # Then add predator_specific data and make sure it's located before the prey_guild column
     #mutate(full = twt>0) %>% 
     mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
     mutate(bodywt = ppar$A_L * pred_len^ppar$B_L) %>%
     relocate(any_of(c("lbin","bodywt")), .before=prey_nodc) %>%
-    # Make crosstab query grouping by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
-    group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year_group, prey_guild) %>%
+    # Group by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
+    group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year, prey_guild) %>%
     summarize(prey_wt=sum(twt), .groups="keep")
 
   cat(nrow(pred_tab),"predprey records found, summarizing...\n"); flush.console()
 
+  #assign("pred_tab_tmp", value = pred_tab, envir = .GlobalEnv)
+  
   # This creates one line per predator with stomach weight totals
   pred_tots <- pred_tab %>%
     group_by(across(c(1:prey_guild,-prey_guild))) %>%
@@ -48,20 +57,20 @@ predprey_tables <- function(predator="P.cod", model="EBS", ppdat=food[["BS"]], m
   # For the stratum, year and length get totals
   strat_tots <- pred_tots %>% 
     ungroup() %>%
-    select(predator,model,stratum_bin,year_group,lbin,full,tot_wt,tot_sci) %>%
-    group_by(predator,model,stratum_bin,year_group,lbin) %>%
+    select(predator,model,stratum_bin,year,lbin,full,tot_wt,tot_sci) %>%
+    group_by(predator,model,stratum_bin,year,lbin) %>%
     summarize(pred_n=n(), pred_full=sum(full), tot_wt=sum(tot_wt), tot_sci=sum(tot_sci), .groups="keep")
 
   # Sum 
   strat_dietprop <- pred_tab %>%
     ungroup() %>%  
     mutate(prey_sci = prey_wt/bodywt) %>%
-    select(predator,model,stratum_bin,year_group,lbin,prey_guild,prey_wt,prey_sci) %>%  
+    select(predator,model,stratum_bin,year,lbin,prey_guild,prey_wt,prey_sci) %>%  
     filter(prey_wt>0) %>%
-    group_by(predator,model,stratum_bin,year_group,lbin, prey_guild) %>%
+    group_by(predator,model,stratum_bin,year,lbin, prey_guild) %>%
     summarize(prey_n=n(), prey_wt=sum(prey_wt), prey_sci=sum(prey_sci), .groups="keep") %>%
     ungroup() %>%
-    left_join(strat_tots, by=c("predator"="predator","model"="model","stratum_bin"="stratum_bin", "year_group"="year_group", "lbin"="lbin")) %>%
+    left_join(strat_tots, by=c("predator"="predator","model"="model","stratum_bin"="stratum_bin", "year"="year", "lbin"="lbin")) %>%
     relocate(any_of(c("pred_n","pred_full","tot_wt","tot_sci")), .before=prey_guild) %>%
     mutate(dietprop_wt = prey_wt/tot_wt) %>%
     mutate(dietprop_sci = prey_sci/tot_sci)
@@ -95,10 +104,43 @@ read.clean.csv <- function(filename){
   return(read.csv(filename) %>% janitor::clean_names())
 }
 
+
 ##################################################################
 # Load and name-clean REEM diet files.  This loads 
 # region must be one of 'BS', 'AI', or 'GOA',.
-REEM.loadclean.diets<- function(region=REGION, path="data/local_reem_data"){
+REEM.loadclean.diets<- function(data_path = "data/local_reem_data",
+                                strata_lookup_file    = "lookups/combined_BTS_strata.csv",
+                                preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv"){
+  
+  tname <- "predprey"
+  fname <- paste(data_path, paste("predprey.csv",sep=""), sep="/")
+  cat("loading and cleaning", tname, "from", fname, "\n"); flush.console()
+  b <- read.csv(file = fname)
+  b <- janitor::clean_names(b)
+  if (names(b)[1] %in% "x1") {
+    b$x1 <- NULL
+  }
+  assign(tname, value = b, envir = .GlobalEnv)
+  
+  tname <- "preylengths"
+  fname <- paste(data_path, paste("preylengths.csv",sep=""), sep="/")
+  cat("loading and cleaning", tname, "from", fname, "\n"); flush.console()
+  b <- read.csv(file = fname)
+  b <- janitor::clean_names(b)
+  if (names(b)[1] %in% "x1") {
+    b$x1 <- NULL
+  }
+  assign(tname, value = b, envir = .GlobalEnv)    
+  #return(list(PP_data=PP_data,PL_data=PL_data))
+  
+  assign("strata_lookup",    value = read.clean.csv(strata_lookup_file),    envir = .GlobalEnv)  
+  assign("preynames_lookup", value = read.clean.csv(preynames_lookup_file), envir = .GlobalEnv)    
+}
+
+##################################################################
+# Load and name-clean REEM diet files.  This loads 
+# region must be one of 'BS', 'AI', or 'GOA',.
+REEM.loadclean.diets.old<- function(region=REGION, path="data/local_reem_data"){
   
   tname <- "PP_data"
   fname <- paste(path, paste(region, "_predprey.csv",sep=""), sep="/")

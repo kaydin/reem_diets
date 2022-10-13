@@ -19,26 +19,39 @@ get_biomass_stratum <- function(racebase_tables = list(
                                   haul = haul,
                                   catch = catch
                                 ),
-                                speciescode = 30060, # POP
-                                survey_area = "AI",
+                                #speciescode = 30060, # POP
+                                #survey_area = "AI",
                                 vulnerability = 1,
-                                strata = switch(survey_area,
-                                  "GOA" = goa_strata,
-                                  "AI" = ai_strata
-                                )) {
-  At <- sum(strata$area)
+                                predator = "P.cod", #speciescode = 30060, # POP
+                                model    = "EBS"    #survey_area = "AI"
+                                #strata = switch(survey_area,
+                                #  "GOA" = goa_strata,
+                                #  "AI" = ai_strata)
+                                ) {
+  
+  
+  # KYA added
+    speciescode = as.integer(pred_params[[predator]]$race)
+    model_name    <- model    # renamed to avoid name confusion during lookup
+    predator_name <- predator # renamed to avoid name confusion during lookup
+  
+  stratbins    <- strata_lookup %>% 
+                  mutate(stratum_bin = .data[[stratbin_col]]) %>%
+                  filter(model==model_name) 
+  #stratbins <- strata_lookup %>% filter(model==model_name)  
+  At <- sum(stratbins$area)
 
   # Get cpue table
   x <- get_cpue(
-    racebase_tables = racebase_tables,
-    survey_area = survey_area,
-    speciescode = speciescode
+    #racebase_tables = racebase_tables,
+    model = model, #survey_area = survey_area,
+    predator = predator #speciescode = speciescode
   )
 #browser()
   # Total CPUE for species, year, stratum
   # no RACEBASE equivalent (building block of BIOMASS_STRATUM)
   x2 <- x %>%
-    group_by(year, stratum) %>%
+    group_by(year, stratum_bin) %>%
     dplyr::summarize(
       haul_count = length(unique(hauljoin)), # number of total abundance hauls
       mean_wgt_cpue = mean(wgtcpue, na.rm = TRUE),
@@ -49,12 +62,12 @@ get_biomass_stratum <- function(racebase_tables = list(
     ) %>%
     dplyr::ungroup() %>%
     select(
-      year, stratum, 
+      year, stratum_bin, 
       haul_count, catch_count,
       mean_wgt_cpue, var_wgt_cpue,
       mean_num_cpue, var_num_cpue
     ) %>%
-    add_column(.after = "stratum", species_code = speciescode)
+    add_column(.after = "stratum_bin", species_code = speciescode)
 
   if (all(x2$catch_count <= x2$haul_count)) {
     print("Number of hauls with positive catches is realistic.")
@@ -62,7 +75,7 @@ get_biomass_stratum <- function(racebase_tables = list(
 
   # RACEBASE equivalent table: BIOMASS_STRATUM
   biomass_stratum <- x2 %>%
-    dplyr::left_join(strata, by = "stratum") %>%
+    dplyr::left_join(stratbins, by = "stratum_bin") %>%
     rowwise() %>% # for applying ifelse() by row
     mutate(
       stratum_biomass = area * mean_wgt_cpue / vulnerability * 0.001, # kg --> mt
@@ -82,7 +95,7 @@ get_biomass_stratum <- function(racebase_tables = list(
       min_biomass = ifelse(min_biomass < 0, 0, min_biomass),
       min_pop = ifelse(min_pop < 0, 0, min_pop)
     ) %>% # set low CI to zero if it's negative
-    select(survey, year, stratum, species_code, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area, stratum_ratio) %>%
+    select(survey, year, stratum_bin, species_code, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area, stratum_ratio) %>%
     mutate(
       Ni = area / 0.01,
       fi = (Ni * (Ni - haul_count)) / haul_count

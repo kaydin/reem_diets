@@ -30,7 +30,7 @@ REEM.loadclean.RACE <- function(path="data/local_racebase"){
     cruisedat$start_date <- as.Date(cruise$start_date)
     cruisedat$year <- lubridate::year(cruisedat$start_date)
     cruisedat <<- cruisedat
-  # Add later
+
   #lengthdat <- length %>%
   #  filter(region == REGION)%>%
   #  group_by (cruise, haul, species_code)%>%
@@ -39,7 +39,8 @@ REEM.loadclean.RACE <- function(path="data/local_racebase"){
   #  left_join(LWparam, by=c("species_code"="sp_code"))%>%
   #  mutate(PropLength_Num = frequency/NumSamp_SpHaul)%>%
   #  mutate (weight_Lbin=LW.intercept_a*length^LW.slope_b) #weight of fish (sp, haul) in given length bin
-  
+  #lengthdat <<- lengthdat
+
 }
 
 

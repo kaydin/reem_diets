@@ -43,6 +43,17 @@ get_cpue_Length <- function(racebase_tables = list(
   catch <- racebase_tables$catch
   lengthdat <- racebase_tables$lengthdat #BF added
 
+  lengthdat <- length %>%
+  #  filter(region == REGION)%>%
+  #  group_by (cruise, haul, species_code)%>%
+  #  mutate(NumSamp_SpHaul=sum(frequency))%>%
+  #  ungroup()%>%
+  #  left_join(LWparam, by=c("species_code"="sp_code"))%>%
+  #  mutate(PropLength_Num = frequency/NumSamp_SpHaul)%>%
+  #  mutate (weight_Lbin=LW.intercept_a*length^LW.slope_b) #weight of fish (sp, haul) in given length bin
+
+
+
   sp_catch <- catch %>%
     filter(species_code %in% speciescode)
 

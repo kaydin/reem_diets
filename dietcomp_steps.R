@@ -9,16 +9,14 @@ library("lubridate")
 
 source("R/REEM_fooddata_functions.R")
 
-food <- list()
-food[["BS"]]  <- REEM.loadclean.diets(region="BS", path="data/local_reem_data")
-food[["GOA"]] <- REEM.loadclean.diets(region="GOA", path="data/local_reem_data")
-food[["AI"]]  <- REEM.loadclean.diets(region="AI", path="data/local_reem_data")
+REEM.loadclean.RACE(path = "data/local_racebase")
+
+REEM.loadclean.diets(data_path = "data/local_reem_data",
+                     strata_lookup_file    = "lookups/combined_BTS_strata.csv",
+                     preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv")
 
 preylook_col <- "ecopath_prey"    
 stratbin_col <- "strat_groups"
-raw_strata    <- read.clean.csv("lookups/combined_BTS_strata.csv")     
-raw_preynames <- read.clean.csv("lookups/Alaska_PreyLookup_MASTER.csv") 
-raw_years     <- data.frame(year=1985:2021, year_group=1985:2021) 
 
 pred_params <- list(
     "W.pollock"  = list(nodc="8791030701", race="21740", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
@@ -27,10 +25,14 @@ pred_params <- list(
     "P.halibut"  = list(nodc="8857041901", race="10120", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) )
     )
 
-strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", ppdat=food[["BS"]], months=5:8)
+strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", months=5:8)
+
+strat.cpue.bs <- get_cpue(predator="P.cod", model="EBS")
+
+strat.bio.bs <- get_biomass_stratum(predator="P.cod", model="EBS")
 
 
-strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", ppdat=food[["GOA"]], months=5:8)
+strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", months=5:8)
 
 
 
