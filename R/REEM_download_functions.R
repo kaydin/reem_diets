@@ -27,10 +27,100 @@ racebase.download <- function(channel, tables="HAUL", path="./data/local_racebas
 }  
 
 
+
+###################################
+#
+reem.download.rawfood <- function(channel, path="data/local_reem_data"){
+  query.to.csv(channel, "SELECT * from foodlab.haul",     paste(path,"/" , "foodlab_haul.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.predprey", paste(path,"/" , "foodlab_predprey.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.preylen",  paste(path,"/" , "foodlab_preylen.csv", sep=""))
+  query.to.csv(channel, "SELECT * from foodlab.nodc",     paste(path,"/" , "foodlab_nodc.csv", sep=""))
+}
+
 ################################
 #
 #
-reem.download.bts.predprey <- function(channel, region="GOA", path="data/local_reem_data"){
+reem.download.bts.predprey <- function(channel, path="data/local_reem_data"){
+  
+  if(!file.exists(path)) dir.create(path, recursive = TRUE)
+  cat("Loading predprey ... "); flush.console()
+  
+  query_text <- paste(
+    "SELECT",
+      "NPRED.nodc as PRED_NODC, NPRED.name as PRED_NAME,",
+      "HH.REGION, HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
+      "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP, HH.START_HOUR,",
+      "HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE,HH.RLAT, HH.RLONG,",
+      "PP.PREDJOIN, PP.PRED_LEN,",
+      "NPREY.nodc as PREY_NODC, NPREY.name as PREY_NAME,", #"NPREY.ECOPATH_Prey,", 
+      "sum(PP.PREY_TWT) as TWT, sum(PP.PREY_CNT) as CNT", 
+    "FROM",
+      "foodlab.predprey PP, foodlab.haul HH, foodlab.nodc NPRED, foodlab.nodc NPREY",
+    "WHERE",
+      "(PP.VESSEL = HH.VESSEL AND PP.CRUISE = HH.CRUISE AND PP.HAUL = HH.HAUL)", 
+      "AND (PP.PRED_NODC = NPRED.nodc AND PP.PREY_NODC = NPREY.nodc)", 
+      "AND (HH.REGION='BS' OR HH.REGION='AI' OR HH.REGION='GOA')",
+      "AND (HH.CRUISE_TYPE='Race_Groundfish')",
+    "GROUP BY",
+      "PP.PREDJOIN, NPRED.nodc, NPRED.name, HH.REGION,",
+      "HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
+      "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP,",
+      "HH.START_HOUR, HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE, HH.RLAT,",
+      "HH.RLONG, PP.PRED_LEN,",
+      "NPREY.nodc, NPREY.name", 
+      "",
+    sep=' ')
+  
+  query.to.csv(channel = channel,
+               query   = query_text,
+               file    = paste(path,"/predprey.csv", sep=""))
+}
+
+################################
+#
+#
+reem.download.bts.preylengths <-function(channel, path=("data/local_reem_data")){
+  
+  if(!file.exists(path)) dir.create(path, recursive = TRUE)  
+  cat("Loading preylengths ... "); flush.console()
+  
+  query_text <- paste(
+    "SELECT",
+      "NPRED.nodc as PRED_NODC, NPRED.name as PRED_NAME,",
+      "HH.REGION, HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
+      "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP, HH.START_HOUR,",
+      "HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE,HH.RLAT, HH.RLONG,",
+      "PP.PREDJOIN, PP.PRED_LEN,",
+      "NPREY.nodc as PREY_NODC, NPREY.name as PREY_NAME,", #"NPREY.ECOPATH_Prey,", 
+      "PP.PREY_SZ1 as Prey_Size_mm, COUNT(PP.PREY_NODC) AS Freq", 
+    "FROM",
+      "foodlab.preylen PP, foodlab.haul HH, nodc NPRED, nodc NPREY", 
+    "WHERE", 
+      "(PP.VESSEL=HH.VESSEL AND PP.CRUISE=HH.CRUISE AND PP.HAUL=HH.HAUL)", 
+      "AND PP.PRED_NODC=NPRED.nodc AND PP.PREY_NODC = NPREY.nodc",
+      "AND (HH.REGION='BS' OR HH.REGION='AI' OR HH.REGION='GOA')", 
+      "AND (HH.CRUISE_TYPE='Race_Groundfish')",
+    "GROUP BY",
+      "PP.PREDJOIN, NPRED.nodc, NPRED.name, HH.REGION,",
+      "HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
+      "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP,",
+      "HH.START_HOUR, HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE, HH.RLAT,",
+      "HH.RLONG, PP.PRED_LEN,",
+      "NPREY.nodc, NPREY.name,",
+      "PP.PREY_SZ1",
+    sep=' ')
+  
+  query.to.csv(channel = channel,
+               query   = query_text,
+               file    = paste(path,"/preylengths.csv", sep=""))
+  
+}
+
+
+################################
+#
+#
+reem.download.bts.predprey.byregion <- function(channel, region="GOA", path="data/local_reem_data"){
 
   if(!file.exists(path)) dir.create(path, recursive = TRUE)
   cat("Loading", region, "predprey ... "); flush.console()
@@ -71,7 +161,7 @@ reem.download.bts.predprey <- function(channel, region="GOA", path="data/local_r
 ################################
 #
 #
-reem.download.bts.preylenths <-function(channel, region="GOA", path=("data/local_reem_data")){
+reem.download.bts.preylengths.byregion <-function(channel, region="GOA", path=("data/local_reem_data")){
 
   if(!file.exists(path)) dir.create(path, recursive = TRUE)  
   cat("Loading", region, "preylengths ... "); flush.console()
