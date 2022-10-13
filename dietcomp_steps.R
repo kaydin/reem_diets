@@ -28,8 +28,28 @@ pred_params <- list(
 strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", months=5:8)
 
 strat.cpue.bs <- get_cpue(predator="P.cod", model="EBS")
+strat.bio <- get_biomass_stratum(predator="P.cod", model="EBS")
 
-strat.bio.bs <- get_biomass_stratum(predator="P.cod", model="EBS")
+strat.bio    <- rbind( get_biomass_stratum(predator="P.cod", model="EBS"),
+                       get_biomass_stratum(predator="W.pollock", model="EBS"),
+                       get_biomass_stratum(predator="Arrowtooth", model="EBS"),
+                       get_biomass_stratum(predator="P.cod", model="NBS"),
+                       get_biomass_stratum(predator="W.pollock", model="NBS"),
+                       get_biomass_stratum(predator="Arrowtooth", model="NBS"),
+                       get_biomass_stratum(predator="P.cod", model="WGOA"),
+                       get_biomass_stratum(predator="W.pollock", model="WGOA"),
+                       get_biomass_stratum(predator="Arrowtooth", model="WGOA"),
+                       get_biomass_stratum(predator="P.cod", model="EGOA"),
+                       get_biomass_stratum(predator="W.pollock", model="EGOA"),
+                       get_biomass_stratum(predator="Arrowtooth", model="EGOA"),
+                       get_biomass_stratum(predator="P.cod", model="AI"),
+                       get_biomass_stratum(predator="W.pollock", model="AI"),
+                       get_biomass_stratum(predator="Arrowtooth", model="AI")                       
+                       )
+
+
+
+strat.bio.wgoa <- get_biomass_stratum(predator="P.cod", model="EBS")
 
 
 strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", months=5:8)

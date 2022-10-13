@@ -77,11 +77,12 @@ get_cpue <- function(racebase_tables = list(
     mutate(
       wgtcpue = catch_kg / AreaSwept_km2,
       numcpue = number_fish / AreaSwept_km2,
-      survey = region
+      survey = region,
+      species_name=predator,
     ) %>%
     replace_na(list(species_code = speciescode)) %>%
     select(
-      year, model, stratum_bin,survey, Vessel, haul.x, hauljoin,
+      year, model, stratum_bin,species_name, survey, Vessel, haul.x, hauljoin,
       stationid,
       stratum, distance_fished,
       species_code, catch_kg, number_fish,

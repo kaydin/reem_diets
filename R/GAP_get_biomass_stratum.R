@@ -51,26 +51,26 @@ get_biomass_stratum <- function(racebase_tables = list(
   # Total CPUE for species, year, stratum
   # no RACEBASE equivalent (building block of BIOMASS_STRATUM)
   x2 <- x %>%
-    group_by(year, stratum_bin) %>%
+    group_by(year, stratum_bin,species_name) %>%
     dplyr::summarize(
       haul_count = length(unique(hauljoin)), # number of total abundance hauls
       mean_wgt_cpue = mean(wgtcpue, na.rm = TRUE),
       var_wgt_cpue = ifelse(haul_count <= 1, NA, var(wgtcpue) / haul_count),
       mean_num_cpue = mean(numcpue, na.rm = TRUE),
       var_num_cpue = ifelse(haul_count <= 1, NA, var(numcpue) / haul_count),
-      catch_count = length(which(catch_kg > 0)) # number of hauls with nonzero catch
-    ) %>%
+      catch_count = length(which(catch_kg > 0)), # number of hauls with nonzero catch
+    .groups="keep") %>%
     dplyr::ungroup() %>%
     select(
-      year, stratum_bin, 
+      year, stratum_bin,species_name, 
       haul_count, catch_count,
       mean_wgt_cpue, var_wgt_cpue,
       mean_num_cpue, var_num_cpue
     ) %>%
-    add_column(.after = "stratum_bin", species_code = speciescode)
+    add_column(.after = "stratum_bin", species_code = speciescode) 
 
   if (all(x2$catch_count <= x2$haul_count)) {
-    print("Number of hauls with positive catches is realistic.")
+    cat(model_name,predator_name,"Number of hauls with positive catches is realistic.\n")
   }
 
   # RACEBASE equivalent table: BIOMASS_STRATUM
@@ -95,8 +95,9 @@ get_biomass_stratum <- function(racebase_tables = list(
       min_biomass = ifelse(min_biomass < 0, 0, min_biomass),
       min_pop = ifelse(min_pop < 0, 0, min_pop)
     ) %>% # set low CI to zero if it's negative
-    select(survey, year, stratum_bin, species_code, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area, stratum_ratio) %>%
-    mutate(
+    select(survey, year, stratum_bin, species_name, species_code, haul_count, catch_count, mean_wgt_cpue, var_wgt_cpue, mean_num_cpue, var_num_cpue, stratum_biomass, biomass_var, min_biomass, max_biomass, stratum_pop, pop_var, min_pop, max_pop, area, stratum_ratio) %>%
+    add_column(.after = "year", model = model_name) %>%
+        mutate(
       Ni = area / 0.01,
       fi = (Ni * (Ni - haul_count)) / haul_count
     )
