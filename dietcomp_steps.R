@@ -49,6 +49,22 @@ strat.bio    <- rbind( get_biomass_stratum(predator="P.cod", model="EBS"),
 
 
 
+source("R/REEM_fooddata_functions.R")
+testall <- rbind(get_cpue_all(model="WGOA"),get_cpue_all(model="EGOA"))
+test2 <- guild_out(testall)
+
+source("R/REEM_fooddata_functions.R")
+for(m in c("EBS","NBS","WGOA","EGOA","AI")){
+  datout <- guild_out(get_cpue_all(model=m))
+  write.csv(datout,paste(m,"all_years.csv",sep=''), row.names=F)
+}
+
+
+
+
+source("R/REEM_fooddata_functions.R")
+test <- get_haul_means("AI")
+
 strat.bio.wgoa <- get_biomass_stratum(predator="P.cod", model="EBS")
 
 

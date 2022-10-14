@@ -1,125 +1,187 @@
-SURVEY,MODEL,STRAT_GROUPS,STRATUM,AREA,PERIMETER,INPFC_AREA,MIN_DEPTH,MAX_DEPTH,DESCRIPTION,SUMMARY_AREA,SUMMARY_DEPTH,SUMMARY_AREA_DEPTH,REGULATORY_AREA_NAME,STRATUM_TYPE
-AI,AI,Central Aleutians,311,960.023,NA,Central Aleutians,1,100,Petrel Bank,3499,991,3491,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,312,1735.544,NA,Central Aleutians,101,200,Petrel Bank,3499,992,3492,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,313,766.43,NA,Central Aleutians,201,300,Petrel Bank,3499,993,3493,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,314,1237.475,NA,Central Aleutians,301,500,Petrel Bank,3499,994,3494,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,321,2105.636,NA,Central Aleutians,1,100,N Central Aleutians,3499,991,3491,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,322,1066.049,NA,Central Aleutians,101,200,N Central Aleutians,3499,992,3492,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,323,439.004,NA,Central Aleutians,201,300,N Central Aleutians,3499,993,3493,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,324,1239.743,NA,Central Aleutians,301,500,N Central Aleutians,3499,994,3494,ALEUTIANS,NORTH
-AI,AI,Central Aleutians,411,1617.669,NA,Central Aleutians,1,100,SW Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,412,1052.298,NA,Central Aleutians,101,200,SW Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,413,426.035,NA,Central Aleutians,201,300,SW Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,414,789.21,NA,Central Aleutians,301,500,SW Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,421,1164.035,NA,Central Aleutians,1,100,SE Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,422,751.791,NA,Central Aleutians,101,200,SE Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,423,477.36,NA,Central Aleutians,201,300,SE Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
-AI,AI,Central Aleutians,424,714.304,NA,Central Aleutians,301,500,SE Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,511,1932.476,NA,Eastern Aleutians,1,100,NW Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,512,1594.312,NA,Eastern Aleutians,101,200,NW Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,513,155.929,NA,Eastern Aleutians,201,300,NW Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,521,1268.056,NA,Eastern Aleutians,1,100,NE Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,522,2012.55,NA,Eastern Aleutians,101,200,NE Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,523,1968.564,NA,Eastern Aleutians,201,300,NE Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
-AI,AI,Eastern Aleutians,594,2670.006,NA,Eastern Aleutians,301,500,Combined Eastern Aleutian Islands,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,611,1906.756,NA,Eastern Aleutians,1,100,SW Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,612,2261.049,NA,Eastern Aleutians,101,200,SW Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,613,716.376,NA,Eastern Aleutians,201,300,SW Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,614,438.212,NA,Eastern Aleutians,301,500,SW Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,621,1740.635,NA,Eastern Aleutians,1,100,SE Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,622,1900.189,NA,Eastern Aleutians,101,200,SE Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,623,2060.609,NA,Eastern Aleutians,201,300,SE Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
-AI,AI,Eastern Aleutians,624,2574.73,NA,Eastern Aleutians,301,500,SE Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,Southern Bering Sea,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,Southern Bering Sea,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,Southern Bering Sea,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,Southern Bering Sea,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,Southern Bering Sea,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH
-AI,AI,Southern Bering Sea,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH
-AI,AI,Western Aleutians,211,3693.321,NA,Western Aleutians,1,100,W Western Aleutians,299,991,291,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,212,4065.172,NA,Western Aleutians,101,200,W Western Aleutians,299,992,292,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,213,940.226,NA,Western Aleutians,201,300,W Western Aleutians,299,993,293,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,214,1711.084,NA,Western Aleutians,301,500,W Western Aleutians,299,994,294,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,221,1183.328,NA,Western Aleutians,1,100,E Western Aleutians,299,991,291,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,222,1252.459,NA,Western Aleutians,101,200,E Western Aleutians,299,992,292,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,223,783.403,NA,Western Aleutians,201,300,E Western Aleutians,299,993,293,ALEUTIANS,NEITHER
-AI,AI,Western Aleutians,224,1561.386,NA,Western Aleutians,301,500,E Western Aleutians,299,994,294,ALEUTIANS,NEITHER
-BS,EBS,SE_inner,10,77871,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,NW_inner,20,41027,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,SE_middle,31,94526,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,Pribs,32,8774,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,NW_middle,41,62703,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,Pribs,42,24011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,StMatt,43,21108,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,SE_outer,50,38792,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,NW_outer,61,88134,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,StMatt,62,6429,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,NBS,NBS70,70,79261,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,NBS,NBS71,71,82594,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,NBS,NBS81,81,38352,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,NW_corner,82,17954,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-BS,EBS,NW_corner,90,11568,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-GOA,WGOA,Chirikof_shelf,20,7940.852,2470.078,Chirikof,1,100,Upper Alaska Peninsula        ,929,991,921,CENTRAL GOA,SHELF
-GOA,WGOA,Chirikof_shelf,21,7302.086,632.708,Chirikof,1,100,Semidi Bank                   ,929,991,921,CENTRAL GOA,SHELF
-GOA,WGOA,Chirikof_shelf,22,10792.012,961.835,Chirikof,1,100,Chirikof Bank                 ,929,991,921,CENTRAL GOA,SHELF
-GOA,WGOA,Chirikof_gully,120,11104.039,962.173,Chirikof,101,200,East Shumagin Gully           ,929,992,922,CENTRAL GOA,GULLY
-GOA,WGOA,Chirikof_shelf,121,7734.619,1843.775,Chirikof,101,200,Shelikof Edge                 ,929,992,922,CENTRAL GOA,SHELF
-GOA,WGOA,Chirikof_shelf,122,5010.738,898.952,Chirikof,101,200,Chirikof Outer Shelf          ,929,992,922,CENTRAL GOA,SHELF
-GOA,WGOA,Chirikof_gully,220,10017.785,678.285,Chirikof,201,300,Lower Shelikof Gully          ,929,993,923,CENTRAL GOA,GULLY
-GOA,WGOA,Chirikof_slope,221,1528.313,832.464,Chirikof,201,300,Chirikof Slope                ,929,993,923,CENTRAL GOA,SLOPE
-GOA,WGOA,Chirikof_slope,320,1603.961,805.575,Chirikof,301,500,Chirikof Slope                ,929,994,924,CENTRAL GOA,SLOPE
-GOA,WGOA,Chirikof_slope,420,1953.21,840.567,Chirikof,501,700,Chirikof Slope                ,929,995,925,CENTRAL GOA,SLOPE
-GOA,WGOA,Chirikof_slope,520,3065.55,869.313,Chirikof,701,1000,Chirikof Slope                ,929,996,926,CENTRAL GOA,SLOPE
-GOA,WGOA,Kodiak_shelf,30,5766.075,2047.126,Kodiak,1,100,Albatross Shallows            ,939,991,931,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,31,15403.147,1309.388,Kodiak,1,100,Albatross Banks               ,939,991,931,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,32,9886.88,837.051,Kodiak,1,100,Lower Cook Inlet              ,939,991,931,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,33,5260.082,2272.262,Kodiak,1,100,Kenai Peninsula               ,939,991,931,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,35,2199.622,1414.556,Kodiak,1,100,Northern Kodiak Shallows      ,939,991,931,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_gully,130,7911.775,1287.377,Kodiak,101,200,Albatross Gullies             ,939,992,932,CENTRAL GOA,GULLY
-GOA,WGOA,Kodiak_shelf,131,7336.402,534.75,Kodiak,101,200,Portlock Flats                ,939,992,932,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,132,10980.778,745.385,Kodiak,101,200,Barren Islands                ,939,992,932,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,133,12077.011,989.657,Kodiak,101,200,Kenai Flats                   ,939,992,932,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_shelf,134,5025.806,1235.143,Kodiak,101,200,Kodiak Outer Shelf            ,939,992,932,CENTRAL GOA,SHELF
-GOA,WGOA,Kodiak_gully,230,6659.46,1012.591,Kodiak,201,300,Kenai Gullies                 ,939,993,933,CENTRAL GOA,GULLY
-GOA,WGOA,Kodiak_slope,231,1622.614,1004.86,Kodiak,201,300,Kodiak Slope                  ,939,993,933,CENTRAL GOA,SLOPE
-GOA,WGOA,Kodiak_gully,232,3208.227,333.202,Kodiak,201,300,Upper Shelikof Gully          ,939,993,933,CENTRAL GOA,GULLY
-GOA,WGOA,Kodiak_slope,330,2911.769,1337.188,Kodiak,301,500,Kodiak Slope                  ,939,994,934,CENTRAL GOA,SLOPE
-GOA,WGOA,Kodiak_slope,430,1744.835,1276.398,Kodiak,501,700,Kodiak Slope                  ,939,995,935,CENTRAL GOA,SLOPE
-GOA,WGOA,Kodiak_slope,530,3493.863,1316.058,Kodiak,701,1000,Kodiak Slope                  ,939,996,936,CENTRAL GOA,SLOPE
-GOA,WGOA,Shumagin_shelf,10,8332.718,1700.816,Shumagin,1,100,Fox Islands                   ,919,991,911,WESTERN GOA,SHELF
-GOA,WGOA,Shumagin_shelf,11,13681.241,868.189,Shumagin,1,100,Davidson Bank                 ,919,991,911,WESTERN GOA,SHELF
-GOA,WGOA,Shumagin_shelf,12,6875.823,1918.516,Shumagin,1,100,Lower Alaska Peninsula        ,919,991,911,WESTERN GOA,SHELF
-GOA,WGOA,Shumagin_shelf,13,12398.789,1783.463,Shumagin,1,100,Shumagin Bank                 ,919,991,911,WESTERN GOA,SHELF
-GOA,WGOA,Shumagin_gully,110,4245.316,639.47,Shumagin,101,200,Sanak Gully                   ,919,992,912,WESTERN GOA,GULLY
-GOA,WGOA,Shumagin_shelf,111,8153.739,2081.775,Shumagin,101,200,Shumagin Outer Shelf          ,919,992,912,WESTERN GOA,SHELF
-GOA,WGOA,Shumagin_gully,112,2278.242,348.565,Shumagin,101,200,West Shumagin Gully           ,919,992,912,WESTERN GOA,GULLY
-GOA,WGOA,Shumagin_slope,210,2787.949,1878.436,Shumagin,201,300,Shumagin Slope                ,919,993,913,WESTERN GOA,SLOPE
-GOA,WGOA,Shumagin_slope,310,2531.101,1778.137,Shumagin,301,500,Shumagin Slope                ,919,994,914,WESTERN GOA,SLOPE
-GOA,WGOA,Shumagin_slope,410,2005.603,1847.096,Shumagin,501,700,Shumagin Slope                ,919,995,915,WESTERN GOA,SLOPE
-GOA,WGOA,Shumagin_slope,510,1937.22,1932.281,Shumagin,701,1000,Shumagin Slope                ,919,996,916,WESTERN GOA,SLOPE
-GOA,EGOA,Southeastern_shelf,50,6546.325,3271.581,Southeastern,1,100,Southeastern Shallows         ,959,991,951,EASTERN GOA,SHELF
-GOA,EGOA,Southeastern_shelf,150,4196.382,808.483,Southeastern,101,200,Baranof-Chichagof Shelf       ,959,992,952,EASTERN GOA,SHELF
-GOA,EGOA,Southeastern_shelf,151,6887.844,1094.22,Southeastern,101,200,Prince of Wales Shelf         ,959,992,952,EASTERN GOA,SHELF
-GOA,EGOA,Southeastern_slope,250,1125.262,666.829,Southeastern,201,300,Baranof-Chichagof Slope       ,959,993,953,EASTERN GOA,SLOPE
-GOA,EGOA,Southeastern_slope,251,3927.061,1157.364,Southeastern,201,300,Prince of Wales Slope/Gullies ,959,993,953,EASTERN GOA,SLOPE
-GOA,EGOA,Southeastern_gully,350,2344.327,460.034,Southeastern,301,500,Southeastern Deep Gullies     ,959,994,954,EASTERN GOA,GULLY
-GOA,EGOA,Southeastern_slope,351,772.66,1003.884,Southeastern,301,500,Southeastern Slope            ,959,994,954,EASTERN GOA,SLOPE
-GOA,EGOA,Southeastern_slope,450,1033.46,1052.722,Southeastern,501,700,Southeastern Slope            ,959,995,955,EASTERN GOA,SLOPE
-GOA,EGOA,Southeastern_slope,550,1206.344,1086.404,Southeastern,701,1000,Southeastern Slope            ,959,996,956,EASTERN GOA,SLOPE
-GOA,EGOA,Yakutat_shelf,40,9947.134,1722.954,Yakutat,1,100,Yakutat Shallows              ,949,991,941,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_shelf,41,6714.31,904.018,Yakutat,1,100,Middleton Shallows            ,949,991,941,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_shelf,140,7345.605,992.786,Yakutat,101,200,Middleton Shelf               ,949,992,942,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_shelf,141,5276.558,756.103,Yakutat,101,200,Yakataga Shelf                ,949,992,942,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_shelf,142,9031.904,426.338,Yakutat,101,200,Yakutat Flats                 ,949,992,942,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_shelf,143,7727.531,729.892,Yakutat,101,200,Fairweather Shelf             ,949,992,942,EASTERN GOA,SHELF
-GOA,EGOA,Yakutat_gully,240,3042.703,857.375,Yakutat,201,300,Yakutat Gullies               ,949,993,943,EASTERN GOA,GULLY
-GOA,EGOA,Yakutat_slope,241,2127.348,1421.962,Yakutat,201,300,Yakutat Slope                 ,949,993,943,EASTERN GOA,SLOPE
-GOA,EGOA,Yakutat_gully,340,1107.196,276.361,Yakutat,301,500,Yakutat Gullies               ,949,994,944,EASTERN GOA,GULLY
-GOA,EGOA,Yakutat_slope,341,1520.577,1427.265,Yakutat,301,500,Yakutat Slope                 ,949,994,944,EASTERN GOA,SLOPE
-GOA,EGOA,Yakutat_slope,440,1469.256,1434.651,Yakutat,501,700,Yakutat Slope                 ,949,995,945,EASTERN GOA,SLOPE
-GOA,EGOA,Yakutat_slope,540,1887.412,1410.367,Yakutat,701,1000,Yakutat Slope                 ,949,996,946,EASTERN GOA,SLOPE
-WINTER,WINTER,BERINGSEA,518,12112,NA,BERINGSEA,NA,NA,Bering Sea Low Density,510,2,NA,NA,NA
-WINTER,WINTER,BERINGSEA,519,7765,NA,BERINGSEA,NA,NA,Bering Sea High Density,510,1,NA,NA,NA
-WINTER,WINTER,KODIAK,638,13639,NA,KODIAK,NA,NA,Kodiak Low Density,630,1,NA,NA,NA
-WINTER,WINTER,SHUMAGIN,619,2631,NA,SHUMAGIN,NA,NA,Shumagin Islands High Density,610,1,NA,NA,NA
-WINTER,WINTER,SHUMAGIN,618,10282,NA,SHUMAGIN,NA,NA,Shumagin Islands Low Density,610,2,NA,NA,NA
+SURVEY,MODEL,STRAT_GROUPS,STRATUM,AREA,PERIMETER,INPFC_AREA,MIN_DEPTH,MAX_DEPTH,DESCRIPTION,SUMMARY_AREA,SUMMARY_DEPTH,SUMMARY_AREA_DEPTH,REGULATORY_AREA_NAME,STRATUM_TYPE,,,
+AI,AI,Central,311,960.023,NA,Central Aleutians,1,100,Petrel Bank,3499,991,3491,ALEUTIANS,NORTH,,,
+AI,AI,Central,312,1735.544,NA,Central Aleutians,101,200,Petrel Bank,3499,992,3492,ALEUTIANS,NORTH,,,
+AI,AI,Central,313,766.43,NA,Central Aleutians,201,300,Petrel Bank,3499,993,3493,ALEUTIANS,NORTH,,,
+AI,AI,Central,314,1237.475,NA,Central Aleutians,301,500,Petrel Bank,3499,994,3494,ALEUTIANS,NORTH,,,
+AI,AI,Central,321,2105.636,NA,Central Aleutians,1,100,N Central Aleutians,3499,991,3491,ALEUTIANS,NORTH,,,
+AI,AI,Central,322,1066.049,NA,Central Aleutians,101,200,N Central Aleutians,3499,992,3492,ALEUTIANS,NORTH,,,
+AI,AI,Central,323,439.004,NA,Central Aleutians,201,300,N Central Aleutians,3499,993,3493,ALEUTIANS,NORTH,,,
+AI,AI,Central,324,1239.743,NA,Central Aleutians,301,500,N Central Aleutians,3499,994,3494,ALEUTIANS,NORTH,,,
+AI,AI,Central,411,1617.669,NA,Central Aleutians,1,100,SW Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH,,,
+AI,AI,Central,412,1052.298,NA,Central Aleutians,101,200,SW Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH,,,
+AI,AI,Central,413,426.035,NA,Central Aleutians,201,300,SW Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH,,,
+AI,AI,Central,414,789.21,NA,Central Aleutians,301,500,SW Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH,,,
+AI,AI,Central,421,1164.035,NA,Central Aleutians,1,100,SE Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH,,,
+AI,AI,Central,422,751.791,NA,Central Aleutians,101,200,SE Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH,,,
+AI,AI,Central,423,477.36,NA,Central Aleutians,201,300,SE Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH,,,
+AI,AI,Central,424,714.304,NA,Central Aleutians,301,500,SE Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH,,,
+AI,AI,East,511,1932.476,NA,Eastern Aleutians,1,100,NW Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH,,,
+AI,AI,East,512,1594.312,NA,Eastern Aleutians,101,200,NW Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH,,,
+AI,AI,East,513,155.929,NA,Eastern Aleutians,201,300,NW Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH,,,
+AI,AI,East,521,1268.056,NA,Eastern Aleutians,1,100,NE Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH,,,
+AI,AI,East,522,2012.55,NA,Eastern Aleutians,101,200,NE Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH,,,
+AI,AI,East,523,1968.564,NA,Eastern Aleutians,201,300,NE Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH,,,
+AI,AI,East,594,2670.006,NA,Eastern Aleutians,301,500,Combined Eastern Aleutian Islands,5699,994,5694,ALEUTIANS,SOUTH,,,
+AI,AI,East,611,1906.756,NA,Eastern Aleutians,1,100,SW Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH,,,
+AI,AI,East,612,2261.049,NA,Eastern Aleutians,101,200,SW Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH,,,
+AI,AI,East,613,716.376,NA,Eastern Aleutians,201,300,SW Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH,,,
+AI,AI,East,614,438.212,NA,Eastern Aleutians,301,500,SW Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH,,,
+AI,AI,East,621,1740.635,NA,Eastern Aleutians,1,100,SE Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH,,,
+AI,AI,East,622,1900.189,NA,Eastern Aleutians,101,200,SE Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH,,,
+AI,AI,East,623,2060.609,NA,Eastern Aleutians,201,300,SE Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH,,,
+AI,AI,East,624,2574.73,NA,Eastern Aleutians,301,500,SE Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH,,,
+AI,AI,BeringGoa,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH,,,
+AI,AI,BeringGoa,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH,,,
+AI,AI,BeringGoa,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH,,,
+AI,AI,BeringGoa,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH,,,
+AI,AI,BeringGoa,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH,,,
+AI,AI,BeringGoa,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH,,,
+AI,AI,West,211,3693.321,NA,Western Aleutians,1,100,W Western Aleutians,299,991,291,ALEUTIANS,NEITHER,,,
+AI,AI,West,212,4065.172,NA,Western Aleutians,101,200,W Western Aleutians,299,992,292,ALEUTIANS,NEITHER,,,
+AI,AI,West,213,940.226,NA,Western Aleutians,201,300,W Western Aleutians,299,993,293,ALEUTIANS,NEITHER,,,
+AI,AI,West,214,1711.084,NA,Western Aleutians,301,500,W Western Aleutians,299,994,294,ALEUTIANS,NEITHER,,,
+AI,AI,West,221,1183.328,NA,Western Aleutians,1,100,E Western Aleutians,299,991,291,ALEUTIANS,NEITHER,,,
+AI,AI,West,222,1252.459,NA,Western Aleutians,101,200,E Western Aleutians,299,992,292,ALEUTIANS,NEITHER,,,
+AI,AI,West,223,783.403,NA,Western Aleutians,201,300,E Western Aleutians,299,993,293,ALEUTIANS,NEITHER,,,
+AI,AI,West,224,1561.386,NA,Western Aleutians,301,500,E Western Aleutians,299,994,294,ALEUTIANS,NEITHER,,,
+BS,EBS,SE_inner,10,77871,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,NW_inner,20,41027,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,SE_middle,31,94526,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,Pribs,32,8774,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,NW_middle,41,62703,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,Pribs,42,24011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,StMatt,43,21108,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,SE_outer,50,38792,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,NW_outer,61,88134,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,StMatt,62,6429,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,NBS,NBS70,70,79261,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,NBS,NBS71,71,82594,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,NBS,NBS81,81,38352,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,NW_corner,82,17954,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+BS,EBS,NW_corner,90,11568,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,
+GOA,WGOA,Chirikof_shelf,20,7940.852,2470.078,Chirikof,1,100,Upper Alaska Peninsula        ,929,991,921,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Chirikof_shelf,21,7302.086,632.708,Chirikof,1,100,Semidi Bank                   ,929,991,921,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Chirikof_shelf,22,10792.012,961.835,Chirikof,1,100,Chirikof Bank                 ,929,991,921,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Chirikof_gully,120,11104.039,962.173,Chirikof,101,200,East Shumagin Gully           ,929,992,922,CENTRAL GOA,GULLY,,,
+GOA,WGOA,Chirikof_shelf,121,7734.619,1843.775,Chirikof,101,200,Shelikof Edge                 ,929,992,922,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Chirikof_shelf,122,5010.738,898.952,Chirikof,101,200,Chirikof Outer Shelf          ,929,992,922,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Chirikof_gully,220,10017.785,678.285,Chirikof,201,300,Lower Shelikof Gully          ,929,993,923,CENTRAL GOA,GULLY,,,
+GOA,WGOA,Chirikof_slope,221,1528.313,832.464,Chirikof,201,300,Chirikof Slope                ,929,993,923,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Chirikof_slope,320,1603.961,805.575,Chirikof,301,500,Chirikof Slope                ,929,994,924,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Chirikof_slope,420,1953.21,840.567,Chirikof,501,700,Chirikof Slope                ,929,995,925,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Chirikof_slope,520,3065.55,869.313,Chirikof,701,1000,Chirikof Slope                ,929,996,926,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Kodiak_shelf,30,5766.075,2047.126,Kodiak,1,100,Albatross Shallows            ,939,991,931,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,31,15403.147,1309.388,Kodiak,1,100,Albatross Banks               ,939,991,931,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,32,9886.88,837.051,Kodiak,1,100,Lower Cook Inlet              ,939,991,931,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,33,5260.082,2272.262,Kodiak,1,100,Kenai Peninsula               ,939,991,931,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,35,2199.622,1414.556,Kodiak,1,100,Northern Kodiak Shallows      ,939,991,931,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_gully,130,7911.775,1287.377,Kodiak,101,200,Albatross Gullies             ,939,992,932,CENTRAL GOA,GULLY,,,
+GOA,WGOA,Kodiak_shelf,131,7336.402,534.75,Kodiak,101,200,Portlock Flats                ,939,992,932,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,132,10980.778,745.385,Kodiak,101,200,Barren Islands                ,939,992,932,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,133,12077.011,989.657,Kodiak,101,200,Kenai Flats                   ,939,992,932,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_shelf,134,5025.806,1235.143,Kodiak,101,200,Kodiak Outer Shelf            ,939,992,932,CENTRAL GOA,SHELF,,,
+GOA,WGOA,Kodiak_gully,230,6659.46,1012.591,Kodiak,201,300,Kenai Gullies                 ,939,993,933,CENTRAL GOA,GULLY,,,
+GOA,WGOA,Kodiak_slope,231,1622.614,1004.86,Kodiak,201,300,Kodiak Slope                  ,939,993,933,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Kodiak_gully,232,3208.227,333.202,Kodiak,201,300,Upper Shelikof Gully          ,939,993,933,CENTRAL GOA,GULLY,,,
+GOA,WGOA,Kodiak_slope,330,2911.769,1337.188,Kodiak,301,500,Kodiak Slope                  ,939,994,934,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Kodiak_slope,430,1744.835,1276.398,Kodiak,501,700,Kodiak Slope                  ,939,995,935,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Kodiak_slope,530,3493.863,1316.058,Kodiak,701,1000,Kodiak Slope                  ,939,996,936,CENTRAL GOA,SLOPE,,,
+GOA,WGOA,Shumagin_shelf,10,8332.718,1700.816,Shumagin,1,100,Fox Islands                   ,919,991,911,WESTERN GOA,SHELF,,,
+GOA,WGOA,Shumagin_shelf,11,13681.241,868.189,Shumagin,1,100,Davidson Bank                 ,919,991,911,WESTERN GOA,SHELF,,,
+GOA,WGOA,Shumagin_shelf,12,6875.823,1918.516,Shumagin,1,100,Lower Alaska Peninsula        ,919,991,911,WESTERN GOA,SHELF,,,
+GOA,WGOA,Shumagin_shelf,13,12398.789,1783.463,Shumagin,1,100,Shumagin Bank                 ,919,991,911,WESTERN GOA,SHELF,,,
+GOA,WGOA,Shumagin_gully,110,4245.316,639.47,Shumagin,101,200,Sanak Gully                   ,919,992,912,WESTERN GOA,GULLY,,,
+GOA,WGOA,Shumagin_shelf,111,8153.739,2081.775,Shumagin,101,200,Shumagin Outer Shelf          ,919,992,912,WESTERN GOA,SHELF,,,
+GOA,WGOA,Shumagin_gully,112,2278.242,348.565,Shumagin,101,200,West Shumagin Gully           ,919,992,912,WESTERN GOA,GULLY,,,
+GOA,WGOA,Shumagin_slope,210,2787.949,1878.436,Shumagin,201,300,Shumagin Slope                ,919,993,913,WESTERN GOA,SLOPE,,,
+GOA,WGOA,Shumagin_slope,310,2531.101,1778.137,Shumagin,301,500,Shumagin Slope                ,919,994,914,WESTERN GOA,SLOPE,,,
+GOA,WGOA,Shumagin_slope,410,2005.603,1847.096,Shumagin,501,700,Shumagin Slope                ,919,995,915,WESTERN GOA,SLOPE,,,
+GOA,WGOA,Shumagin_slope,510,1937.22,1932.281,Shumagin,701,1000,Shumagin Slope                ,919,996,916,WESTERN GOA,SLOPE,,,
+GOA,EGOA,Southeastern_shelf,50,6546.325,3271.581,Southeastern,1,100,Southeastern Shallows         ,959,991,951,EASTERN GOA,SHELF,,,
+GOA,EGOA,Southeastern_shelf,150,4196.382,808.483,Southeastern,101,200,Baranof-Chichagof Shelf       ,959,992,952,EASTERN GOA,SHELF,,,
+GOA,EGOA,Southeastern_shelf,151,6887.844,1094.22,Southeastern,101,200,Prince of Wales Shelf         ,959,992,952,EASTERN GOA,SHELF,,,
+GOA,EGOA,Southeastern_slope,250,1125.262,666.829,Southeastern,201,300,Baranof-Chichagof Slope       ,959,993,953,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Southeastern_slope,251,3927.061,1157.364,Southeastern,201,300,Prince of Wales Slope/Gullies ,959,993,953,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Southeastern_gully,350,2344.327,460.034,Southeastern,301,500,Southeastern Deep Gullies     ,959,994,954,EASTERN GOA,GULLY,,,
+GOA,EGOA,Southeastern_slope,351,772.66,1003.884,Southeastern,301,500,Southeastern Slope            ,959,994,954,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Southeastern_slope,450,1033.46,1052.722,Southeastern,501,700,Southeastern Slope            ,959,995,955,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Southeastern_slope,550,1206.344,1086.404,Southeastern,701,1000,Southeastern Slope            ,959,996,956,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Yakutat_shelf,40,9947.134,1722.954,Yakutat,1,100,Yakutat Shallows              ,949,991,941,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_shelf,41,6714.31,904.018,Yakutat,1,100,Middleton Shallows            ,949,991,941,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_shelf,140,7345.605,992.786,Yakutat,101,200,Middleton Shelf               ,949,992,942,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_shelf,141,5276.558,756.103,Yakutat,101,200,Yakataga Shelf                ,949,992,942,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_shelf,142,9031.904,426.338,Yakutat,101,200,Yakutat Flats                 ,949,992,942,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_shelf,143,7727.531,729.892,Yakutat,101,200,Fairweather Shelf             ,949,992,942,EASTERN GOA,SHELF,,,
+GOA,EGOA,Yakutat_gully,240,3042.703,857.375,Yakutat,201,300,Yakutat Gullies               ,949,993,943,EASTERN GOA,GULLY,,,
+GOA,EGOA,Yakutat_slope,241,2127.348,1421.962,Yakutat,201,300,Yakutat Slope                 ,949,993,943,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Yakutat_gully,340,1107.196,276.361,Yakutat,301,500,Yakutat Gullies               ,949,994,944,EASTERN GOA,GULLY,,,
+GOA,EGOA,Yakutat_slope,341,1520.577,1427.265,Yakutat,301,500,Yakutat Slope                 ,949,994,944,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Yakutat_slope,440,1469.256,1434.651,Yakutat,501,700,Yakutat Slope                 ,949,995,945,EASTERN GOA,SLOPE,,,
+GOA,EGOA,Yakutat_slope,540,1887.412,1410.367,Yakutat,701,1000,Yakutat Slope                 ,949,996,946,EASTERN GOA,SLOPE,,,
+WINTER,WINTER,BERINGSEA,518,12112,NA,BERINGSEA,NA,NA,Bering Sea Low Density,510,2,NA,NA,NA,,,
+WINTER,WINTER,BERINGSEA,519,7765,NA,BERINGSEA,NA,NA,Bering Sea High Density,510,1,NA,NA,NA,,,
+WINTER,WINTER,KODIAK,638,13639,NA,KODIAK,NA,NA,Kodiak Low Density,630,1,NA,NA,NA,,,
+WINTER,WINTER,SHUMAGIN,619,2631,NA,SHUMAGIN,NA,NA,Shumagin Islands High Density,610,1,NA,NA,NA,,,
+WINTER,WINTER,SHUMAGIN,618,10282,NA,SHUMAGIN,NA,NA,Shumagin Islands Low Density,610,2,NA,NA,NA,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
