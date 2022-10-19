@@ -1,11 +1,85 @@
-source("R/function_get_cpue_byLength.R")
-source("R/function_get_cpue_NoLength.R")
-source("R/function_get_biomass_stratum_Length.R")
-source("R/function_get_biomass_stratum_NoLength.R")
+#source("R/function_get_cpue_byLength.R")
+#source("R/function_get_cpue_NoLength.R")
+#source("R/function_get_biomass_stratum_Length.R")
+#source("R/function_get_biomass_stratum_NoLength.R")
 
 source("R/GAP_get_cpue.R")
 source("R/GAP_get_biomass_stratum.R")
 source("R/GAP_loadclean.R")
+
+
+#############################################################
+get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
+  
+  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup %>% mutate(prey_guild  = .data[[preylook_col]])
+  ppar          <- pred_params[[predator]] 
+  model_name    <- model    # renamed to avoid name confusion during lookup
+  predator_name <- predator # renamed to avoid name confusion during lookup  
+  
+  speciescode = as.integer(pred_params[[predator]]$race)
+  
+  sp_specimen <- specimen %>%
+    filter(species_code == speciescode)
+  
+  # KYA added
+  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  model_haul <- haul %>%
+    left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
+  
+  x <- model_haul %>%
+    left_join(cruisedat,
+              by = c("cruisejoin", "region")
+    ) %>%
+    filter(abundance_haul == "Y" &
+             model == model_name) %>% # KYA changed
+    left_join(sp_specimen, by = "hauljoin") %>%
+    dplyr::select(
+      species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
+      cruisejoin.x, vessel.x, haul.x, hauljoin,
+      stratum, stationid,
+      year,
+      start_latitude, start_longitude, gear_depth, bottom_depth,
+      gear_temperature, surface_temperature,
+      AreaSwept_km2, specimenid, length, sex, weight, age
+    ) %>%
+    filter(!is.na(specimenid) & length>0 & weight>1) %>%  #remove fish W=1 (logW=0) in which weight is too hard to measure and throws off regression 
+    dplyr::rename(
+      Lat = start_latitude,
+      Lon = start_longitude,
+      cruisejoin = cruisejoin.x,
+      vessel = vessel.x,
+      haul   = haul.x,
+      region = region.x,
+      Bottom_temp = gear_temperature,
+      Surface_temp = surface_temperature
+    ) %>%
+    mutate(predator = predator_name,
+           length_cm = length/10) %>% relocate(predator) 
+  
+  
+  if(!is.null(years)){
+    x <- x %>% filter(year %in% years)
+  }
+  
+  lw <- lm(log(weight) ~ log(length_cm), data=x)
+  lw_a <- lw$coef[[1]]
+  lw_b <- lw$coef[[2]]
+  
+  dat <- x %>%
+    mutate(lbin = as.character(cut(length_cm, ppar$LCLASS, right=F)),
+           log_lw_a = lw$coef[[1]], 
+           lw_b = lw$coef[[2]], 
+           log_diff = log(weight) - (lw_a + lw_b*log(length_cm)))
+  
+  if(all.data){
+    return(dat)
+  }
+  else{
+    return(list(lw_a=exp(lw_a),lw_b=lw_b))
+  }
+  
+}
 
 #############################################################
 

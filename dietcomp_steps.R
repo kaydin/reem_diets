@@ -19,12 +19,15 @@ preylook_col <- "ecopath_prey"
 stratbin_col <- "strat_groups"
 
 pred_params <- list(
-    "W.pollock"  = list(nodc="8791030701", race="21740", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
-    "P.cod"      = list(nodc="8791030401", race="21720", A_L=0.00411781, B_L=3.25325765, LCLASS=c(0,10,30,60,85,999) ),
-    "Arrowtooth" = list(nodc="8857040102", race="10110", A_L=0.00443866, B_L=3.19894001, LCLASS=c(0,10,30,50,999) ),
-    "P.halibut"  = list(nodc="8857041901", race="10120", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) )
+    "W.pollock"    = list(nodc="8791030701", race="21740", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
+    "P.cod"        = list(nodc="8791030401", race="21720", A_L=0.00411781, B_L=3.25325765, LCLASS=c(0,10,30,60,85,999) ),
+    "Arrowtooth"   = list(nodc="8857040102", race="10110", A_L=0.00443866, B_L=3.19894001, LCLASS=c(0,10,30,50,999) ),
+    "P.halibut"    = list(nodc="8857041901", race="10120", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) ),
+    "Atka.mackerel"= list(node="8827010501", race="21921", LCLASS=c(0,20,999)), 
+    "POP"          = list(node="8826010102", race="30060", LCLASS=c(0,20,999))
     )
 
+#################################
 strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", months=5:8)
 
 strat.cpue.bs <- get_cpue(predator="P.cod", model="EBS")
@@ -60,17 +63,31 @@ for(m in c("EBS","NBS","WGOA","EGOA","AI")){
 }
 
 
-
-
 source("R/REEM_fooddata_functions.R")
 test <- get_haul_means("AI")
 
 strat.bio.wgoa <- get_biomass_stratum(predator="P.cod", model="EBS")
-
-
 strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", months=5:8)
 
 
+# LW regressions
+source("R/REEM_fooddata_functions.R")
+
+test <- rbind(get_lw(predator="P.cod", model="AI",all.data=T),
+              get_lw(predator="W.pollock", model="AI",all.data=T),
+              get_lw(predator="Atka.mackerel", model="AI",all.data=T),
+              get_lw(predator="POP", model="AI",all.data=T)
+)
+
+LW <- test %>%
+  group_by(predator, year, stratum_bin, lbin) %>%
+  dplyr::summarize(
+    specimen_count = length(specimenid), # number of total abundance hauls
+    mean_log_diff = mean(log_diff, na.rm = TRUE),
+    sd_log_diff   = sd(log_diff,na.rm = TRUE),
+    .groups="keep")
+    
+    
 
 #################################################################################
 source("R/REEM_fooddata_functions.R")
