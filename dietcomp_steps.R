@@ -19,13 +19,36 @@ preylook_col <- "ecopath_prey"
 stratbin_col <- "strat_groups"
 
 pred_params <- list(
-    "W.pollock"    = list(nodc="8791030701", race="21740", A_L=0.00553096, B_L=3.044172,   LCLASS=c(0,10,25,40,55,999) ),
-    "P.cod"        = list(nodc="8791030401", race="21720", A_L=0.00411781, B_L=3.25325765, LCLASS=c(0,10,30,60,85,999) ),
-    "Arrowtooth"   = list(nodc="8857040102", race="10110", A_L=0.00443866, B_L=3.19894001, LCLASS=c(0,10,30,50,999) ),
-    "P.halibut"    = list(nodc="8857041901", race="10120", A_L=0.01093251, B_L=3.24,       LCLASS=c(0,10,50,70,999) ),
+    "W.pollock"    = list(nodc="8791030701", race="21740", LCLASS=c(0,10,25,40,55,999) ),
+    "P.cod"        = list(nodc="8791030401", race="21720", LCLASS=c(0,10,30,60,85,999) ),
+    "Arrowtooth"   = list(nodc="8857040102", race="10110", LCLASS=c(0,10,30,50,999) ),
+    "P.halibut"    = list(nodc="8857041901", race="10120", LCLASS=c(0,10,50,70,999) ),
     "Atka.mackerel"= list(node="8827010501", race="21921", LCLASS=c(0,20,999)), 
     "POP"          = list(node="8826010102", race="30060", LCLASS=c(0,20,999))
     )
+
+
+##############################################################################
+
+source("R/REEM_fooddata_functions.R")
+
+this.pred  <- "P.cod"
+this.model <- "EBS"
+
+testlen <- get_cpue_length(predator=this.pred, model=this.model)
+
+lwp     <- get_lw(predator=this.pred, model=this.model)
+pred_params
+
+test2 <- testlen %>% 
+  group_by(hauljoin, species_code) %>% 
+  mutate(NumSamp_SpHaul=sum(frequency)) %>% 
+  ungroup() %>%
+  mutate(PropLength_Num = frequency/NumSamp_SpHaul,
+         lw_a = lwp$lw_a, 
+         lw_b = lwp$lw_b,
+         body_wt = lw_a * (length/10.0)^lw_b)
+
 
 #################################
 strat.props.bs <- predprey_tables(predator="P.cod", model="EBS", months=5:8)
@@ -70,8 +93,13 @@ strat.bio.wgoa <- get_biomass_stratum(predator="P.cod", model="EBS")
 strat.props.goa <- predprey_tables(predator="Arrowtooth", model="WGOA", months=5:8)
 
 
+######################################################################################
+#Hudson Length-Weight example
+
 # LW regressions
 source("R/REEM_fooddata_functions.R")
+
+
 
 test <- rbind(get_lw(predator="P.cod", model="AI",all.data=T),
               get_lw(predator="W.pollock", model="AI",all.data=T),

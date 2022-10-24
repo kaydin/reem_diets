@@ -94,6 +94,25 @@ get_cpue <- function(racebase_tables = list(
   return(x)
 }
 
+
+get_cpue_length <- function(racebase_tables = list(
+                       cruisedat = cruisedat,
+                       haul = haul,
+                       catch = catch,
+                       length = length
+                     ),
+                     # KYA changed
+                       predator = "P.cod", #speciescode = 30060, # POP
+                       model    = "EBS"    #survey_area = "AI"
+                     ) {
+
+cdat <- get_cpue(racebase_tables = racebase_tables, predator=predator, model=model)
+
+dat <- cdat %>%
+       left_join(length, by = c("hauljoin", "species_code"))
+
+}
+
 # POP: 30060
 # walleye pollock: 21740
 # sablefish: 20510
@@ -102,7 +121,7 @@ get_cpue <- function(racebase_tables = list(
 # x <- get_cpue(survey_area = "GOA", speciescode = 30060)
 
 # profvis(get_cpue(survey_area = "GOA", speciescode = 30060))
-
+####################################################
 get_haul_means <- function(model){
   
   model_name <- model
@@ -129,7 +148,7 @@ get_haul_means <- function(model){
   
 }
 
-
+#########################################################################
 guild_out <- function(dat){
   x <- dat %>%
     left_join(species, by=c("species_code"="species_code")) %>%
@@ -154,7 +173,7 @@ guild_out <- function(dat){
   return(x)
 }
 
-
+##############################################################################
 get_cpue_all <- function(racebase_tables = list(
   cruisedat = cruisedat,
   haul = haul,
