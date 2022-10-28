@@ -110,8 +110,39 @@ diet_sum <- len_diet %>%
 #write.csv(diet_sum,"diet2new.csv",row.names=F)
 
 
+source("R/REEM_fooddata_functions.R")
 
 
+
+# alpha_wt_m
+prey_a <- 0.000267
+# beta_wt_m
+prey_b <- 3.097253
+
+preylen_freqs <- preylength_splits(pred_params[[this.pred]]$nodc, 
+                          c("6187010300", "6187010301"), # Opilio and Unid Chion
+                          pred_params[[this.pred]]$LCLASS, 
+                          c(0,30,95,999),
+                          model="EBS") %>%
+        mutate(prey_wt_g  =  prey_a * prey_size_mm^prey_b,
+               prey_sum_g = freq * prey_wt_g) %>%
+        group_by(model,year,pred_lbin_cm,prey_lbin_mm) %>%
+        summarize(nprey=sum(freq),
+                  wtprey=sum(prey_sum_g),
+                  .groups="keep") %>%
+        group_by(model,year,pred_lbin_cm) %>%
+        mutate(tot_n=sum(nprey),
+               tot_w=sum(wtprey)) %>%
+        ungroup() %>%
+        mutate(n_prop  = nprey/tot_n,
+               wt_prop = wtprey/tot_w)
+
+diet_prey <- diet_sum %>%
+  filter(prey_guild=="Opilio") %>%
+  left_join(preylen_freqs, by=c("model","year","lbin"="pred_lbin_cm")) %>%
+  mutate(cons_prey_tons_day = cons_tons_day * wt_prop)
+
+write.csv(diet_prey, "diet_prey.csv",row.names=F)
 
 test.new <- fc_T_eq2(seq(-1,30,0.2), bioen_pars[["P.cod.new"]])
 test.old <- fc_T_eq2(seq(-1,30,0.2), bioen_pars[["P.cod.old"]])

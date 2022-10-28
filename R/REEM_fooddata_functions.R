@@ -99,6 +99,31 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
 
 #############################################################
 
+preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, months=5:8){
+  
+  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])  
+  model_name    <- model    # renamed to avoid name confusion during lookup
+  raw_pp <- preylengths
+  this.pred_nodc <- pred_nodc
+  this.prey_nodc <- prey_nodc
+  
+  allpred_tab <- raw_pp %>%
+    # Add lookup tables
+    #left_join(preylookup, by=c("prey_nodc"="nodc_code")) %>%
+    left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
+    #left_join(yearblock, by=c("year"="year")) %>%
+    relocate(stratum_bin) %>% relocate(model) %>%
+    filter(model %in% model_name)   %>%
+    filter(pred_nodc %in% this.pred_nodc) %>%
+    filter(prey_nodc %in% this.prey_nodc) %>%
+    #filter(!is.na(year)) %>%
+    filter(month %in% months) %>%
+    select(1:freq) %>%
+    mutate(pred_lbin_cm = as.character(cut(pred_len, predcut, right=F)),
+           prey_lbin_mm = as.character(cut(prey_size_mm, preycut, right=F)))
+  
+}
+
 predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
 
   # Global variables
