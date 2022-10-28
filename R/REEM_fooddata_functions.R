@@ -6,7 +6,23 @@
 source("R/GAP_get_cpue.R")
 source("R/GAP_get_biomass_stratum.R")
 source("R/GAP_loadclean.R")
+#############################################################
+haul_summary <- function(model){
 
+  this.model=model
+  stratbins    <- strata_lookup %>% mutate(stratum_bin = .data[[stratbin_col]])
+  x <- haul %>% 
+    filter(abundance_haul == "Y") %>% 
+    mutate(year=floor(cruise/100)) %>% 
+    left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
+    filter(model==this.model) %>%
+    group_by(model,stratum_bin,year) %>% 
+    summarize(stations=length(hauljoin),
+              bottom_temp_mean  = mean(gear_temperature,na.rm=T),
+              surface_temp_mean = mean(surface_temperature,na.rm=T),
+              .groups="keep")
+  return(x)
+}
 
 #############################################################
 get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
@@ -83,7 +99,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
 
 #############################################################
 
-predprey_tables <- function(predator="P.cod", model="EBS", months=5:8){
+predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
 
   # Global variables
   stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
@@ -112,7 +128,7 @@ predprey_tables <- function(predator="P.cod", model="EBS", months=5:8){
     # Then add predator_specific data and make sure it's located before the prey_guild column
     #mutate(full = twt>0) %>% 
     mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
-    mutate(bodywt = ppar$A_L * pred_len^ppar$B_L) %>%
+    mutate(bodywt = ppar$lw_a * pred_len^ppar$lw_b) %>%
     relocate(any_of(c("lbin","bodywt")), .before=prey_nodc) %>%
     # Group by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
     group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year, prey_guild) %>%
@@ -165,10 +181,13 @@ predprey_tables <- function(predator="P.cod", model="EBS", months=5:8){
   #  group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, prey_guild) %>%
   #  tally(wt=twt) %>%
   #  spread(prey_guild, n, fill=0) #%>% select(-"<NA>") <NA> showing up means a prey code is missing?
-    
-  return(list(predprey_table = data.frame(pred_tab),
+  if (all.data){  
+    return(list(predprey_table = data.frame(pred_tab),
               pred_totals    = data.frame(pred_tots), 
               strat_dietprop = data.frame(strat_dietprop)))
+  } else {
+    return(data.frame(strat_dietprop))
+  }
 
 }
 
@@ -178,7 +197,21 @@ read.clean.csv <- function(filename){
   return(read.csv(filename) %>% janitor::clean_names())
 }
 
+##################################################################
 
+fc_T_eq2<-function(TT, cpars){
+  CTM_CT0        <- cpars$C_TM - cpars$C_T0    
+  CTMoverCTM_CT0 <- cpars$C_TM / CTM_CT0
+  Z = log(cpars$C_Q) * CTM_CT0
+  Y = log(cpars$C_Q) * (CTM_CT0 + 2.0)  			 
+  X_C <- ( Z*Z * (1.0 + ( (1.0 + 40.0/Y) ** 0.5)) ** 2.0)/400.0 
+  Vc       <- CTMoverCTM_CT0 - TT / CTM_CT0
+  Fc_T     <- (Vc ^ X_C ) * exp(X_C * (1.0 - Vc))
+
+  return(Fc_T)
+}
+  
+  
 ##################################################################
 # Load and name-clean REEM diet files.  This loads 
 # region must be one of 'BS', 'AI', or 'GOA',.

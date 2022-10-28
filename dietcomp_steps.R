@@ -29,25 +29,100 @@ pred_params <- list(
 
 
 ##############################################################################
+## CODY ANALYSIS 2022
 
 source("R/REEM_fooddata_functions.R")
 
 this.pred  <- "P.cod"
 this.model <- "EBS"
 
+# Get biomass/cpue
+#test    <- get_cpue(predator=this.pred, model=this.model)
 testlen <- get_cpue_length(predator=this.pred, model=this.model)
+lwp     <- get_lw(predator=this.pred, model="EGOA",all.data=F)
 
-lwp     <- get_lw(predator=this.pred, model=this.model)
-pred_params
+pred_params[[this.pred]]$lw_a = lwp$lw_a
+pred_params[[this.pred]]$lw_b = lwp$lw_b
 
-test2 <- testlen %>% 
-  group_by(hauljoin, species_code) %>% 
-  mutate(NumSamp_SpHaul=sum(frequency)) %>% 
-  ungroup() %>%
-  mutate(PropLength_Num = frequency/NumSamp_SpHaul,
-         lw_a = lwp$lw_a, 
-         lw_b = lwp$lw_b,
-         body_wt = lw_a * (length/10.0)^lw_b)
+wtlens <- testlen %>% 
+  mutate(
+    lw_a = pred_params[[this.pred]]$lw_a, 
+    lw_b = pred_params[[this.pred]]$lw_b,
+    body_wt = lw_a * (length/10.0)^lw_b,
+    lbin = as.character(cut(length/10.0, pred_params[[this.pred]]$LCLASS, right=F)),
+    WgtLBin_CPUE_kg_km2 = NumLBin_CPUE_km2*body_wt/1000)
+
+bioen_pars<-list(
+  "P.cod.new"= list(CA=0.03468844, CB= -0.1222201, C_TM=25.90149, C_T0=10.9575, C_Q=3.078766),
+  "P.cod.old"= list(CA=0.041,      CB= -0.122,     C_TM=21,       C_T0=13.7,    C_Q=2.41)
+)
+
+haulmeans <- haul_summary(this.model)
+
+wthaul <- wtlens %>%
+  left_join(haulmeans,by=c("model","stratum_bin","year")) %>%
+  mutate(bottom_temp_clean = ifelse(is.na(bottom_temp),bottom_temp_mean,bottom_temp),
+         surface_temp_clean = ifelse(is.na(surface_temp),surface_temp_mean,surface_temp))
+
+
+bpar = bioen_pars[["P.cod.old"]]
+conslens <- wthaul %>%
+  mutate(cmax_g            = bpar$CA * body_wt^(1+bpar$CB),
+         f_t               = fc_T_eq2(bottom_temp_mean, bpar),
+         cons_kg_km2       = NumLBin_CPUE_km2 * cmax_g * f_t / 1000)
+
+
+# Sum individual body lengths up to diet length categories
+haul_sum <- conslens %>%
+  group_by(year,model,stratum_bin,species_name, hauljoin, 
+           stationid, stratum, lat, lon, bottom_temp, surface_temp, 
+           lbin) %>%
+  summarize(tot_wtcpue_t_km2  = mean(wgtcpue)/1000,
+            tot_wlcpue_t_km2 = sum(WgtLBin_CPUE_kg_km2)/1000,
+            f_t              = mean(f_t),
+            tot_cons_t_km2   = sum(cons_kg_km2)/1000,
+            .groups="keep")
+
+
+diet <- predprey_tables(predator=this.pred, model=this.model, months=5:8)
+
+len_diet <- haul_sum %>%
+  left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
+  replace_na(list(
+    prey_guild="MISSING",
+    dietprop_wt=1.0,
+    dietprop_sci=1.0)) %>%
+  mutate(preycons_sci_t_km2 = tot_cons_t_km2 * dietprop_sci)
+
+strat_areas <- strata_lookup %>%
+  select(model,strat_groups,area) %>%
+  rename(stratum_bin=strat_groups) %>%
+  group_by(model, stratum_bin) %>%
+  summarize(area=sum(area),.groups="keep")
+
+diet_sum <- len_diet %>%
+  group_by(year,model,stratum_bin,species_name,lbin,prey_guild) %>%
+  summarize(strat_preycons_t_km2 = mean(preycons_sci_t_km2),
+    .groups="keep") %>%
+  left_join(strat_areas,by=c("model","stratum_bin")) %>%
+  mutate(cons_tons_day = strat_preycons_t_km2 * area)
+
+#write.csv(diet_sum,"diet2new.csv",row.names=F)
+
+
+
+
+
+test.new <- fc_T_eq2(seq(-1,30,0.2), bioen_pars[["P.cod.new"]])
+test.old <- fc_T_eq2(seq(-1,30,0.2), bioen_pars[["P.cod.old"]])
+
+#end cody query
+######################################
+######################################
+
+
+
+
 
 
 #################################
@@ -156,8 +231,8 @@ biomass_all <- get_cpue_noLength_all_REEM(survey_area = "BS")
 htest <- haul %>% 
   filter(abundance_haul == "Y") %>% 
   mutate(year=floor(cruise/100)) %>% 
-  left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
-  group_by(region,stratum_bin,year) %>% 
+  left_join(strata_lookup, by=c("region"="survey", "stratum"="stratum")) %>%
+  group_by(region,strat_groups,year) %>% 
   tally()
 
 

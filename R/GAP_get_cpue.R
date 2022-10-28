@@ -52,7 +52,7 @@ get_cpue <- function(racebase_tables = list(
     )) %>%
     dplyr::select(
       species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
-      cruisejoin.x, vessel.x, haul.x, hauljoin,
+      cruisejoin.x, vessel.x, haul.x, cruise.x, hauljoin,
       haul_type, performance, duration,
       stratum, stationid,
       distance_fished, weight, year,
@@ -62,13 +62,13 @@ get_cpue <- function(racebase_tables = list(
       AreaSwept_km2
     ) %>%
     dplyr::rename(
-      Lat = start_latitude,
-      Lon = start_longitude,
+      lat = start_latitude,
+      lon = start_longitude,
       catch_kg = weight,
-      Vessel = vessel.x,
+      vessel = vessel.x,
       region = region.x,
-      Bottom_temp = gear_temperature,
-      Surface_temp = surface_temperature
+      bottom_temp = gear_temperature,
+      surface_temp = surface_temperature
     )
   # %>%
   # filter(year == survey_yr)
@@ -82,19 +82,20 @@ get_cpue <- function(racebase_tables = list(
     ) %>%
     replace_na(list(species_code = speciescode)) %>%
     select(
-      year, model, stratum_bin,species_name, survey, Vessel, haul.x, hauljoin,
+      year, model, stratum_bin,species_name, survey, vessel, haul.x, cruise.x, hauljoin,
       stationid,
-      stratum, distance_fished,
+      stratum, distance_fished, lat, lon, bottom_temp, surface_temp,
       species_code, catch_kg, number_fish,
       AreaSwept_km2, wgtcpue, numcpue # wgtcpue is kg per km2
     ) %>%
-    rename(haul = haul.x) %>%
+    rename(haul = haul.x,
+           cruise = cruise.x) %>%
     arrange(year)
 
   return(x)
 }
 
-
+##################################################################################
 get_cpue_length <- function(racebase_tables = list(
                        cruisedat = cruisedat,
                        haul = haul,
@@ -106,11 +107,30 @@ get_cpue_length <- function(racebase_tables = list(
                        model    = "EBS"    #survey_area = "AI"
                      ) {
 
-cdat <- get_cpue(racebase_tables = racebase_tables, predator=predator, model=model)
+  cdat <- get_cpue(racebase_tables = racebase_tables, predator=predator, model=model)
 
-dat <- cdat %>%
-       left_join(length, by = c("hauljoin", "species_code"))
-
+  dat <- cdat %>%
+          left_join(length, by = c("hauljoin", "species_code")) %>%
+          select(
+            year, model, stratum_bin, species_name, survey,
+            vessel.x, haul.x, cruise.x,
+            hauljoin, stationid, stratum, distance_fished,
+            lat, lon, bottom_temp, surface_temp,
+            species_code, catch_kg, number_fish, AreaSwept_km2, wgtcpue, numcpue,
+            cruisejoin, catchjoin,       
+            length, frequency, sex
+          ) %>%
+          replace_na(list(length = 0, frequency=1)) %>%
+          rename(haul = haul.x,
+                 vessel = vessel.x,
+                 cruise = cruise.x)
+    
+  x <- dat %>%
+      group_by(hauljoin, species_code) %>% 
+      mutate(NumSamp_SpHaul=sum(frequency)) %>% 
+      ungroup() %>%
+      mutate(PropLength_Num = frequency/NumSamp_SpHaul,
+             NumLBin_CPUE_km2 = PropLength_Num*numcpue)
 }
 
 # POP: 30060
