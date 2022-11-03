@@ -5,7 +5,7 @@
 
 source("R/GAP_get_cpue.R")
 source("R/GAP_get_biomass_stratum.R")
-source("R/GAP_loadclean.R")
+#source("R/GAP_loadclean.R")
 #############################################################
 haul_summary <- function(model){
 
@@ -240,9 +240,7 @@ fc_T_eq2<-function(TT, cpars){
 ##################################################################
 # Load and name-clean REEM diet files.  This loads 
 # region must be one of 'BS', 'AI', or 'GOA',.
-REEM.loadclean.diets<- function(data_path = "data/local_reem_data",
-                                strata_lookup_file    = "lookups/combined_BTS_strata.csv",
-                                preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv"){
+REEM.loadclean.diets<- function(data_path = "data/local_reem_data"){
   
   tname <- "predprey"
   fname <- paste(data_path, paste("predprey.csv",sep=""), sep="/")
@@ -264,6 +262,12 @@ REEM.loadclean.diets<- function(data_path = "data/local_reem_data",
   }
   assign(tname, value = b, envir = .GlobalEnv)    
   #return(list(PP_data=PP_data,PL_data=PL_data))
+  
+}
+
+##########################################################################
+REEM.loadclean.lookups<-function(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
+                                 preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv"){
   
   assign("strata_lookup",    value = read.clean.csv(strata_lookup_file),    envir = .GlobalEnv)  
   assign("preynames_lookup", value = read.clean.csv(preynames_lookup_file), envir = .GlobalEnv)    
@@ -297,3 +301,38 @@ REEM.loadclean.diets.old<- function(region=REGION, path="data/local_reem_data"){
 }
 
 ##################################################################
+##################################################################
+#Load and name-clean racebase files
+REEM.loadclean.RACE <- function(path="data/local_racebase"){
+
+# Read in all csv files in given directory into tables, cleaning variable names
+  a <- list.files(path, pattern = "\\.csv")
+  for (i in 1:length(a)) {
+    tname <- gsub(pattern = "\\.csv", replacement = "", x = a[i])
+    fname <- paste(path, a[i], sep="/")
+    cat("loading and cleaning", tname, "from", fname, "\n"); flush.console()
+    b <- read.csv(file = fname)
+    b <- janitor::clean_names(b)
+    if (names(b)[1] %in% "x1") {
+      b$x1 <- NULL
+    }
+    # KYA Note - assign is a global assigment (to environment)
+    assign(tname, value = b, envir = .GlobalEnv)
+  }
+  
+# Additions from GAP script. note <<- assignment to export variables to global environment.
+  
+    # Add area swept in km2 to hauls
+    haul <- haul %>% 
+      dplyr::mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
+    haul <<- haul
+    
+    # Tidy cruise date format
+    cruisedat <- cruise %>% 
+      dplyr::select(survey_name, region, cruisejoin, agency_name) 
+    cruisedat$start_date <- as.Date(cruise$start_date)
+    cruisedat$year <- lubridate::year(cruisedat$start_date)
+    cruisedat <<- cruisedat
+
+}
+
