@@ -36,7 +36,7 @@ get_biomass_stratum <- function(racebase_tables = list(
     predator_name <- predator # renamed to avoid name confusion during lookup
   
   stratbins    <- strata_lookup %>% 
-                  mutate(stratum_bin = .data[[stratbin_col]]) %>%
+                  #mutate(stratum_bin = .data[[stratbin_col]]) %>%
                   filter(model==model_name) 
   #stratbins <- strata_lookup %>% filter(model==model_name)  
   At <- sum(stratbins$area)

@@ -14,10 +14,9 @@ REEM.loadclean.RACE(path = "data/local_racebase")
 REEM.loadclean.diets(data_path = "data/local_reem_data")
 
 REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
-                       preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv")
-
-preylook_col <- "ecopath_prey"    
-stratbin_col <- "strat_groups"
+                       stratum_bin_column    = "strat_groups",
+                       preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
+                       prey_guild_column     = "ecopath_prey")
 
 pred_params <- list(
     "P.cod"        = list(nodc="8791030401", race="21720", LCLASS=c(0,10,30,60,85,999) ),
@@ -151,4 +150,7 @@ write.csv(diet_prey, "diet_prey.csv",row.names=F)
 #end cody query
 ######################################
 ######################################
+
+
+
 

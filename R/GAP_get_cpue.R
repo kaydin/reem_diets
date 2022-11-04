@@ -34,7 +34,7 @@ get_cpue <- function(racebase_tables = list(
     filter(species_code == speciescode)
 
   # KYA added
-    stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+    stratbins    <- strata_lookup  #  %>% mutate(stratum_bin = .data[[stratbin_col]])
     model_haul <- haul %>%
        left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
     
@@ -145,7 +145,7 @@ get_cpue_length <- function(racebase_tables = list(
 get_haul_means <- function(model){
   
   model_name <- model
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  stratbins    <- strata_lookup  #  %>% mutate(stratum_bin = .data[[stratbin_col]])
   model_haul <- haul %>%
     left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
   
@@ -209,7 +209,7 @@ get_cpue_all <- function(racebase_tables = list(
   sp_catch <- catch #%>% filter(species_code == speciescode)
   
   # KYA added
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  stratbins    <- strata_lookup   # %>% mutate(stratum_bin = .data[[stratbin_col]])
   model_haul <- haul %>%
     left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
   

@@ -10,7 +10,7 @@ source("R/GAP_get_biomass_stratum.R")
 haul_summary <- function(model){
 
   this.model=model
-  stratbins    <- strata_lookup %>% mutate(stratum_bin = .data[[stratbin_col]])
+  stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
   x <- haul %>% 
     filter(abundance_haul == "Y") %>% 
     mutate(year=floor(cruise/100)) %>% 
@@ -27,8 +27,8 @@ haul_summary <- function(model){
 #############################################################
 get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
   
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
-  preylookup    <- preynames_lookup %>% mutate(prey_guild  = .data[[preylook_col]])
+  stratbins    <- strata_lookup     #%>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup #%>% mutate(prey_guild  = .data[[preylook_col]])
   ppar          <- pred_params[[predator]] 
   model_name    <- model    # renamed to avoid name confusion during lookup
   predator_name <- predator # renamed to avoid name confusion during lookup  
@@ -39,7 +39,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
     filter(species_code == speciescode)
   
   # KYA added
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
+  #stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
   model_haul <- haul %>%
     left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
   
@@ -101,7 +101,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
 
 preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, months=5:8){
   
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])  
+  stratbins    <- strata_lookup    #%>% mutate(stratum_bin = .data[[stratbin_col]])  
   model_name    <- model    # renamed to avoid name confusion during lookup
   raw_pp <- preylengths
   this.pred_nodc <- pred_nodc
@@ -127,8 +127,8 @@ preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, mon
 predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
 
   # Global variables
-  stratbins    <- strata_lookup    %>% mutate(stratum_bin = .data[[stratbin_col]])
-  preylookup    <- preynames_lookup %>% mutate(prey_guild  = .data[[preylook_col]])
+  stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup # %>% mutate(prey_guild  = .data[[preylook_col]])
   #yearblock    <- years_lookup
   ppar          <- pred_params[[predator]]
   raw_pp        <- predprey
@@ -267,10 +267,15 @@ REEM.loadclean.diets<- function(data_path = "data/local_reem_data"){
 
 ##########################################################################
 REEM.loadclean.lookups<-function(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
-                                 preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv"){
+                                 stratum_bin_column    = "strat_groups",
+                                 preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
+                                 prey_guild_column     = "ecopath_prey"){
   
-  assign("strata_lookup",    value = read.clean.csv(strata_lookup_file),    envir = .GlobalEnv)  
-  assign("preynames_lookup", value = read.clean.csv(preynames_lookup_file), envir = .GlobalEnv)    
+  strata_lookup    <<- read.clean.csv(strata_lookup_file)    %>% mutate(stratum_bin = .data[[stratum_bin_column]])
+  preynames_lookup <<- read.clean.csv(preynames_lookup_file) %>% mutate(prey_guild  = .data[[prey_guild_column]])
+  
+  #assign("strata_lookup",    value = strata_,    envir = .GlobalEnv)  
+  #assign("preynames_lookup", value = read.clean.csv(preynames_lookup_file), envir = .GlobalEnv)    
 }
 
 ##################################################################
