@@ -9,14 +9,18 @@ library("lubridate")
 
 source("R/REEM_fooddata_functions.R")
 
+# Load Race data and perform some preliminary cleanups/calculations
 REEM.loadclean.RACE(path = "data/local_racebase")
 
-REEM.loadclean.diets(data_path = "data/local_reem_data",
-                     strata_lookup_file    = "lookups/combined_BTS_strata.csv",
-                     preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv")
+# Load diet data and perform some preliminary cleanups/calculations
+REEM.loadclean.diets(data_path = "data/local_reem_data")
 
-preylook_col <- "ecopath_prey"    
-stratbin_col <- "strat_groups"
+# Load lookup tables and create summary lookups - re-run this line 
+# if lookups change.
+REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
+                       stratum_bin_column    = "strat_groups",
+                       preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
+                       prey_guild_column     = "ecopath_prey")
 
 pred_params <- list(
     "P.cod"        = list(nodc="8791030401", race="21720", LCLASS=c(0,10,30,60,85,999) ) #,
@@ -31,39 +35,21 @@ source("R/REEM_fooddata_functions.R")
 this.pred  <- "P.cod"
 this.model <- "EBS"
 
-# Get biomass/cpue
-#test    <- get_cpue(predator=this.pred, model=this.model)
-testlen <- get_cpue_length(predator=this.pred, model=this.model)
-lwp     <- get_lw(predator=this.pred, model="EGOA",all.data=F)
+# set up len-weight regression parameters and consumption weighting
+lwp <- get_lw(predator=this.pred, model=this.model, years=1982:2021, all.data=F) 
+  pred_params[[this.pred]]$lw_a  = lwp$lw_a
+  pred_params[[this.pred]]$lw_b  = lwp$lw_b
 
-pred_params[[this.pred]]$lw_a = lwp$lw_a
-pred_params[[this.pred]]$lw_b = lwp$lw_b
+# Consumption scaling (temperature-dependent) currently uses Wisconsin
+# model eq 2 parameters for Cmax (per day) and temperature corrections.  
+# To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
+# (or Ecopath annual QB/365) and CB=0, C_TM=100, C_T0=-100, C_Q=1.000000001
+  pred_params[[this.pred]]$bioen = list(ref="P.cod.old", CA=0.041,     CB= -0.122,  C_TM=21,  C_T0=13.7,  C_Q=2.41)
+  pred_params[[this.pred]]$bioen = list(ref="cod.qb"   , CA=1.39/365,  CB=0,  C_TM=100,  C_T0=-100,  C_Q=1.000000001)
 
-wtlens <- testlen %>% 
-  mutate(
-    lw_a = pred_params[[this.pred]]$lw_a, 
-    lw_b = pred_params[[this.pred]]$lw_b,
-    body_wt = lw_a * (length/10.0)^lw_b,
-    lbin = as.character(cut(length/10.0, pred_params[[this.pred]]$LCLASS, right=F)),
-    WgtLBin_CPUE_kg_km2 = NumLBin_CPUE_km2*body_wt/1000)
+pred_params[[this.pred]]    
 
-bioen_pars<-list(
-  "P.cod.old"= list(CA=0.041,  CB= -0.122,  C_TM=21,  C_T0=13.7,  C_Q=2.41)
-)
-
-haulmeans <- haul_summary(this.model)
-
-wthaul <- wtlens %>%
-  left_join(haulmeans,by=c("model","stratum_bin","year")) %>%
-  mutate(bottom_temp_clean = ifelse(is.na(bottom_temp),bottom_temp_mean,bottom_temp),
-         surface_temp_clean = ifelse(is.na(surface_temp),surface_temp_mean,surface_temp))
-
-
-bpar = bioen_pars[["P.cod.old"]]
-conslens <- wthaul %>%
-  mutate(cmax_g            = bpar$CA * body_wt^(1+bpar$CB),
-         f_t               = fc_T_eq2(bottom_temp_mean, bpar),
-         cons_kg_km2       = NumLBin_CPUE_km2 * cmax_g * f_t / 1000)
+conslens <- get_cpue_length_cons(predator=this.pred, model=this.model)
 
 
 # Sum individual body lengths up to diet length categories
@@ -82,22 +68,12 @@ diet <- predprey_tables(predator=this.pred, model=this.model, months=5:8)
 
 len_diet <- haul_sum %>%
   left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
-  replace_na(list(
-    prey_guild="MISSING",
-    dietprop_wt=1.0,
-    dietprop_sci=1.0)) %>%
+  replace_na(list(prey_guild="MISSING", dietprop_wt=1.0,dietprop_sci=1.0)) %>%
   mutate(preycons_sci_t_km2 = tot_cons_t_km2 * dietprop_sci)
-
-strat_areas <- strata_lookup %>%
-  select(model,strat_groups,area) %>%
-  rename(stratum_bin=strat_groups) %>%
-  group_by(model, stratum_bin) %>%
-  summarize(area=sum(area),.groups="keep")
 
 diet_sum <- len_diet %>%
   group_by(year,model,stratum_bin,species_name,lbin,prey_guild) %>%
-  summarize(strat_preycons_t_km2 = mean(preycons_sci_t_km2),
-    .groups="keep") %>%
+  summarize(strat_preycons_t_km2 = mean(preycons_sci_t_km2), .groups="keep") %>%
   left_join(strat_areas,by=c("model","stratum_bin")) %>%
   mutate(cons_tons_day = strat_preycons_t_km2 * area)
 

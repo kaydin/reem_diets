@@ -5,8 +5,6 @@ library("tidyverse")
 library("janitor") 
 library("lubridate")
 
-####################################################################
-
 source("R/REEM_fooddata_functions.R")
 
 REEM.loadclean.RACE(path = "data/local_racebase")
@@ -17,6 +15,8 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
                        stratum_bin_column    = "strat_groups",
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
                        prey_guild_column     = "ecopath_prey")
+
+####################################################################
 
 pred_params <- list(
     "P.cod"        = list(nodc="8791030401", race="21720", LCLASS=c(0,10,30,60,85,999) ),
@@ -30,14 +30,6 @@ bioen_pars<-list(
 
 ##############################################################################
 ## CODY ANALYSIS 2022
-
-tt <- function(...){
-  args <- list(...)
-  a <- args$b
-  return(a)
-}
-
-tt(b=3)
 
 source("R/REEM_fooddata_functions.R")
 

@@ -96,7 +96,7 @@ get_cpue <- function(racebase_tables = list(
 }
 
 ##################################################################################
-get_cpue_length <- function(racebase_tables = list(
+get_cpue_length_cons <- function(racebase_tables = list(
                        cruisedat = cruisedat,
                        haul = haul,
                        catch = catch,
@@ -107,8 +107,10 @@ get_cpue_length <- function(racebase_tables = list(
                        model    = "EBS"    #survey_area = "AI"
                      ) {
 
+# Get total unlengthed CPUE - this step also filters predator and ecosystem
   cdat <- get_cpue(racebase_tables = racebase_tables, predator=predator, model=model)
 
+# Add length data from length table  
   dat <- cdat %>%
           left_join(length, by = c("hauljoin", "species_code")) %>%
           select(
@@ -124,23 +126,37 @@ get_cpue_length <- function(racebase_tables = list(
           rename(haul = haul.x,
                  vessel = vessel.x,
                  cruise = cruise.x)
-    
+
+# Add L-W regressions and scale to cpue      
   x <- dat %>%
       group_by(hauljoin, species_code) %>% 
       mutate(NumSamp_SpHaul=sum(frequency)) %>% 
       ungroup() %>%
       mutate(PropLength_Num = frequency/NumSamp_SpHaul,
-             NumLBin_CPUE_km2 = PropLength_Num*numcpue)
+             NumLBin_CPUE_km2 = PropLength_Num*numcpue,
+             lw_a = pred_params[[predator]]$lw_a, 
+             lw_b = pred_params[[predator]]$lw_b,
+             body_wt = lw_a * (length/10.0)^lw_b,
+             lbin = as.character(cut(length/10.0, pred_params[[this.pred]]$LCLASS, right=F)),
+             WgtLBin_CPUE_kg_km2 = NumLBin_CPUE_km2*body_wt/1000
+    )
+  
+# add clean (mean by stratum) temperatures  
+  haulmeans <- haul_summary(this.model)
+  res <- x %>%
+    left_join(haulmeans,by=c("model","stratum_bin","year")) %>%
+    mutate(bottom_temp_clean = ifelse(is.na(bottom_temp),bottom_temp_mean,bottom_temp),
+           surface_temp_clean = ifelse(is.na(surface_temp),surface_temp_mean,surface_temp))
+  
+  bpar = pred_params[[predator]]$bioen
+  conslens <- res %>%
+    mutate(cmax_g            = bpar$CA * body_wt^(1+bpar$CB),
+           f_t               = fc_T_eq2(bottom_temp_mean, bpar),
+           cons_kg_km2       = NumLBin_CPUE_km2 * cmax_g * f_t / 1000)
+  
 }
 
-# POP: 30060
-# walleye pollock: 21740
-# sablefish: 20510
 
-# RACEBASE equivalent table: CPUE
-# x <- get_cpue(survey_area = "GOA", speciescode = 30060)
-
-# profvis(get_cpue(survey_area = "GOA", speciescode = 30060))
 ####################################################
 get_haul_means <- function(model){
   

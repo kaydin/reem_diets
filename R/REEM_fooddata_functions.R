@@ -79,20 +79,20 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
   }
   
   lw <- lm(log(weight) ~ log(length_cm), data=x)
-  lw_a <- lw$coef[[1]]
+  loglw_a <- lw$coef[[1]]
   lw_b <- lw$coef[[2]]
   
   dat <- x %>%
     mutate(lbin = as.character(cut(length_cm, ppar$LCLASS, right=F)),
            log_lw_a = lw$coef[[1]], 
            lw_b = lw$coef[[2]], 
-           log_diff = log(weight) - (lw_a + lw_b*log(length_cm)))
+           log_diff = log(weight) - (loglw_a + lw_b*log(length_cm)))
   
   if(all.data){
     return(dat)
   }
   else{
-    return(list(lw_a=exp(lw_a),lw_b=lw_b))
+    return(list(lw_a=exp(loglw_a),lw_b=lw_b))
   }
   
 }
@@ -123,6 +123,55 @@ preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, mon
            prey_lbin_mm = as.character(cut(prey_size_mm, preycut, right=F)))
   
 }
+#################################################################
+logit_simple <- function(predator="P.cod", model="EBS", months=5:8){
+
+  # Global variables
+  stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup # %>% mutate(prey_guild  = .data[[preylook_col]])
+  #yearblock    <- years_lookup
+  ppar          <- pred_params[[predator]]
+  raw_pp        <- predprey
+  model_name    <- model    # renamed to avoid name confusion during lookup
+  predator_name <- predator # renamed to avoid name confusion during lookup
+
+  # Operations done on all predators before selection  
+  allpred_tab <- raw_pp %>%
+    # Add lookup tables
+    left_join(preylookup, by=c("prey_nodc"="nodc_code")) %>%
+    left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
+    #left_join(yearblock, by=c("year"="year")) %>%
+    relocate(stratum_bin) %>% relocate(model) 
+  
+  # Select predator (and apply other filters like model and months), apply predator-specific values
+  pred_tab <- allpred_tab %>%
+    filter(model %in% model_name)   %>%
+    filter(pred_nodc %in% ppar$nodc)  %>%
+    #filter(!is.na(year)) %>%
+    filter(month %in% months) %>%
+    mutate(predator = predator_name) %>% relocate(predator) %>%
+    # Then add predator_specific data and make sure it's located before the prey_guild column
+    #mutate(full = twt>0) %>% 
+    mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
+    #mutate(bodywt = ppar$lw_a * pred_len^ppar$lw_b) %>%
+    relocate(any_of(c("lbin")), .before=prey_nodc) %>%
+    # Group by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
+    group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year, prey_guild) %>%
+    summarize(prey_wt=sum(twt), .groups="keep")
+  
+  pred_counts <- pred_tab %>%
+    #select(predator,model,stratum_bin,year,lbin,prey_guild,prey_wt) %>%  
+    #filter(prey_wt>0) %>%
+    group_by(predator,model,stratum_bin,year,lbin) %>%
+    mutate(tot_n=length(predator)) %>%
+    ungroup() %>%
+    group_by(predator,model,stratum_bin,year,lbin, tot_n, prey_guild) %>%
+    summarize(prey_n=length(prey_guild),.groups="keep") %>%
+    mutate(logit_mean=)
+    
+}
+
+################################################################################
 
 predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
 
@@ -273,6 +322,10 @@ REEM.loadclean.lookups<-function(strata_lookup_file    = "lookups/combined_BTS_s
   
   strata_lookup    <<- read.clean.csv(strata_lookup_file)    %>% mutate(stratum_bin = .data[[stratum_bin_column]])
   preynames_lookup <<- read.clean.csv(preynames_lookup_file) %>% mutate(prey_guild  = .data[[prey_guild_column]])
+  strat_areas <<- strata_lookup %>%
+    select(model,stratum_bin,area) %>%
+    group_by(model, stratum_bin) %>%
+    summarize(area=sum(area),.groups="keep")
   
   #assign("strata_lookup",    value = strata_,    envir = .GlobalEnv)  
   #assign("preynames_lookup", value = read.clean.csv(preynames_lookup_file), envir = .GlobalEnv)    
