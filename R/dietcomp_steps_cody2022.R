@@ -44,6 +44,8 @@ lwp <- get_lw(predator=this.pred, model=this.model, years=1982:2021, all.data=F)
 # model eq 2 parameters for Cmax (per day) and temperature corrections.  
 # To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
 # (or Ecopath annual QB/365) and CB=0, C_TM=100, C_T0=-100, C_Q=1.000000001
+# If you're using this for diet proportions not total consumption, can simply
+# use 1.0 for CA.
   pred_params[[this.pred]]$bioen = list(ref="P.cod.old", CA=0.041,     CB= -0.122,  C_TM=21,  C_T0=13.7,  C_Q=2.41)
   pred_params[[this.pred]]$bioen = list(ref="cod.qb"   , CA=1.39/365,  CB=0,  C_TM=100,  C_T0=-100,  C_Q=1.000000001)
 
