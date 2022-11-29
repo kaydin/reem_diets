@@ -6,6 +6,32 @@
 source("R/GAP_get_cpue.R")
 source("R/GAP_get_biomass_stratum.R")
 #source("R/GAP_loadclean.R")
+
+#############################################################\
+get_stratum_length_cons <- function(
+  racebase_tables = list(
+  cruisedat = cruisedat,
+  haul = haul,
+  catch = catch,
+  length = length),
+  predator = "P.cod", #speciescode = 30060, # POP
+  model    = "EBS"    #survey_area = "AI"
+){
+  
+  conslens <- get_cpue_length_cons(predator=predator, model=model)
+  
+  haul_sum <- conslens %>%
+    group_by(year,model,stratum_bin,species_name, hauljoin, 
+             stationid, stratum, lat, lon, bottom_temp, surface_temp, 
+             lbin) %>%
+    summarize(tot_wtcpue_t_km2  = mean(wgtcpue)/1000,
+              tot_wlcpue_t_km2 = sum(WgtLBin_CPUE_kg_km2)/1000,
+              f_t              = mean(f_t),
+              tot_cons_t_km2   = sum(cons_kg_km2)/1000,
+              .groups="keep")
+}
+
+
 #############################################################
 haul_summary <- function(model){
 
@@ -172,7 +198,24 @@ logit_simple <- function(predator="P.cod", model="EBS", months=5:8){
 }
 
 ################################################################################
+add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod", model="EBS", months=5:8){
+  
+  diet <- predprey_tables(predator=predator, model=model, months=months)
+  
+  len_diet <- strata_length_cons %>%
+    left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
+    replace_na(list(prey_guild="MISSING", dietprop_wt=1.0,dietprop_sci=1.0)) %>%
+    mutate(preycons_sci_t_km2 = tot_cons_t_km2 * dietprop_sci)
+  
+  diet_sum <- len_diet %>%
+    group_by(year,model,stratum_bin,species_name,lbin,prey_guild) %>%
+    summarize(strat_preycons_t_km2 = mean(preycons_sci_t_km2), .groups="keep") %>%
+    left_join(strat_areas,by=c("model","stratum_bin")) %>%
+    mutate(cons_tons_day = strat_preycons_t_km2 * area)
+  
+}
 
+################################################################################
 predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
 
   # Global variables
@@ -230,12 +273,21 @@ predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=
     ungroup() %>%  
     mutate(prey_sci = prey_wt/bodywt) %>%
     select(predator,model,stratum_bin,year,lbin,prey_guild,prey_wt,prey_sci) %>%  
-    filter(prey_wt>0) %>%
+    #filter(prey_wt>0) %>%
+    #adding zeros with complete
+    complete(predator,model,stratum_bin,year,lbin, prey_guild,fill=list(prey_n=0,prey_wt=0,prey_sci=0)) %>%
     group_by(predator,model,stratum_bin,year,lbin, prey_guild) %>%
-    summarize(prey_n=n(), prey_wt=sum(prey_wt), prey_sci=sum(prey_sci), .groups="keep") %>%
+    summarize(prey_n=n(), 
+              prey_wt=sum(prey_wt), 
+              prey_sci=sum(prey_sci), 
+              .groups="keep") %>%
     ungroup() %>%
-    left_join(strat_tots, by=c("predator"="predator","model"="model","stratum_bin"="stratum_bin", "year"="year", "lbin"="lbin")) %>%
+    # Count prey_n but exclude 0's
+    mutate(prey_n=ifelse(prey_wt>0, prey_n, 0)) %>% 
+    left_join(strat_tots, 
+              by=c("predator"="predator","model"="model","stratum_bin"="stratum_bin", "year"="year", "lbin"="lbin")) %>%
     relocate(any_of(c("pred_n","pred_full","tot_wt","tot_sci")), .before=prey_guild) %>%
+    filter(!is.na(pred_n)) %>%
     mutate(dietprop_wt = prey_wt/tot_wt) %>%
     mutate(dietprop_sci = prey_sci/tot_sci)
 

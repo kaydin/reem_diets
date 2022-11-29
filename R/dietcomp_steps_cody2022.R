@@ -54,6 +54,7 @@ pred_params[[this.pred]]
 conslens <- get_cpue_length_cons(predator=this.pred, model=this.model)
 
 
+
 # Sum individual body lengths up to diet length categories
 haul_sum <- conslens %>%
   group_by(year,model,stratum_bin,species_name, hauljoin, 
