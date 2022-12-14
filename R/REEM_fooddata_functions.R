@@ -125,7 +125,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
 
 #############################################################
 
-preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, months=5:8){
+preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model){
   
   stratbins    <- strata_lookup    #%>% mutate(stratum_bin = .data[[stratbin_col]])  
   model_name    <- model    # renamed to avoid name confusion during lookup
@@ -143,14 +143,14 @@ preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model, mon
     filter(pred_nodc %in% this.pred_nodc) %>%
     filter(prey_nodc %in% this.prey_nodc) %>%
     #filter(!is.na(year)) %>%
-    filter(month %in% months) %>%
+    #filter(month %in% months) %>%
     select(1:freq) %>%
     mutate(pred_lbin_cm = as.character(cut(pred_len, predcut, right=F)),
            prey_lbin_mm = as.character(cut(prey_size_mm, preycut, right=F)))
   
 }
 #################################################################
-logit_simple <- function(predator="P.cod", model="EBS", months=5:8){
+logit_simple <- function(predator="P.cod", model="EBS"){
 
   # Global variables
   stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
@@ -174,7 +174,7 @@ logit_simple <- function(predator="P.cod", model="EBS", months=5:8){
     filter(model %in% model_name)   %>%
     filter(pred_nodc %in% ppar$nodc)  %>%
     #filter(!is.na(year)) %>%
-    filter(month %in% months) %>%
+    #filter(month %in% months) %>%
     mutate(predator = predator_name) %>% relocate(predator) %>%
     # Then add predator_specific data and make sure it's located before the prey_guild column
     #mutate(full = twt>0) %>% 
@@ -198,9 +198,9 @@ logit_simple <- function(predator="P.cod", model="EBS", months=5:8){
 }
 
 ################################################################################
-add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod", model="EBS", months=5:8){
+add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod", model="EBS"){
   
-  diet <- predprey_tables(predator=predator, model=model, months=months)
+  diet <- predprey_tables(predator=predator, model=model)
   
   len_diet <- strata_length_cons %>%
     left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
@@ -216,7 +216,7 @@ add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod"
 }
 
 ################################################################################
-predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=F){
+predprey_tables <- function(predator="P.cod", model="EBS", all.data=F){
 
   # Global variables
   stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
@@ -240,7 +240,7 @@ predprey_tables <- function(predator="P.cod", model="EBS", months=5:8, all.data=
     filter(model %in% model_name)   %>%
     filter(pred_nodc %in% ppar$nodc)  %>%
     #filter(!is.na(year)) %>%
-    filter(month %in% months)   %>%
+    #filter(month %in% months)   %>%
     mutate(predator = predator_name) %>% relocate(predator) %>%
     # Then add predator_specific data and make sure it's located before the prey_guild column
     #mutate(full = twt>0) %>% 
