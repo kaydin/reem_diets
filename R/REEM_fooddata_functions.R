@@ -125,7 +125,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
 
 #############################################################
 
-preylength_splits <- function(pred_nodc, prey_nodc, predcut, preycut, model){
+preylength_splits <- function(pred_nodc, predcut, prey_nodc, preycut, model){
   
   stratbins    <- strata_lookup    #%>% mutate(stratum_bin = .data[[stratbin_col]])  
   model_name    <- model    # renamed to avoid name confusion during lookup
@@ -198,9 +198,10 @@ logit_simple <- function(predator="P.cod", model="EBS"){
 }
 
 ################################################################################
-add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod", model="EBS"){
+add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod", model="EBS", min_sample=1){
   
-  diet <- predprey_tables(predator=predator, model=model)
+  diet <- predprey_tables(predator=predator, model=model) %>%
+    filter(pred_full >= min_sample)
   
   len_diet <- strata_length_cons %>%
     left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%

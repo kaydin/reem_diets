@@ -60,12 +60,12 @@ for (this.pred in predlist){
   pred_params[[this.pred]]$lw_a  = lwp$lw_a
   pred_params[[this.pred]]$lw_b  = lwp$lw_b
   strat_lencons  <- get_stratum_length_cons(predator=this.pred, model=this.model)
-  strat_dietcons <- add_diets_to_strata_length_cons(strat_lencons, predator=this.pred, model=this.model)
+  strat_dietcons <- add_diets_to_strata_length_cons(strat_lencons, predator=this.pred, model=this.model, min_sample=5)
   
   combined_cons <- rbind(combined_cons,strat_dietcons)
 }
 
-write.csv(combined_cons,paste(this.model,"_stratcons.csv",sep=""),row.names=F)
+write.csv(combined_cons,paste(this.model,"_stratcons_min5full.csv",sep=""),row.names=F)
 
 
 #$W.pollock$lw_a
@@ -73,24 +73,28 @@ write.csv(combined_cons,paste(this.model,"_stratcons.csv",sep=""),row.names=F)
 #
 #$W.pollock$lw_b
 #[1] 3.037561
-
-prey_params <- list(
-  "W.pollock"  = list(
-                   nodc="8791030701", race="21740", LCLASS=c(0,10,25,999)
-                 ),
-  "Opilio"     = list(
-                   nodc=c("6187010300", "6187010301"), LCLASS=c(0,30,95,999),
-                   prey_a=0.000267, prey_b=3.097253
-                 )
-               )                        
+#prey_params <- list(
+#  "W.pollock"  = list(
+#                   nodc="8791030701", race="21740", LCLASS=c(0,10,25,999)
+#                 ),
+#  "Opilio"     = list(
+#                   nodc=c("6187010300", "6187010301"), LCLASS=c(0,30,95,999),
+#                   prey_a=0.000267, prey_b=3.097253
+#                 )
+#               )                        
                         
-this.prey<-"W.Pollock"
+this.prey<-"W.pollock"
 
-preylen_freqs <- preylength_splits(pred_params[[this.pred]]$nodc, 
-                          c("6187010300", "6187010301"), # Opilio and Unid Chion
-                          pred_params[[this.pred]]$LCLASS, 
-                          c(0,30,95,999),
-                          model="EBS") %>%
+preysplit <- preylength_splits(pred_params[[this.pred]]$nodc, 
+                                   pred_params[[this.pred]]$LCLASS,
+                                   pred_params[[this.prey]]$nodc,
+                                   c(0,80,200,999),
+                                   model="EBS")
+
+prey_b <- pred_params[[this.prey]]$lw_b
+prey_a <- pred_params[[this.prey]]$lw_a/(10^prey_b)
+
+preylen_freqs <- preysplit %>%
         mutate(prey_wt_g  =  prey_a * prey_size_mm^prey_b,
                prey_sum_g = freq * prey_wt_g) %>%
         group_by(model,year,pred_lbin_cm,prey_lbin_mm) %>%
