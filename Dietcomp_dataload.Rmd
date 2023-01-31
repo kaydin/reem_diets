@@ -26,6 +26,8 @@ channel <- oracle.connect("AFSC")
 #reem.download.rawfood(channel, path="data/local_reem_data")
 reem.download.bts.predprey(channel, path="data/local_reem_data")
 reem.download.bts.preylengths(channel, path="data/local_reem_data")
+
+oracle.disconnect(channel)
 ```
 
 ## Querying RACEBASE tables
@@ -34,44 +36,17 @@ like RACEBACE.HAUL) and save them as .csvs in the given path directory.  This do
 put the data in the workspace.  The list of tables can be changed (e.g. to refresh a
 single table only).  These queries select all table fields (no data manipulations).
 ```{r query_RACE, eval=FALSE}
+library("RODBC")
+library("getPass")
+source("R/REEM_download_functions.R")
+
+channel <- oracle.connect("AFSC")  
 
 racebase.tables   <- c("CATCH", "HAUL", "LENGTH", "SPECIMEN", "STRATUM", "STATIONS",
                        "SPECIES", "CRUISE", "SPECIES_CLASSIFICATION") #"SIZECOMP_TOTAL"
 
 racebase.download(channel, tables=racebase.tables, path="data/local_racebase")
 
-```
-
-## Querying REEM diet tables
-This loads REEM data.  These are not loaded completely "RAW", the query script
-performs some lookups on the Oracle end as contained in these scripts, and
-does not pull all fields.  It selects
-```{r query_REEM, eval=FALSE}
-
-# Predprey queries
-reem.download.bts.predprey(channel, region="BS",  path="data/local_reem_data") 
-reem.download.bts.predprey(channel, region="GOA", path="data/local_reem_data") 
-reem.download.bts.predprey(channel, region="AI",  path="data/local_reem_data") 
-
-# Prey length query
-reem.download.bts.preylenths(channel, region="BS",  path="data/local_reem_data")
-reem.download.bts.preylenths(channel, region="GOA", path="data/local_reem_data")
-reem.download.bts.preylenths(channel, region="AI",  path="data/local_reem_data")
-
-# TODO - find query to join EBS strata to GOA/AI strata
-#       data/combined_BTS_strata.csv is hand-made
-
-# note query.to.data does not create directories - may need to fix that
-#query.to.csv(channel, query="SELECT * FROM GOA.GOA_STRATA", file="data/goa_strata.csv")
-query.to.csv(channel,  query="SELECT * FROM FOODLAB.NODC", file="data/local_reem_data/nodc.csv")
-
-```
-
-## Closing the connection once finished
-```{r query_close, eval=FALSE}
-
 oracle.disconnect(channel)
 
 ```
-
-
