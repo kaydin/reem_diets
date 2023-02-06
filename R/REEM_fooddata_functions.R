@@ -4,6 +4,7 @@
 #source("R/function_get_biomass_stratum_NoLength.R")
 
 source("R/GAP_get_cpue.R")
+source("R/GAP_get_cpue_guild.R")
 source("R/GAP_get_biomass_stratum.R")
 #source("R/GAP_loadclean.R")
 
