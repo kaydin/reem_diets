@@ -1,0 +1,445 @@
+NODC_CODE,RACE,BASE_NAME,EGOA_PREY,A_L_mm_g,B_L,CA,CB,C_TM,C_TO,C_Q
+8599999999,0,Misc. fish,Shelf_demersals,,,NA,NA,NA,NA,NA
+8603010000,0,Petromyzontidae (Lampreys) ,Shelf_demersals,,,NA,NA,NA,NA,NA
+8603010200,0,Lampetra sp. (lamprey),Shelf_demersals,,,NA,NA,NA,NA,NA
+8603010201,0,Arcitc Lamprey Lethenteron camtschaticum,Shelf_demersals,,,NA,NA,NA,NA,NA
+8603010202,0,Lampetra ayresi (river lamprey),Shelf_demersals,,,NA,NA,NA,NA,NA
+8603010211,21,Lampetra tridentata (Pacific lamprey),Shelf_demersals,,,NA,NA,NA,NA,NA
+8606010100,109,Eptatretus sp.,Shelf_demersals,,,NA,NA,NA,NA,NA
+8606010102,120,Eptatretus stouti (Pacific hagfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8700000000,0,Gnathostomata,Shelf_demersals,,,NA,NA,NA,NA,NA
+8701000000,151,Chondrichthyes,Shelf_demersals,,,NA,NA,NA,NA,NA
+8710010101,320,Somniosus pacificus (Pacific sleeper shark),Pacific_sleeper_shark,,,NA,NA,NA,NA,NA
+8710010201,310,Squalus acanthias (spiny dogfish),Pacific_dogfish,,,NA,NA,NA,NA,NA
+8713040000,400,Rajidae (skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040101,410,Bathyraja abyssicola (Deepsea skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040102,472,Bathyraja aleutica (Aleutian skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040103,420,Bathyraja binoculata (big skate),Big_skate,,,NA,NA,NA,NA,NA
+8713040105,435,Bathyraja interrupta (Bering skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040107,471,Bathyraja parmifera (Alaska skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040108,440,Raja Rhina (longnose skate),Longnose_skate,,,NA,NA,NA,NA,NA
+8713040199,477,Bathyraja panthera (leopard skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040800,405,Bathyraja sp. (skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040810,460,Bathyraja trachura (black skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040895,495,Bathyraja violacea (Okhotsk skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040896,475,Bathyraja lindbergi (commander skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040897,485,Bathyraja minispinosa (whitebrow skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040898,455,Bathyraja tarantetzi (mud skate),Other_skates,,,NA,NA,NA,NA,NA
+8713040899,480,Bathyraja maculata (white blotched skate),Other_skates,,,NA,NA,NA,NA,NA
+8716020101,710,Hydrolagus colliei (ratfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8717000000,0,Osteichthyes,MISC_NA,,,NA,NA,NA,NA,NA
+8730000000,0,Holostei (fish),MISC_NA,,,NA,NA,NA,NA,NA
+8735000000,0,Teleostei (fish),MISC_NA,,,NA,NA,NA,NA,NA
+8735000009,0,Scavenged fish (not an NODC code- J. Drazen),MISC_NA,,,NA,NA,NA,NA,NA
+8735010000,0,Non-gadoid fish remains,MISC_NA,,,NA,NA,NA,NA,NA
+8735020000,1,Fish eggs,MISC_NA,,,NA,NA,NA,NA,NA
+8741200102,0,Avocettina infans (Blackline snipe eel),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8741210000,22701,Nemichthyidae (snipe eel),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8741210102,22704,Avocettina infans (Blackline snipe eel),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8747000000,0,Clupeoidei,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8747010000,0,Clupeidae,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8747010101,21120,Alosa sapidissima (American shad),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8747010201,21110,Clupea pallasi (Pacific herring),Pacific_herring,,,NA,NA,NA,NA,NA
+8747010301,21130,Sardinops sagax (Pacific sardine),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8747020101,20610,Engraulis mordax (northern anchovy),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8754000000,0,Salmoniformes,MISC_NA,,,NA,NA,NA,NA,NA
+8755010000,0,"Salmonidae (salmon, whitefish)",MISC_NA,,,NA,NA,NA,NA,NA
+8755010100,0,Coregonus (salmonidae),MISC_NA,,,NA,NA,NA,NA,NA
+8755010200,23202,Oncorhynchus sp. (salmon),MISC_NA,,,NA,NA,NA,NA,NA
+8755010201,23230,Oncorhynchus gorbuscha (pink salmon),Pink_salmon,,,NA,NA,NA,NA,NA
+8755010202,23235,Oncorhynchus keta (chum salmon),Chum_salmon,,,NA,NA,NA,NA,NA
+8755010203,23225,Oncorhynchus kisutch (coho salmon),Coho_salmon,,,NA,NA,NA,NA,NA
+8755010205,23240,Oncorhynchus nerka (sockeye salmon),Sockeye_salmon,,,NA,NA,NA,NA,NA
+8755010206,23220,Oncorhynchus tshawytscha (chinook salmon),Chinook_salmon,,,NA,NA,NA,NA,NA
+8755010302,23260,Oncorhynchus mykiss (steelhead),MISC_NA,,,NA,NA,NA,NA,NA
+8755010401,23252,Salvelinus malma Dolly Varden,MISC_NA,,,NA,NA,NA,NA,NA
+8755030000,23000,Osmeridae (smelts),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8755030101,23020,Hypomesus pretiosus (surf smelt),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8755030201,23041,Mallotus villosus (capelin),Pacific_capelin,,,NA,NA,NA,NA,NA
+8755030302,23055,Osmerus mordax (rainbow smelt),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8755030402,23061,Spirinchus thaleichthys (Longfin smelt),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8755030501,23010,Thaleichthys pacificus (eulachon),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8755030601,23030,Allosmerus elongatus (whitebait smelt),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8756010000,20571,Argentinidae (argentines),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8756010101,20572,Nansenia candida (bluethroat argentine),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8756010206,20573,Argentina sialis (Pacific argentine),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8756020000,20614,Bathylagidae (deepsea smelts),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020100,20660,Bathylagus sp.,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020103,20620,Pseudobathylagus milleri (stout blacksmelt),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020104,20624,Bathylagus ochotensis (eared blacksmelt),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020105,20615,Bathylagus pacificus (slender blacksmelt),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020300,0,Leuroglossus sp. (smooth tongues),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020301,20662,Leuroglossus stilbius (California smoothtongue),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756020302,20622,Leuroglossus schmidti (northern smoothtongue),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8756030101,23963,Macropinna microstoma (Barreleye),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759000000,0,Stomioidei (stomiatoids),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759010000,21800,Gonostomatidae (bristlemouth or anglemouth),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759010100,21810,Cyclothone sp. (light fish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759010101,21811,Cyclothone atraria (black bristlemouth),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759010106,0,Cyclothone microdon (veiled angelmouth),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759010404,0,Sigmops gracilis,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8759020103,21824,Argyropelecus affinis (Pacific hatchetfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759040101,0,Aristostomias scintillans (Shining loosejaw),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759040301,22410,Tactostoma macropus (longfin dragonfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759060000,21000,Chauliodontidae (viperfishes),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759060101,21010,Chauliodus macouni (Pacific viperfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8759080100,22110,Idiacanthus sp. (black dragonfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8760010000,20100,Alepocephalidae ,Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8760010101,23710,Sagamichthys abei (shining tubeshoulder),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8760010300,20110,Alepocephalus sp. (slickhead),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8760011102,20150,Talismania bifurcata (threadfin slickback),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8760700000,22951,Paralepididae (barracudina),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762070000,22951,Paralepididae (barracudina),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762070101,0,Lestidiops ringens (Slender barracudina),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762070399,0,Lestidiops ringens (baracudina),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762090102,23657,Alepisaurus ferox (longnose lancetfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762100101,22570,Anotopterus pharao (daggertooth),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762120101,23603,Benthalbella dentata (northern pearl eye),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762130101,23622,Scopelosaurus adleri (Waryfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762130104,23620,Scopelosaurus harryi (waryfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8762140000,22600,Myctophidae (lanternfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140200,22609,Myctohpidae (lanternfish) Diaphus sp.,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140201,22610,Diaphus theta (California headlightfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140300,22620,Lampanyctus sp. (lampfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140301,22625,Lampanyctus jordani (broken line myctophid),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140302,22624,Nannobrachium regale (pinpoint lanternfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140319,22600,Lampanyctus tenuiformes (lantern fish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140500,0,Stenobrachius sp. (lampfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140501,22602,Stenobrachius leucopsarus (northern lampfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140502,22603,Stenobranchius nannochir (garnet myctophid),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140601,22656,Symbolophorus californiense (bigfin lanterfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762140701,22651,Tarletonbeania crenularis (blue laternfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762141000,22648,Protomyctophum sp. (lampfish).,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8762141002,22649,Protomyctophum thompsoni (bigeye lanternfish),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8769010000,0,Gonastomatidae,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8788040000,22900,dreamer Oneirodidae,Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8788040200,0,Dreamer Oneirodes sp.,Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8788040202,22914,Oneirodes bulbosus (bulbus dreamer),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8788040204,22915,Oneirodes thompsoni (Alaska dreamer),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8791010102,21731,Antimora microlepis (Pacific flatnose),Shelf_demersals,,,NA,NA,NA,NA,NA
+8791030000,21705,Gadidae (gadid fish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8791030201,21725,Boreogadus saida (Arctic cod),Shelf_demersals,,,NA,NA,NA,NA,NA
+8791030301,21735,Eleginus gracilis (saffron cod),Shelf_demersals,,,NA,NA,NA,NA,NA
+8791030401,21720,Gadus macrocephalus (Pacific cod),Pacific_cod,,,0.041,-0.122,21,13.7,2.41
+8791030601,21710,Microgadus proximus (Pacific tomcod),Shelf_demersals,,,NA,NA,NA,NA,NA
+8791030701,21740,Gadus chalcogrammus (walleye pollock),Walleye_pollock,,,0.119,-0.46,15,10,2.6
+8791030702,0,G. chalcogrammus eggs (pollock eggs),MISC_NA,,,NA,NA,NA,NA,NA
+8791040102,22500,Merluccius productus (Pacifc hake),Pacific_hake,,,NA,NA,NA,NA,NA
+8793000000,0,Zoacoiidei ,Slope_demersals,,,NA,NA,NA,NA,NA
+8793010000,24100,Zoarcidae (eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010101,24140,Lycodes cortezianus (bigfin eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010201,24110,Bothrocara brunneum (fat twoline eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010250,24220,Bothrocara spp. (two-line eelpouts (fat and skinny)),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010299,24112,Bothrocara zestum (skinny twoline eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010301,24130,Lycenchelys crotalinus (snakehead eelpoout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010400,24193,Gymnelis sp. (eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010402,34194,Gymnelus hemifasciatus (halfbarred pout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010403,24192,Gymnelis viridis (fish doctor),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010404,24193,Gymnelis rotordorsalis (aurora eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010405,0,Gymnelis popovi (Aleutian pout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010500,24150,Lycenchelys sp. (eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010504,24151,Lycenchelys jordani (shortjaw eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010507,24153,manypore eelpout Lycenchelys ratmanovi,Slope_demersals,,,NA,NA,NA,NA,NA
+8793010600,24230,Lycodapus sp. (eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010602,24160,Lycodapus fierasfer (black mouth eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010690,24234,Lycodapus leptus (slender eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010699,24231,Lycodapus peocilus (variform eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010700,24180,Lycodes sp. (eelpout unid),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010703,24191,Lycodes brevipes (shortfin eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010705,24187,Lycodes concolor (ebony eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010706,24190,Lycodes diapterus (black eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010709,24186,Lycodes mucosus (saddled eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010710,24185,Lycodes palearis (wattled eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010711,24188,Canadian eelpout Lycodes polaris,Slope_demersals,,,NA,NA,NA,NA,NA
+8793010712,24184,Lycodes raridens (marbled eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010714,24189,Lycodes turneri (polar eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010723,24181,Lycodes rossi (threespot eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8793010801,24200,Lycodopsis pacifica (blackbelly eelpout),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010000,21200,Macrouridae (rattail),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010100,21210,Coryphaenoides sp. (rattail),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010101,21220,Coryphaenoides acrolepis (Pacific rattail),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010105,21232,Coryphaenoides cinereus (popeye grenadier),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010106,21238,Coryphaenoides filifer (rattail),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010108,21230,Albatrosia pectoralis (giant grenadier),Slope_demersals,,,NA,NA,NA,NA,NA
+8794010807,21201,Nezumia stelgidolepis,Slope_demersals,,,NA,NA,NA,NA,NA
+8794010811,21202,Nezumia liolepis,Slope_demersals,,,NA,NA,NA,NA,NA
+8800000000,0,Gnathostomata,MISC_NA,,,NA,NA,NA,NA,NA
+8803030000,0,Scomberesocidae (sauries),Pacific_saury,,,NA,NA,NA,NA,NA
+8803030101,23562,Cololabis saira (Pacific saury),Pacific_saury,,,NA,NA,NA,NA,NA
+8808020000,22300,Melamphaedae (melamphids),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8808020101,22320,Melamphaes lugubris (highsnout bigscale),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8808020201,22311,Crested Bigscale Poromitra crassiceps,Slope_forage_fish,,,NA,NA,NA,NA,NA
+8808020205,0,Poromitra curilensis (Bigscale),Slope_forage_fish,,,NA,NA,NA,NA,NA
+8818010000,0,Stickleback Gasterosteidae,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8818010101,21752,Gasterosteus aculeatus (3-spined stickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8818010201,21753,Pungitius pungitius (ninespine stickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8825000000,0,Scorpaeniformes (rockfish and cottid),MISC_NA,,,NA,NA,NA,NA,NA
+8826000000,0,Scorpaeniformes Scorpaenoidei (rockfish),MISC_NA,,,NA,NA,NA,NA,NA
+8826010000,30000,Scorpaenidae,MISC_NA,,,NA,NA,NA,NA,NA
+8826010100,30040,Sebastes sp. (rockfish),MISC_NA,,,NA,NA,NA,NA,NA
+8826010101,30051,Sebastes aleutianus (rougheye rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010102,30060,Sebastes alutus (Pacific ocean perch),POP,,,NA,NA,NA,NA,NA
+8826010104,30090,Sebastes aurora (aurora rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010105,30475,Sebastes babcocki (redbanded rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010106,30100,Sebastes brevispinis (silvergray rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010107,30576,Sebastes borealis (shortraker rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010109,30151,Sebastes ciliatus (dark rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010110,30170,Sebastes crameri (darkblotched rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010111,30190,Sebastes diploproa (splitnose rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010112,30200,Sebastes elongatus (greenstriped rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010114,30220,Sebastes entomelas (widow rockfish),Pelagic_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010115,30240,Sebastes flavidus (yellowtail rockfish),Pelagic_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010116,0,Sebastes glaucus (gray rockfish),MISC_NA,,,NA,NA,NA,NA,NA
+8826010117,30260,Sebastes goodei (chilipepper rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010118,30270,Sebastes helvomaculatus (rosethorn rockfish),Demersal_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010119,30290,Sebastes jordani (shortbelly rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010120,30320,Sebastes maliger (quillback rockfish),Demersal_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010121,30330,Sebastes melanops (black rockfish),Black_rockfish,,,NA,NA,NA,NA,NA
+8826010124,30360,Sebastes mystinus (blue rockfish),MISC_NA,,,NA,NA,NA,NA,NA
+8826010127,30400,Sebastes paucispinis (bocaccio),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010128,30410,Sebastes pinniger (canary rockfish),Demersal_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010129,30420,Sebastes polyspinis (northern rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010130,30430,Sebastes proriger (redstripe rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010134,30470,Sebastes ruberrimus (yelloweye rockfish),Demersal_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010135,30490,Sebastes saxicola (stripetail rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010136,30535,Sebastes variegatus (harlequin rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010137,30550,pygmy rockfish Sebastes wilsoni,Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010138,30560,Sebastes zacentrus (sharpchin rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010143,30130,Sebastes chlorostictus,MISC_NA,,,NA,NA,NA,NA,NA
+8826010190,0,Dusky/ dark rockfish Sebastes variabilis/ ciliatus,Pelagic_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010197,30052,Sebastes melanostictus (black spotted rockfish),Slope_rockfish,,,NA,NA,NA,NA,NA
+8826010198,0,Sebastes variabilis (dusky rockfish),Pelagic_shelf_rockfish,,,NA,NA,NA,NA,NA
+8826010199,0,Sebastes alutus complex (pop complex),POP,,,NA,NA,NA,NA,NA
+8826010200,30010,Sebastolobus sp. (unidentified thornyhead),Thornyheads,,,NA,NA,NA,NA,NA
+8826010201,30020,Sebastolobus alascanus (shortspine thornyhead),Thornyheads,,,NA,NA,NA,NA,NA
+8826010202,30030,Sebastolobus altivelis (longspine thornyhead),Thornyheads,,,NA,NA,NA,NA,NA
+8826010203,30025,Sebastolobus macrochir (bighand thornyhead),Thornyheads,,,NA,NA,NA,NA,NA
+8827010000,21900,Hexagrammidae (greenling),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010101,21935,Hexagrammos decagrammus (kelp greenling),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010102,21934,Hexagrammos lagocephalus (rock greenling),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010103,21931,Hexagrammos octogrammus (masked greenling),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010104,21932,Hexagrammos stelleri (white-spotted greenling),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010201,21910,Ophiodon elongatus (lingcod),Lingcod,,,NA,NA,NA,NA,NA
+8827010501,21921,Pleurogrammus monopterygius (Atka mackerel),Shelf_demersals,,,NA,NA,NA,NA,NA
+8827010502,0,Pleurogrammus monopterygius (eggs),MISC_NA,,,NA,NA,NA,NA,NA
+8827020101,20510,Anoplopoma fimbria (sablefish),Sablefish,,,NA,NA,NA,NA,NA
+8831000000,0,Cottoidei (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010000,0,Icelidae (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010100,21446,Icelus sp. (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010102,21439,Icelus canaliculatus (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010105,21441,Icelus spatula (spatulate sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010106,21438,Icelus spiniger (thorny sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831010107,21443,Icelus uncinalis (uncinate sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020000,21300,Cottidae (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020100,0,Archaulus sp. Cottidae (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020300,21331,Artediellus sp. (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020304,21333,Artediellus pacificus (Pacific hookear sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020305,21334,Artediellus scaber hamecon,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020306,21335,Artediellus uncinatus (Arctic hookear sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020399,21337,Bolinia euryptera (broadfin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020400,0,Artedius sp. (Irish lord),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020404,0,Artedius meanyi ((Puget Sound sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020601,0,Blepsias bilobus (crested sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020602,21398,Blepsias cirrhosus (silverspotted sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831020901,21390,Dasycottus setiger (spinyhead sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021000,0,Cottoidei (sculpin) Enophrys sp.,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021002,20388,Antlered sculpin Enophrys diceraus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021003,21387,Enophrys lucasi (Leister sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021300,21313,Gymnocanthus (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021302,21316,Gymnocanthus galeatus (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021303,21314,Gymnocanthus pistilliger (threaded sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021304,21315,Arctic staghorn sculpin Gymnocanthus tricuspis,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021400,21342,Hemilepidotus sp. (sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021402,21346,Hemilepidotus hemilepidotus (red Irish lord),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021403,21347,Hemilepidotus jordani (yellow Irish lord),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021404,21348,Hemilepidotus papilio (butterfly sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021406,21345,Hemilepidotus zapus (longfin irish lord),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021502,21420,Hemitripterus bolini (bigmouth sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831021600,21307,Icelinus sp.,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021601,21311,Icelinus borealis (Northern Sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021603,21310,Icelinus filamentosus (threadfin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021801,21380,Leptocottus armatus (Pacific staghorn sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021900,21339,Cottoidei (sculpin) Malacocottus sp.,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021901,21340,Malacocottus kincaidi (blackfin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831021902,21341,Malacocottus zonurus (darkfin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022001,21376,Megalocottus paltycephalus (belligerent sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022200,21375,Myoxocephalus sp. (sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831022201,21371,Myoxocephalus jaok (plain sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831022204,21370,Myoxocephalus polyacanthocephalus (great sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831022205,21377,Myoxocephalus quadricornis (fourhorn sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831022207,0,Shorthorn sculpin Myoxocephalus scorpius,Large_sculpins,,,NA,NA,NA,NA,NA
+8831022211,21368,Myoxocephalus verrucosus (warty sculpin),Large_sculpins,,,NA,NA,NA,NA,NA
+8831022301,21406,Nautichthys oculofasciatus (sailfin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022302,21405,Nautichthys pribilovius (eyeshade sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022501,0,Thornback sculpin Paricelinus hopliticus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022700,21318,Porocottus sp. (fringed sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022704,21360,Microcottus sellaris (brightbelly sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022900,0,Radulinus sp. (Cottidae),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831022901,0,Radulinus asprellus (Slim Sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023001,21415,Rhamphocottus richardsoni (grunt sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023701,0,Thyriscus anoplus (sponge sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023800,21350,Triglops sp. (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023801,21352,Triglops forficata (scissortail sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023803,0,Triglops macellus (roughspine sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023805,21355,Triglops pingeli (ribbed sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023806,21354,Triglops scepticus (spectacled sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831023895,21429,Triglops xenostethus (scalebreasted sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831026001,21379,Trichocottus brashnikoviki (hairhead sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831070000,0,Psychrolutidae (sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831070101,21934,Psychrolutes paradoxus (tadpole sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831070102,21395,blob sculpin Psychrolutes phrictus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831070201,21423,Eurymen gyrinus (smoothcheek sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831070401,21444,Rastrinus scutiger (roughskin sculpin),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080000,20000,Agonidae (poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080101,20015,Agonopsis vulsa (northern spearnose poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080201,20055,Anoplagonus inermis (smooth alligatorfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080301,20050,Aspidophoroides bartoni (Aleutian alligatorfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080303,20051,Ulcina olrikii (Arctic alligatorfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080400,0,Asterotheca sp. (poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080401,20035,Asterotheca alascana (gray starsnout),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080402,20036,Spinycheek Starsnout Bathyagonus infraspinatus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080403,20037,Asterotheca pentacanthus (bigeye poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080501,20038,Bathyagonus nigripinnis,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080503,20035,Bathyagonus alascanus (gray starsnout),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080701,20071,Hypsagonus quadricornis (4-horn poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080800,20039,Agonidae (poacher) Podothecus sp.,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080802,20040,Podothecus acipenserinus (sturgeon poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080804,20041,vetern poacher Podothecus veternus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080899,20041,Podothecus veternus (veteran poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080901,20061,Occella dodecaedron (Bering poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831080903,0,Occella verrucosa (warty poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831081001,0,Odontopyxis trispinosa (pygmy poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831081101,20001,Pallasina barbata (tubenose poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831081201,20006,Sarritor frenatus (sawback poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831081202,20005,Sarritor leptorhyncus (longnose poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831081300,20023,Xeneretmus sp. (poacher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090000,22169,Cyclopteridae (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090101,22175,Aptocyclus ventricosus (smooth lumpsucker),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090200,22219,Careproctus sp. (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090207,22235,Alaska Snailfish Careproctus colletti,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090209,22228,Careproctus cypselurus (blackfinned redsnail),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090212,22233,Careproctus gilberti (small disc snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090215,22220,blacktail snailfish Careproctus melanurus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090224,22236,Careproctus rastrinus (salmon snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090229,22223,Careproctus simus (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090301,22206,Crystallichtys cyclopilus (Blotched snailfish ),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090403,22190,Toad Lumpsucker Eumicrotremus phrynoides,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090500,22183,Eumicrotremus sp. (lumpsuckers),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090501,22182,Eumicrotremus andriashevi  (pimpled lumpsucker),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090506,22178,Eumicrotremus orbis (Pacific spiny lumpsucker),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090701,22176,Lethotremus muticus (docked snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090800,22201,Liparis sp. (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090808,22204,Liparis dennyi (marbled snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090811,22202,Liparis fucensis (slipskin snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090812,22205,Liparis gibbus (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090815,22212,Liparis fabricii (gelatinous snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090817,22265,Liparis marmoratus (festive snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090829,22238,kelp snailfish Liparis tunicatus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8831090888,22000,Liparidae (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831091001,22255,Nectoliparis pelagicus (tadpole snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831091100,22250,Paraliparis sp. (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831091102,22215,Elassodiscus caudatus (humpback snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8831099900,22270,Allocareproctus sp. (snailfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8835280101,20952,Trachurus symmetricus (jack mackerel),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8835440201,23402,Genyonemus lineatus,Shelf_demersals,,,NA,NA,NA,NA,NA
+8835600201,21510,Cymatogaster aggregata (shiner perch),Shelf_demersals,,,NA,NA,NA,NA,NA
+8835601101,21522,Zalembius rosaceus (pink surfperch),Shelf_demersals,,,NA,NA,NA,NA,NA
+8840010201,21592,Trichodon trichodon (Pacific sandfish),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8840030000,20700,Bathymasteridae (ronquils),Shelf_demersals,,,NA,NA,NA,NA,NA
+8840030100,0,Bathymaster sp. (searcher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8840030103,20720,Bathymaster signatus (searcher),Shelf_demersals,,,NA,NA,NA,NA,NA
+8840030201,20702,Ronquilus jordani (northern ronquil),Shelf_demersals,,,NA,NA,NA,NA,NA
+8840160100,0,Chiasmodon sp. (swallower),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8842020000,0,Anarhichadidae (wolffishes),Shelf_demersals,,,NA,NA,NA,NA,NA
+8842020101,20322,Anarhichas orientalis (Bering wolffish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8842110101,0,Ptilichthys goodei (quillfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8842120000,23800,Stichaeidae (prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120101,21120,Acantholumpenus mackayi (pighead prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120201,0,Alectridium aurantiacum (lesser prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120301,0,Allolumpenus hypochromus (y-prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120400,0,Anoplarchus sp. (cockscomb),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120401,23866,Slender cockscomb Anoplarchus insignis,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120500,23840,warbonnet Chirolophis sp.,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120504,23843,Chirolophis snyderi (bearded warbonnet),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120601,23861,Bryozoichthys lysimus (nutcracker prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120801,23836,Lumpenella longirostris (longsnout prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120900,23801,Lumpenus sp. (prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120901,23807,Lumpenus fabricii (slender eelblenny),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120902,23808,Lumpenus sagitta (snake prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120903,23805,Lumpenus maculatus (daubed shanny),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842120904,23806,Lumpenus medius (stout eelblenny),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121200,0,Poroclinus sp. (prickleback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121201,23850,Poroclinus rothrocki (whitebarred pricklback),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121301,23804,Arctic shanny Stichaeus punctatus,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121600,0,Cryptacanthodidae (wrymouth),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121601,23791,Cryptacanthodes aleutensis (dwarf wrymouth),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842121701,23803,Eumesogrammus praecisus (fourline snakeblenny),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842122301,23806,Anisarchus medius (stout eelblenny),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130000,23871,Pholidae (gunnel family),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130200,23872,Pholis sp. (gunnel),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130201,0,Pholis clemensi (longfin gunnel),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130203,0,Banded Gunnel Pholis fasciata,Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130205,23873,Pholis laeta (Crested gunnel ),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842130206,0,Pholis ornata (saddleback gunnel),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8842150101,24001,Zaprora silenus (prowfish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8843010101,22010,Icosteus aenigmaticus (ragfish),Miscellaneous_deep-sea_fish,,,NA,NA,NA,NA,NA
+8845010100,20202,Ammodytes sp. (sandlance),Pacific_sandlance,,,NA,NA,NA,NA,NA
+8845010101,20202,Ammodytes hexapterus (Pacific sandlance),Pacific_sandlance,,,NA,NA,NA,NA,NA
+8845010111,20203,sandlance Ammodytes personatus,Pacific_sandlance,,,NA,NA,NA,NA,NA
+8850030301,23524,Scomber japonicus (Pacific mackerel),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8851010101,23915,Icichthys lockingtoni (medusafish),Shelf_demersals,,,NA,NA,NA,NA,NA
+8851030101,23911,Peprilus simillimus (Pacific pampano),Shelf_forage_fish,,,NA,NA,NA,NA,NA
+8857000000,0,Pleuronectoidei (flatfish),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857030000,10003,Bothidae (left-eye flounders),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857030100,10008,Citharichthys,Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857030101,10010,Citharichthys sordidus (Pacific sanddab),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857030309,10050,Paralichthys californicus (California halibut),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040000,10100,Pleuronectidae (flatfish),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040100,10111,Atheresthes sp.,Arrowtooth_flounder,,,NA,NA,NA,NA,NA
+8857040101,10112,Atheresthes evermanni (Kamchatka flounder),Arrowtooth_flounder,,,NA,NA,NA,NA,NA
+8857040102,10110,Atheresthes stomias (arrowtooth flounder),Arrowtooth_flounder,,,0.125,-0.199,26,20.512,2.497
+8857040301,10190,Embassichthys bathybius (deepsea sole),Deep-water_flatfish,,,NA,NA,NA,NA,NA
+8857040401,10160,Petrale Sole Eopsetta jordani,Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040501,10200,Errex zachirus (rex sole),Rex_sole,,,NA,NA,NA,NA,NA
+8857040600,10129,Hippoglossoides sp.,Flathead_sole,,,NA,NA,NA,NA,NA
+8857040601,10130,Hippoglossoides elassodon (flathead sole),Flathead_sole,,,NA,NA,NA,NA,NA
+8857040602,10140,Hippoglossoides robustus (Bering flounder),Flathead_sole,,,NA,NA,NA,NA,NA
+8857040701,10270,Isopsetta isolepis (butter sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040800,10260,Lepidopsetta sp. (rock sole type),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040801,10262,Lepidopsetta bilineatus (southern rock sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040803,10261,Lepidopsetta polyxystra (northern rock sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040900,0,Limanda sp.,Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040901,10210,Limanda aspera (yellowfin sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040902,10211,Limanda proboscideus (longhead dab),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857040999,10212,Limanda sakhalinensis (Sakalin sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041001,10155,Arctic Flounder Liopsetta glacialis,Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041101,10150,Eopsetta exilis (slender sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041201,10180,Microstomus pacificus (Dover sole),Deep-water_flatfish,,,NA,NA,NA,NA,NA
+8857041301,10170,Parophrys vetulus (English sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041401,10220,Platichthys stellatus (Starry flounder),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041501,10285,Pleuronectes quadrituberculatus (Alaska plaice),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041701,10250,Psettichthys melanostictus (sand sole),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041801,10115,Reinhardtius hippoglossoides (Greenland turbot),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+8857041901,10120,Hippoglossus stenolepis (Pacific halibut),Pacific_halibut,,,0.0625,-0.1076,18,12.97,3.084
+8858020116,10400,Symphurus atricauda (California tonguefish),Shallow-water_flatfish,,,NA,NA,NA,NA,NA
+9100000000,0,Aves (bird part),Benthic_detritus,,,NA,NA,NA,NA,NA
+9109030200,0,Dark storm petrels Oceanodroma sp.,Benthic_detritus,,,NA,NA,NA,NA,NA
+9112000000,0,Anseriformes,Benthic_detritus,,,NA,NA,NA,NA,NA
+9129010301,0,Common murre Uria aalge,Benthic_detritus,,,NA,NA,NA,NA,NA
+9129011101,0,Aethia cristatella (crested auklet),Benthic_detritus,,,NA,NA,NA,NA,NA
+9129011401,0,Lunda cirrhata (tufted puffin),Benthic_detritus,,,NA,NA,NA,NA,NA
+9200000000,0,Mammalia,Benthic_detritus,,,NA,NA,NA,NA,NA
+9227020000,0,Bovidae (cow parts),Benthic_detritus,,,NA,NA,NA,NA,NA
+9999990000,0,Unidentified organic material,Benthic_detritus,,,NA,NA,NA,NA,NA
+9999990001,0,Marine snow,Pelagic_detritus,,,NA,NA,NA,NA,NA
+9999990099,0,Unidentified Jello,Benthic_detritus,,,NA,NA,NA,NA,NA
+9999999990,0,Sand,MISC_NA,,,NA,NA,NA,NA,NA
+9999999991,0,Unidentified eggs,MISC_NA,,,NA,NA,NA,NA,NA
+9999999992,0,Unidentified worm-like organism,Infauna,,,NA,NA,NA,NA,NA
+9999999993,0,Fishery offal,Offal,,,NA,NA,NA,NA,NA
+9999999994,0,Unidentified tube,MISC_NA,,,NA,NA,NA,NA,NA
+9999999995,0,Overboard material (non-fishery),MISC_NA,,,NA,NA,NA,NA,NA
+9999999996,0,Wood,MISC_NA,,,NA,NA,NA,NA,NA
+9999999997,0,Unidentified algae,Macroalgae,,,NA,NA,NA,NA,NA
+9999999998,0,Rocks,MISC_NA,,,NA,NA,NA,NA,NA
+9999999999,0,Unidentified material,MISC_NA,,,NA,NA,NA,NA,NA
