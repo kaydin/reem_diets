@@ -69,16 +69,6 @@ combined_cons <- rbind(combined_cons,strat_dietcons)
 write.csv(combined_cons,paste(this.model,"_stratcons.csv",sep=""),row.names=F)
 
 
-
-
-
-#write.csv(diet_sum,"diet2new.csv",row.names=F)
-
-## alpha_wt_m
-#prey_a <- 0.000267
-## beta_wt_m
-#prey_b <- 3.097253
-
 prey_params <- list(
   "W.pollock"  = list(
                    nodc="8791030701", race="21740", LCLASS=c(0,10,25,999)
