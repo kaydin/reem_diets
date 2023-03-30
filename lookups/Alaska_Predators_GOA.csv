@@ -1,4 +1,4 @@
-NODC_CODE,RACE,BASE_NAME,PREDATOR,juv_cm,adu_1,adu_2,adu_3,A_L_mm_g,B_L,vb_linf_cm,vb_k,vb_t0,CA,CB,C_TM,C_T0,C_Q,
+NODC_CODE,RACE,BASE_NAME,PREDATOR,juv_cm,adu_1,adu_2,adu_3,a_l_cm_g,b_l_cm_g,vb_linf_mm,vb_k,vb_t0,CA,CB,C_TM,C_T0,C_Q,
 8791030401,21720,Gadus macrocephalus (Pacific cod),Pacific_cod,20,30,60,85,,,1132.898349,0.141928441,-0.446310795,0.041,-0.122,21,13.7,2.41,
 8857041901,10120,Hippoglossus stenolepis (Pacific halibut),Pacific_halibut,20,50,70,999,,,NA,NA,NA,0.0625,-0.1076,18,12.97,3.084,
 8791030701,21740,Gadus chalcogrammus (walleye pollock),Walleye_pollock,20,40,55,999,,,631.1601677,0.296187725,0.04532145,0.119,-0.46,15,10,2.6,
