@@ -83,3 +83,10 @@ write.csv(goa.look,"goa_bio_lookup.csv",row.names=F)
 
 write.csv(race_nodc,"race_nodc_raw.csv",row.names=F)
 
+
+glook <- read.csv("lookups/lookup_merge/goa_bio_completed.csv")
+# REMOVED DUPLICATS IN EXCEL
+glook$SPECIES_CODE[duplicated(glook$SPECIES_CODE)]
+
+
+
