@@ -77,9 +77,9 @@ goa.look <- race_nodc %>%
   left_join(all_egoa,by=c("SPECIES_CODE"="species_code")) %>%
   filter(!is.na(SPECIES_CODE))
 
-
-
-
+goa.look$wgoa.wt[is.na(goa.look$wgoa.wt)] <-0
+goa.look$egoa.wt[is.na(goa.look$egoa.wt)] <-0
+write.csv(goa.look,"goa_bio_lookup.csv",row.names=F)
 
 write.csv(race_nodc,"race_nodc_raw.csv",row.names=F)
 
