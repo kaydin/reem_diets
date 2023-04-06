@@ -1,0 +1,246 @@
+Species,NODC,RACE,NAME,ECOPATH_PRED
+AK Plaice,8857041501,10285,Pleuronectes quadrituberculatus (Alaska plaice),AK Plaice
+Anemones,3.74E+09,41000,Anthozoa (anemome),Anemones
+Anemones,3760010900,0,Liponema sp. (sea anemone),Anemones
+Anemones,3760020000,43100,Actinostolidae (anemone),Anemones
+Anemones,3743010000,0,Cerianthidae (anemone),NA
+Arrowtooth,8857040100,10111,Atheresthes sp.,Arrow or Kam
+Arrowtooth,8857040102,10110,Atheresthes stomias (arrowtooth flounder),Arrowtooth
+Arrowtooth_Juv,NA,NA,NA,NA
+Atka mackerel,8827010501,21921,Pleurogrammus monopterygius (Atka mackerel),Atka
+Atka mackerel_Juv,NA,NA,NA,NA
+Bairdi,6187010302,68560,Chionoecetes bairdi (Tanner crab),Bairdi
+Bathylagidae,8756020000,20614,Bathylagidae (deepsea smelts),Bathylagidae
+Bathylagidae,8756020100,20660,Bathylagus sp.,Bathylagidae
+Bathylagidae,8756020103,20620,Pseudobathylagus milleri (stout blacksmelt),Bathylagidae
+Bathylagidae,8756020104,20624,Bathylagus ochotensis (eared blacksmelt),Bathylagidae
+Bathylagidae,8756020105,20615,Bathylagus pacificus (slender blacksmelt),Bathylagidae
+Bathylagidae,8756020300,0,Leuroglossus sp. (smooth tongues),Bathylagidae
+Bathylagidae,8756020301,20662,Leuroglossus stilbius (California smoothtongue),Bathylagidae
+Bathylagidae,8756020302,20622,Leuroglossus schmidti (northern smoothtongue),Bathylagidae
+Benthic Amphipods,NA,NA,NA,NA
+Big skate,8713040103,420,Bathyraja binoculata (big skate),Big Skate
+Bivalves,NA,NA,NA,NA
+Brittle stars,NA,NA,NA,NA
+Capelin,8755030201,23041,Mallotus villosus (capelin),Capelin
+Corals,NA,NA,NA,NA
+Dogfish,8710010201,310,Squalus acanthias (spiny dogfish),Dogfish
+Dover Sole,8857041201,10180,Microstomus pacificus (Dover sole),Dover Sole
+Dusky Rock,8826010109,30151,Sebastes ciliatus (dark rockfish),Dusky Rock
+Dusky Rock,8826010198,0,Sebastes variabilis (dusky rockfish),Sebastes
+Dusky Rock,8826010190,NA,Dusky/ dark rockfish Sebastes variabilis/ ciliatus,NA
+Eelpouts,NA,NA,NA,NA
+Eulachon,8755030501,23010,Thaleichthys pacificus (eulachon),Eulachon
+FH. Sole,8857040601,10130,Hippoglossoides elassodon (flathead sole),FH Sole
+FH. Sole_Juv,NA,NA,NA,NA
+Greenlings,8827010101,21935,Hexagrammos decagrammus (kelp greenling),Greenlings
+Greenlings,8827010102,21934,Hexagrammos lagocephalus (rock greenling),Greenlings
+Greenlings,8827010103,21931,Hexagrammos octogrammus (masked greenling),Greenlings
+Greenlings,8827010104,21932,Hexagrammos stelleri (white-spotted greenling),Greenlings
+Greenlings,8827010000,21900,Hexagrammidae (greenling),Gen. Hexagrammidae
+Grenadiers,8794010101,21220,Coryphaenoides acrolepis (Pacific rattail),Pacific Grenadier
+Grenadiers,8794010108,21230,Albatrosia pectoralis (giant grenadier),Giant Grenadier
+Hermit crabs,NA,NA,NA,NA
+Herring,8747010201,21110,Clupea pallasi (Pacific herring),Herring
+Herring_Juv,NA,NA,NA,NA
+Hydroids,NA,NA,NA,NA
+King Crab,NA,NA,NA,NA
+Lg. Sculpins,8831021400,21342,Hemilepidotus sp. (sculpin),Lg Sculpin
+Lg. Sculpins,8831021402,21346,Hemilepidotus hemilepidotus (red Irish lord),Lg Sculpin
+Lg. Sculpins,8831021403,21347,Hemilepidotus jordani (yellow Irish lord),Lg Sculpin
+Lg. Sculpins,8831021404,21348,Hemilepidotus papilio (butterfly sculpin),Lg Sculpin
+Lg. Sculpins,8831021406,21345,Hemilepidotus zapus (longfin irish lord),Lg Sculpin
+Lg. Sculpins,8831021502,21420,Hemitripterus bolini (bigmouth sculpin),Lg Sculpin
+Lg. Sculpins,8831022200,21375,Myoxocephalus sp. (sculpin),Lg Sculpin
+Lg. Sculpins,8831022201,21371,Myoxocephalus jaok (plain sculpin),Lg Sculpin
+Lg. Sculpins,8831022204,21370,Myoxocephalus polyacanthocephalus (great sculpin),Lg Sculpin
+Lg. Sculpins,8831022211,21368,Myoxocephalus verrucosus (warty sculpin),Lg Sculpin
+Longnose skate,8713040108,440,Raja Rhina (longnose skate),NA
+Misc. crabs,6.18E+09,0,Reptantia (crab),Gen. Crab
+Misc. crabs,6180000001,0,Decapoda Reptantia legs (for unident. crabs),Gen. Crab
+Misc. crabs,6.18E+09,69000,Anomura (crab),Gen. Crab
+Misc. Crustacean,NA,NA,NA,NA
+Misc. fish deep,8.72E+09,0,Osteichthyes,Gen. Fish
+Misc. fish deep,8.73E+09,0,Holostei (fish),Gen. Fish
+Misc. fish deep,8.74E+09,0,Teleostei (fish),Gen. Fish
+Misc. fish deep,8735000009,0,Scavenged fish (not an NODC code- J. Drazen),Gen. Fish
+Misc. fish deep,8735010000,0,Non-gadoid fish remains,Gen. Fish
+Misc. fish deep,8.80E+09,0,Gnathostomata,Gen. Fish
+Misc. fish deep,8791030000,21705,Gadidae (gadid fish),Gen. Gadid
+Misc. fish shallow,NA,NA,NA,NA
+Misc. Flatfish,8.86E+09,0,Pleuronectoidei (flatfish),Gen. Flatfish
+Misc. Flatfish,8857030000,10003,Bothidae (left-eye flounders),Gen. Flatfish
+Misc. Flatfish,8857040000,10100,Pleuronectidae (flatfish),Gen. Flatfish
+Misc. Flatfish,8857040600,10129,Hippoglossoides sp.,Gen. Flatfish
+Misc. Flatfish,8858020116,10400,Symphurus atricauda (California tonguefish),Misc. Flatfish
+Misc. Flatfish,8857030100,10008,Citharichthys,Misc. Flatfish
+Misc. Flatfish,8857030101,10010,Citharichthys sordidus (Pacific sanddab),Misc. Flatfish
+Misc. Flatfish,8857030309,10050,Paralichthys californicus (California halibut),Misc. Flatfish
+Misc. Flatfish,8857040301,10190,Embassichthys bathybius (deepsea sole),Misc. Flatfish
+Misc. Flatfish,8857040602,10140,Hippoglossoides robustus (Bering flounder),Misc. Flatfish
+Misc. Flatfish,8857040701,10270,Isopsetta isolepis (butter sole),Misc. Flatfish
+Misc. Flatfish,8857040900,0,Limanda sp.,Misc. Flatfish
+Misc. Flatfish,8857040902,10211,Limanda proboscideus (longhead dab),Misc. Flatfish
+Misc. Flatfish,8857040999,10212,Limanda sakhalinensis (Sakalin sole),Misc. Flatfish
+Misc. Flatfish,8857041101,10150,Eopsetta exilis (slender sole),Misc. Flatfish
+Misc. Flatfish,8857041301,10170,Parophrys vetulus (English sole),Misc. Flatfish
+Misc. Flatfish,8857041401,10220,Platichthys stellatus (Starry flounder),Misc. Flatfish
+Misc. Flatfish,8857041701,10250,Psettichthys melanostictus (sand sole),Misc. Flatfish
+Misc. Flatfish,8857040401,10160,Petrale Sole Eopsetta jordani,NA
+Misc. worms ,NA,NA,NA,NA
+Myctophidae,8762140000,22600,Myctophidae (lanternfish),Myctophidae
+Myctophidae,8762140201,22610,Diaphus theta (California headlightfish),Myctophidae
+Myctophidae,8762140300,22620,Lampanyctus sp. (lampfish),Myctophidae
+Myctophidae,8762140301,22625,Lampanyctus jordani (broken line myctophid),Myctophidae
+Myctophidae,8762140302,22624,Nannobrachium regale (pinpoint lanternfish),Myctophidae
+Myctophidae,8762140319,22600,Lampanyctus tenuiformes (lantern fish),Myctophidae
+Myctophidae,8762140500,0,Stenobrachius sp. (lampfish),Myctophidae
+Myctophidae,8762140501,22602,Stenobrachius leucopsarus (northern lampfish),Myctophidae
+Myctophidae,8762140502,22603,Stenobranchius nannochir (garnet myctophid),Myctophidae
+Myctophidae,8762140601,22656,Symbolophorus californiense (bigfin lanterfish),Myctophidae
+Myctophidae,8762140701,22651,Tarletonbeania crenularis (blue laternfish),Myctophidae
+Myctophidae,8762141000,22648,Protomyctophum sp. (lampfish).,Myctophidae
+Myctophidae,8762141002,22649,Protomyctophum thompsoni (bigeye lanternfish),Myctophidae
+Myctophidae,8762140200,22609,Myctohpidae (lanternfish) Diaphus sp.,NA
+N. Rock sole,8857040803,10261,Lepidopsetta polyxystra (northern rock sole),N Rock Sole
+N. Rock sole,8857040800,10260,Lepidopsetta sp. (rock sole type),Gen Rock Sole
+Northern Rock,8826010129,30420,Sebastes polyspinis (northern rockfish),Northern Rock
+NP shrimp,NA,NA,NA,NA
+Octopi ,NA,NA,NA,NA
+Oth. managed forage,8840010201,21592,Trichodon trichodon (Pacific sandfish),Managed Forage
+Oth. managed forage,8842120000,23800,Stichaeidae (prickleback),Managed Forage
+Oth. managed forage,8842120101,21120,Acantholumpenus mackayi (pighead prickleback),Managed Forage
+Oth. managed forage,8842120201,0,Alectridium aurantiacum (lesser prickleback),Managed Forage
+Oth. managed forage,8842120301,0,Allolumpenus hypochromus (y-prickleback),Managed Forage
+Oth. managed forage,8842120400,0,Anoplarchus sp. (cockscomb),Managed Forage
+Oth. managed forage,8842120504,23843,Chirolophis snyderi (bearded warbonnet),Managed Forage
+Oth. managed forage,8842120601,23861,Bryozoichthys lysimus (nutcracker prickleback),Managed Forage
+Oth. managed forage,8842120801,23836,Lumpenella longirostris (longsnout prickleback),Managed Forage
+Oth. managed forage,8842120900,23801,Lumpenus sp. (prickleback),Managed Forage
+Oth. managed forage,8842120901,23807,Lumpenus fabricii (slender eelblenny),Managed Forage
+Oth. managed forage,8842120902,23808,Lumpenus sagitta (snake prickleback),Managed Forage
+Oth. managed forage,8842120903,23805,Lumpenus maculatus (daubed shanny),Managed Forage
+Oth. managed forage,8842120904,23806,Lumpenus medius (stout eelblenny),Managed Forage
+Oth. managed forage,8842121200,0,Poroclinus sp. (prickleback),Managed Forage
+Oth. managed forage,8842121201,23850,Poroclinus rothrocki (whitebarred pricklback),Managed Forage
+Oth. managed forage,8842130000,23871,Pholidae (gunnel family),Managed Forage
+Oth. managed forage,8842130200,23872,Pholis sp. (gunnel),Managed Forage
+Oth. managed forage,8842130201,0,Pholis clemensi (longfin gunnel),Managed Forage
+Oth. managed forage,8842130206,0,Pholis ornata (saddleback gunnel),Managed Forage
+Oth. managed forage,8842130205,23873,Pholis laeta (Crested gunnel ),Managed Forage
+Oth. pelagic smelt,NA,NA,NA,NA
+Other sculpins,NA,NA,NA,NA
+Other Sebastes,8826010100,30040,Sebastes sp. (rockfish),Gen. Sebastes
+Other Sebastes,8826010000,30000,Scorpaenidae,Gen. Rockfish
+Other Sebastes,8.83E+09,0,Scorpaeniformes (rockfish and cottid),Gen. Rocks et al
+Other Sebastes,8826010202,30030,Sebastolobus altivelis (longspine thornyhead),Longsp Thorny
+Other Sebastes,8826010128,30410,Sebastes pinniger (canary rockfish),Canary Rock
+Other Sebastes,8826010104,30090,Sebastes aurora (aurora rockfish),Sebastes
+Other Sebastes,8826010105,30475,Sebastes babcocki (redbanded rockfish),Sebastes
+Other Sebastes,8826010106,30100,Sebastes brevispinis (silvergray rockfish),Sebastes
+Other Sebastes,8826010110,30170,Sebastes crameri (darkblotched rockfish),Sebastes
+Other Sebastes,8826010111,30190,Sebastes diploproa (splitnose rockfish),Sebastes
+Other Sebastes,8826010112,30200,Sebastes elongatus (greenstriped rockfish),Sebastes
+Other Sebastes,8826010116,0,Sebastes glaucus (gray rockfish),Sebastes
+Other Sebastes,8826010117,30260,Sebastes goodei (chilipepper rockfish),Sebastes
+Other Sebastes,8826010118,30270,Sebastes helvomaculatus (rosethorn rockfish),Sebastes
+Other Sebastes,8826010119,30290,Sebastes jordani (shortbelly rockfish),Sebastes
+Other Sebastes,8826010120,30320,Sebastes maliger (quillback rockfish),Sebastes
+Other Sebastes,8826010121,30330,Sebastes melanops (black rockfish),Sebastes
+Other Sebastes,8826010124,30360,Sebastes mystinus (blue rockfish),Sebastes
+Other Sebastes,8826010130,30430,Sebastes proriger (redstripe rockfish),Sebastes
+Other Sebastes,8826010134,30470,Sebastes ruberrimus (yelloweye rockfish),Sebastes
+Other Sebastes,8826010135,30490,Sebastes saxicola (stripetail rockfish),Sebastes
+Other Sebastes,8826010136,30535,Sebastes variegatus (harlequin rockfish),Sebastes
+Other Sebastes,8826010143,30130,Sebastes chlorostictus,Sebastes
+Other Sebastes,8826010199,0,Sebastes alutus complex (pop complex),Sebastes
+Other Sebastes,8826010114,30220,Sebastes entomelas (widow rockfish),Widow Rock
+Other Sebastes,8826010115,30240,Sebastes flavidus (yellowtail rockfish),Yellowtail Rock
+Other Sebastes,8826010137,30550,pygmy rockfish Sebastes wilsoni,NA
+Other Sebastes,8826010200,30010,Sebastolobus sp. (unidentified thornyhead),Gen Thorny
+Other Sebastes,8826010127,30400,Sebastes paucispinis (bocaccio),Bocaccio
+Other Sebastes,8826010203,30025,Sebastolobus macrochir (bighand thornyhead),Bighand Thorny
+Other skates,8.70E+09,151,Chondrichthyes,Gen. Shark Skate
+Other skates,8713040107,471,Bathyraja parmifera (Alaska skate),AK Skate
+Other skates,8713040102,472,Bathyraja aleutica (Aleutian skate),Aleutian Skate
+Other skates,8713040105,435,Bathyraja interrupta (Bering skate),Bering Skate
+Other skates,8713040810,460,Bathyraja trachura (black skate),Black Skate
+Other skates,8713040896,475,Bathyraja lindbergi (commander skate),Commander Skate
+Other skates,8713040898,455,Bathyraja tarantetzi (mud skate),Mud Skate
+Other skates,8713040101,410,Bathyraja abyssicola (Deepsea skate),Deepsea Skate
+Other skates,8713040897,485,Bathyraja minispinosa (whitebrow skate),NA
+Other skates,8826010197,30052,Sebastes melanostictus (black spotted rockfish),NA
+Other skates,8713040199,477,Bathyraja panthera (leopard skate),NA
+Other skates,8831022302,495,Bathyraja violacea (Okhotsk skate),NA
+Other skates,8713040899,480,Bathyraja maculata (white blotched skate),WhtBlotch Skate
+Other skates,6187010304,400,Rajidae (skate),Unid Rajidae
+Other skates,8831090301,405,Bathyraja sp. (skate),Unid Bathyraja
+P. Cod,8791030401,21720,Gadus macrocephalus (Pacific cod),P. Cod
+P. Cod_Juv,NA,NA,NA,NA
+P. Halibut,8857041901,10120,Hippoglossus stenolepis (Pacific halibut),P. Halibut
+P. Halibut_Juv,NA,NA,NA,NA
+Pandalidae,6179180000,66019,Pandalidae (shrimp),Pandalidae
+Pandalidae,6179180100,66020,Pandalus sp. (shrimp),Pandalidae
+Pandalidae,6179180101,0,Pandalus borealis (shrimp),Pandalidae
+Pandalidae,6179180102,66045,Pandalus goniurus (shrimp),Pandalidae
+Pandalidae,6179180103,66030,Pandalus jordani (shrimp),Pandalidae
+Pandalidae,6179180104,66034,Pandalus montagui tridens (shrimp),Pandalidae
+Pandalidae,6179180105,66040,Pandalus platyceros (shrimp),Pandalidae
+Pandalidae,6179180106,66050,Pandalus hypsinotus (humpback shrimp),Pandalidae
+Pandalidae,6179180107,66025,Pandalus danae (coonstripe shrimp),Pandalidae
+Pandalidae,6179180108,66055,Pandalus stenolepis (shrimp),Pandalidae
+Pandalidae,6179180200,66059,Pandalopsis sp. (shrimp),Pandalidae
+Pandalidae,6179180201,66130,Pandalopsis ampla (shrimp),Pandalidae
+Pandalidae,6179180202,66060,Pandalopsis aleutica (shrimp),Pandalidae
+Pandalidae,6179180204,66120,Pandalopsis dispar (sidestripe shrimp),Pandalidae
+Polychaetes,NA,NA,NA,NA
+POP,8826010102,30060,Sebastes alutus (Pacific ocean perch),POP
+POP_Juv,NA,NA,NA,NA
+Rex Sole,8857040501,10200,Errex zachirus (rex sole),Rex sole
+Rougheye Rock,8826010101,30051,Sebastes aleutianus (rougheye rockfish),Rougheye Rock
+S. Rock sole,8857040801,10262,Lepidopsetta bilineatus (southern rock sole),S Rock Sole
+Sablefish,8827020101,20510,Anoplopoma fimbria (sablefish),Sablefish
+Sablefish_Juv,NA,NA,NA,NA
+Salmon outgoing,NA,NA,NA,NA
+Salmon returning,8755010000,0,"Salmonidae (salmon, whitefish)",Salmon
+Salmon returning,8755010100,0,Coregonus (salmonidae),Salmon
+Salmon returning,8755010200,23202,Oncorhynchus sp. (salmon),Salmon
+Salmon returning,8755010201,23230,Oncorhynchus gorbuscha (pink salmon),Salmon
+Salmon returning,8755010202,23235,Oncorhynchus keta (chum salmon),Salmon
+Salmon returning,8755010203,23225,Oncorhynchus kisutch (coho salmon),Salmon
+Salmon returning,8755010205,23240,Oncorhynchus nerka (sockeye salmon),Salmon
+Salmon returning,8755010206,23220,Oncorhynchus tshawytscha (chinook salmon),Salmon
+Salmon returning,8755010302,23260,Oncorhynchus mykiss (steelhead),Salmon
+Salmon returning,8.75E+09,0,Salmoniformes,Gen. Salmoniformes
+Salmon shark,NA,NA,NA,NA
+Sandlance,8845010100,20202,Ammodytes sp. (sandlance),Sandlance
+Sandlance,8845010101,20202,Ammodytes hexapterus (Pacific sandlance),Sandlance
+Scyphozoid Jellies,3.73E+09,0,Scyphozoa (jellyfish),Scypho Jellies
+Scyphozoid Jellies,3733060101,0,Periphylla periphylla,Scypho Jellies
+Scyphozoid Jellies,3734010201,40504,Chrysaora melanaster (jellyfish),Scypho Jellies
+Scyphozoid Jellies,3733010100,40510,Atolla sp.,Scypho Jellies
+Scyphozoid Jellies,3734030101,40505,Phacellophora camtchatica,Scypho Jellies
+Scyphozoid Jellies,3734030203,40512,Aurelia labiata (moon jellyfish),Scypho Jellies
+Sea Pens,3.75E+09,42000,Pennatulacea (sea pen),Sea Pens
+Sea stars,8.10E+09,80000,Asteroidea (starfish),Sea Star
+Sea stars,8107020101,81780,Ctenodiscus crispatus (mud sea star),Sea Star
+Sea stars,8117030000,80159,Asteriidae (starfish),Sea Star
+Sharpchin Rock,8826010138,30560,Sebastes zacentrus (sharpchin rockfish),Sharpchin Rock
+Shortraker Rock,8826010107,30576,Sebastes borealis (shortraker rockfish),Shortraker Rock
+Shortspine Thorns,8826010201,30020,Sebastolobus alascanus (shortspine thornyhead),Shortsp Thorny
+Shortspine Thorns_Juv,NA,NA,NA,NA
+Sleeper shark,8710010101,320,Somniosus pacificus (Pacific sleeper shark),Sleeper Shark
+Snails,NA,NA,NA,NA
+Sponges,NA,NA,NA,NA
+Squids,NA,NA,NA,NA
+Urchins dollars cucumbers,NA,NA,NA,NA
+Urochordata,8.40E+09,0,Urochordata (tunicate),Benth. Urochordata
+Urochordata,8.40E+09,98000,Ascidiacea (sea squirt),Benth. Urochordata
+Urochordata,8404050100,0,Ascidia sp. (tunicate),Benth. Urochordata
+Urochordata,8406010503,0,Styela rustica (sea potato),Benth. Urochordata
+Urochordata,8406020200,98100,Boltenia sp. (sea onion),Benth. Urochordata
+Urochordata,8406020202,98102,Boltenia echinata (sea onion),Benth. Urochordata
+Urochordata,8406010500,0,Styela sp. (Sea potatos),Benth. Urochordata
+W. Pollock,8791030701,21740,Gadus chalcogrammus (walleye pollock),W. Pollock
+W. Pollock_Juv,NA,NA,NA,NA
+YF. Sole,8857040901,10210,Limanda aspera (yellowfin sole),YF Sole

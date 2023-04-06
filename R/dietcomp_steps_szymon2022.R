@@ -22,17 +22,8 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
                        prey_guild_column     = "egoa")
 
-pred_params <- list(
-    "P.cod"        = list(nodc="8791030401", race="21720", LCLASS=c(0,10,30,60,85,999),
-                          bioen=list(ref="cod2015", CA=0.041, CB= -0.122, C_TM=21, C_T0=13.7, C_Q=2.41)),
-    "W.pollock"    = list(nodc="8791030701", race="21740", LCLASS=c(0,10,25,40,55,999), 
-                          bioen=list(ref="poll2015", CA=0.119, CB=-0.46, C_TM=15, C_T0=10, C_Q=2.6)),
-    "Arrowtooth"   = list(nodc="8857040102", race="10110", LCLASS=c(0,10,30,50,999),
-                          bioen=list(ref="atf2015", CA=0.125, CB=-0.199, C_TM=26, C_T0=20.512, C_Q=2.497)),
-    "P.halibut"    = list(nodc="8857041901", race="10120", LCLASS=c(0,10,50,70,999),
-                          bioen=list(ref="hal2018", CA=0.0625, CB=-0.1076, C_TM=18, C_T0=12.97, C_Q=3.084))
-    )
-
+predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
+  
 # Consumption scaling (temperature-dependent) currently uses Wisconsin
 # model eq 2 parameters for Cmax (per day) and temperature corrections.  
 # To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
@@ -44,27 +35,57 @@ pred_params <- list(
 
 
 ##############################################################################
-## GEORGE ANALYSIS 2022
-
-source("R/REEM_fooddata_functions.R")
-REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
-                       stratum_bin_column    = "strat_groups",
-                       preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
-                       prey_guild_column     = "egoa")
 
 this.model <- "EGOA"
 
-combined_cons <- NULL
-for (this.pred in c("W.pollock","P.cod","Arrowtooth","P.halibut")){
-# set up len-weight regression parameters and consumption weighting
-lwp <- get_lw(predator=this.pred, model=this.model, years=1982:2021, all.data=F) 
-  pred_params[[this.pred]]$lw_a  = lwp$lw_a
-  pred_params[[this.pred]]$lw_b  = lwp$lw_b
-strat_lencons  <- get_stratum_length_cons(predator=this.pred, model=this.model)
-strat_dietcons <- add_diets_to_strata_length_cons(strat_lencons, predator=this.pred, model=this.model)
+model_area <- sum(strat_areas$area[strat_areas$model==this.model])
 
-combined_cons <- rbind(combined_cons,strat_dietcons)
+preds      <- predlist %>% filter(model==this.model)
+pred_names <- unique(preds$predator)
+pred_params=list()
+for (p in pred_names){
+  pdat <- as.list(preds[preds$predator==p,])
+  pred_params[[p]] <- pdat
+  pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+  pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+  pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+  pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+  pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
 }
+
+combined_cons <- NULL
+combined_bio  <- NULL
+combined_sbio <- NULL
+for (this.pred in pred_names){
+  strat_lencons  <- get_stratum_length_cons(predator=this.pred, model=this.model)
+
+  strat_dietcons <- add_diets_to_strata_length_cons(strat_lencons, predator=this.pred, model=this.model)
+  combined_cons <- rbind(combined_cons,strat_dietcons)
+
+  strat_bio <- strat_lencons %>%     
+    group_by(year,model,stratum_bin,species_name,lbin) %>%
+    summarize(strat_bio_t_km2 = mean(tot_wlcpue_t_km2), .groups="keep") %>%
+    left_join(strat_areas,by=c("model","stratum_bin")) %>%
+    mutate(bio_tons = strat_bio_t_km2 * area,
+           jcat     = ifelse(lbin==pred_params[[this.pred]]$jsize,"juv","adu"))    
+  
+  combined_bio  <- rbind(combined_bio,strat_bio)    
+  #test <- get_biomass_stratum(predator=this.pred,model=this.model)
+  #combined_sbio <- rbind(combined_sbio, test)
+}
+
+bio_sum <- combined_bio %>%     
+  group_by(year, model, species_name, jcat) %>%
+  summarize(bio_tons = sum(bio_tons), .groups="keep") %>%
+  mutate(model_area = model_area,
+         bio_tkm2   = bio_tons/model_area)
+
+
+test <- get_cpue_length_cons(predator=this.pred, model=this.model)
+
+
+
+#}
 
 write.csv(combined_cons,paste(this.model,"_stratcons.csv",sep=""),row.names=F)
 
