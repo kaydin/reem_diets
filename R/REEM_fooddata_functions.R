@@ -34,6 +34,13 @@ get_stratum_length_cons <- function(
 
 
 #############################################################
+
+strat_summary<- function(model){
+  this.model=model
+  return(strata_lookup %>% filter(model==this.model) %>% select(stratum_bin,area))
+}
+
+#############################################################
 haul_summary <- function(model){
 
   this.model=model

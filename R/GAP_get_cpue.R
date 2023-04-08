@@ -213,22 +213,25 @@ guild_out <- function(dat){
 get_cpue_all <- function(racebase_tables = list(
   cruisedat = cruisedat,
   haul = haul,
-  catch = catch),model){ 
-  
+  catch = catch),model){
+
   # survey_area is called region in RACEBASE
   cruisedat <- racebase_tables$cruisedat
   haul <- racebase_tables$haul
   catch <- racebase_tables$catch
   # KYA added
   model_name    <- model    # renamed to avoid name confusion during lookup
-  
-  sp_catch <- catch #%>% filter(species_code == speciescode)
-  
+
+  racebins <- race_lookup %>%
+    select(species_code,race_guild)
+  sp_catch <- catch %>% #%>% filter(species_code == speciescode)
+    left_join(racebins, by="species_code")
+
   # KYA added
   stratbins    <- strata_lookup   # %>% mutate(stratum_bin = .data[[stratbin_col]])
   model_haul <- haul %>%
     left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
-  
+
   dat <- model_haul %>%
     left_join(cruisedat,
               by = c("cruisejoin", "region")
@@ -241,7 +244,7 @@ get_cpue_all <- function(racebase_tables = list(
       weight = 0,
       number_fish = 0)) %>%
     dplyr::select(
-      species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
+      species_code,race_guild,model,stratum_bin,region.x,#KYA added model, stratum_bin
       cruisejoin.x, vessel.x, haul.x, cruise.x, hauljoin,
       haul_type, performance, start_time, duration,
       stratum, stationid, bottom_depth,
@@ -262,7 +265,7 @@ get_cpue_all <- function(racebase_tables = list(
     )
   # %>%
   # filter(year == survey_yr)
-  
+
   x <- dat %>%
     mutate(
       wgtcpue = catch_kg / AreaSwept_km2,
@@ -271,7 +274,7 @@ get_cpue_all <- function(racebase_tables = list(
     ) %>%
     #replace_na(list(species_code = speciescode)) %>%
     select(
-      year, model, species_code, stratum_bin, survey, Vessel, haul.x, cruise.x, hauljoin,
+      year, model, species_code, race_guild, stratum_bin, survey, Vessel, haul.x, cruise.x, hauljoin,
       stationid, bottom_depth,
       stratum, start_time, distance_fished,Lat,Lon,Bottom_temp,Surface_temp,
       species_code, catch_kg, number_fish,
@@ -279,7 +282,7 @@ get_cpue_all <- function(racebase_tables = list(
     ) %>%
     rename(haul = haul.x, cruise=cruise.x) %>%
     arrange(year)
-  
+
   return(x)
 }
 

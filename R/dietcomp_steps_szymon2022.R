@@ -23,20 +23,44 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
                        prey_guild_column     = "egoa")
 
 predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
-  
-# Consumption scaling (temperature-dependent) currently uses Wisconsin
-# model eq 2 parameters for Cmax (per day) and temperature corrections.  
+
+race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
+  mutate(race_guild  = .data[["final_goa"]])
+
+
 # To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
 # (or Ecopath annual QB/365) and CB=0, C_TM=100, C_T0=-100, C_Q=1.000000001
 # If you're using this for diet proportions not total consumption, can simply
 # use 1.0 for CA.
-#pred_params[["P.cod"]]$bioen = list(ref="P.cod.old", CA=0.041,     CB= -0.122,  C_TM=21,  C_T0=13.7,  C_Q=2.41)
-#pred_params[["P.cod"]]$bioen = list(ref="cod.qb"   , CA=1.39/365,  CB=0,  C_TM=100,  C_T0=-100,  C_Q=1.000000001)
-
 
 ##############################################################################
 
-this.model <- "EGOA"
+bio_combined <-NULL
+
+for (this.model in c("EGOA","WGOA")){
+
+  stratsum <- get_cpue_all(model=this.model) %>%
+    group_by(year, model, race_guild, stratum_bin) %>%
+    summarize(wgtcpue=sum(wgtcpue),
+              numcpue=sum(numcpue),.groups="keep") %>%
+    left_join(haul_summary(this.model),by=c("year","model","stratum_bin")) %>%
+    left_join(strat_summary(this.model),by=c("stratum_bin")) %>%
+    mutate(bio_t_km2 = wgtcpue/1000/stations,
+           bio_tons  = bio_t_km2 * area)
+
+  tot_area <- sum(strat_summary(this.model)$area)
+
+  bio_totals <- stratsum %>%
+    group_by(year,model,race_guild) %>%
+    summarize(bio_tot_tons = sum(bio_tons),
+              area_km2     = tot_area,
+              bio_tkm2     = bio_tot_tons/area_km2, .groups="keep")
+
+  bio_combined <- rbind(bio_combined,bio_totals)  
+}
+
+
+##################################################################
 
 model_area <- sum(strat_areas$area[strat_areas$model==this.model])
 

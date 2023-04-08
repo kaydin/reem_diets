@@ -220,78 +220,78 @@ guild_out <- function(dat){
 }
 
 ##############################################################################
-get_cpue_all <- function(racebase_tables = list(
-  cruisedat = cruisedat,
-  haul = haul,
-  catch = catch),model){ 
-  
-  # survey_area is called region in RACEBASE
-  cruisedat <- racebase_tables$cruisedat
-  haul <- racebase_tables$haul
-  catch <- racebase_tables$catch
-  # KYA added
-  model_name    <- model    # renamed to avoid name confusion during lookup
-  
-  sp_catch <- catch #%>% filter(species_code == speciescode)
-  
-  # KYA added
-  stratbins    <- strata_lookup   # %>% mutate(stratum_bin = .data[[stratbin_col]])
-  model_haul <- haul %>%
-    left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
-  
-  dat <- model_haul %>%
-    left_join(cruisedat,
-              by = c("cruisejoin", "region")
-    ) %>%
-    filter(abundance_haul == "Y" &
-             #region == survey_area) %>%
-             model == model_name) %>% # KYA changed
-    left_join(sp_catch, by = "hauljoin") %>%
-    replace_na(list(
-      weight = 0,
-      number_fish = 0)) %>%
-    dplyr::select(
-      species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
-      cruisejoin.x, vessel.x, haul.x, cruise.x, hauljoin,
-      haul_type, performance, start_time, duration,
-      stratum, stationid, bottom_depth,
-      distance_fished, weight, year,
-      weight, number_fish,
-      start_latitude, start_longitude,
-      gear_temperature, surface_temperature,
-      AreaSwept_km2
-    ) %>%
-    dplyr::rename(
-      Lat = start_latitude,
-      Lon = start_longitude,
-      catch_kg = weight,
-      Vessel = vessel.x,
-      region = region.x,
-      Bottom_temp = gear_temperature,
-      Surface_temp = surface_temperature
-    )
-  # %>%
-  # filter(year == survey_yr)
-  
-  x <- dat %>%
-    mutate(
-      wgtcpue = catch_kg / AreaSwept_km2,
-      numcpue = number_fish / AreaSwept_km2,
-      survey = region,
-    ) %>%
-    #replace_na(list(species_code = speciescode)) %>%
-    select(
-      year, model, species_code, stratum_bin, survey, Vessel, haul.x, cruise.x, hauljoin,
-      stationid, bottom_depth,
-      stratum, start_time, distance_fished,Lat,Lon,Bottom_temp,Surface_temp,
-      species_code, catch_kg, number_fish,
-      AreaSwept_km2, wgtcpue, numcpue # wgtcpue is kg per km2
-    ) %>%
-    rename(haul = haul.x, cruise=cruise.x) %>%
-    arrange(year)
-  
-  return(x)
-}
+# get_cpue_all <- function(racebase_tables = list(
+#   cruisedat = cruisedat,
+#   haul = haul,
+#   catch = catch),model){ 
+#   
+#   # survey_area is called region in RACEBASE
+#   cruisedat <- racebase_tables$cruisedat
+#   haul <- racebase_tables$haul
+#   catch <- racebase_tables$catch
+#   # KYA added
+#   model_name    <- model    # renamed to avoid name confusion during lookup
+#   
+#   sp_catch <- catch #%>% filter(species_code == speciescode)
+#   
+#   # KYA added
+#   stratbins    <- strata_lookup   # %>% mutate(stratum_bin = .data[[stratbin_col]])
+#   model_haul <- haul %>%
+#     left_join(stratbins, by=c("region"="survey","stratum"="stratum"))
+#   
+#   dat <- model_haul %>%
+#     left_join(cruisedat,
+#               by = c("cruisejoin", "region")
+#     ) %>%
+#     filter(abundance_haul == "Y" &
+#              #region == survey_area) %>%
+#              model == model_name) %>% # KYA changed
+#     left_join(sp_catch, by = "hauljoin") %>%
+#     replace_na(list(
+#       weight = 0,
+#       number_fish = 0)) %>%
+#     dplyr::select(
+#       species_code,model,stratum_bin,region.x,#KYA added model, stratum_bin
+#       cruisejoin.x, vessel.x, haul.x, cruise.x, hauljoin,
+#       haul_type, performance, start_time, duration,
+#       stratum, stationid, bottom_depth,
+#       distance_fished, weight, year,
+#       weight, number_fish,
+#       start_latitude, start_longitude,
+#       gear_temperature, surface_temperature,
+#       AreaSwept_km2
+#     ) %>%
+#     dplyr::rename(
+#       Lat = start_latitude,
+#       Lon = start_longitude,
+#       catch_kg = weight,
+#       Vessel = vessel.x,
+#       region = region.x,
+#       Bottom_temp = gear_temperature,
+#       Surface_temp = surface_temperature
+#     )
+#   # %>%
+#   # filter(year == survey_yr)
+#   
+#   x <- dat %>%
+#     mutate(
+#       wgtcpue = catch_kg / AreaSwept_km2,
+#       numcpue = number_fish / AreaSwept_km2,
+#       survey = region,
+#     ) %>%
+#     #replace_na(list(species_code = speciescode)) %>%
+#     select(
+#       year, model, species_code, stratum_bin, survey, Vessel, haul.x, cruise.x, hauljoin,
+#       stationid, bottom_depth,
+#       stratum, start_time, distance_fished,Lat,Lon,Bottom_temp,Surface_temp,
+#       species_code, catch_kg, number_fish,
+#       AreaSwept_km2, wgtcpue, numcpue # wgtcpue is kg per km2
+#     ) %>%
+#     rename(haul = haul.x, cruise=cruise.x) %>%
+#     arrange(year)
+#   
+#   return(x)
+# }
 
 
 
