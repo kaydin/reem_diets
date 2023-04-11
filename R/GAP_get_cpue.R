@@ -137,7 +137,7 @@ get_cpue_length_cons <- function(racebase_tables = list(
              lw_a = pred_params[[predator]]$lw_a, 
              lw_b = pred_params[[predator]]$lw_b,
              body_wt = lw_a * (length/10.0)^lw_b,
-             lbin = as.character(cut(length/10.0, pred_params[[this.pred]]$LCLASS, right=F)),
+             lbin = as.character(cut(length/10.0, pred_params[[predator]]$LCLASS, right=F)),
              WgtLBin_CPUE_kg_km2 = NumLBin_CPUE_km2*body_wt/1000
     )
   

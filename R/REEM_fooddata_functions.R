@@ -41,6 +41,25 @@ strat_summary<- function(model){
 }
 
 #############################################################
+haul_stratum_summary <- function(model){
+  
+  this.model=model
+  stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  x <- haul %>% 
+    filter(abundance_haul == "Y") %>% 
+    mutate(year=floor(cruise/100)) %>% 
+    left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
+    filter(model==this.model) %>%
+    group_by(model, stratum_bin, stratum, area, year) %>% 
+    summarize(stations          = length(hauljoin),
+              bottom_temp_mean  = mean(gear_temperature,na.rm=T),
+              surface_temp_mean = mean(surface_temperature,na.rm=T),
+              .groups="keep")
+  return(x)
+}
+
+
+#############################################################
 haul_summary <- function(model){
 
   this.model=model
@@ -51,7 +70,7 @@ haul_summary <- function(model){
     left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
     filter(model==this.model) %>%
     group_by(model,stratum_bin,year) %>% 
-    summarize(stations=length(hauljoin),
+    summarize(stations          = length(hauljoin),
               bottom_temp_mean  = mean(gear_temperature,na.rm=T),
               surface_temp_mean = mean(surface_temperature,na.rm=T),
               .groups="keep")

@@ -39,26 +39,62 @@ bio_combined <-NULL
 
 for (this.model in c("EGOA","WGOA")){
 
+# Biomass pools (no size structure) biomass  
   stratsum <- get_cpue_all(model=this.model) %>%
-    group_by(year, model, race_guild, stratum_bin) %>%
-    summarize(wgtcpue=sum(wgtcpue),
-              numcpue=sum(numcpue),.groups="keep") %>%
-    left_join(haul_summary(this.model),by=c("year","model","stratum_bin")) %>%
-    left_join(strat_summary(this.model),by=c("stratum_bin")) %>%
+    group_by(year, model, race_guild, stratum) %>%
+    summarize(wgtcpue = sum(wgtcpue),
+              numcpue = sum(numcpue),.groups="keep") %>%
+    left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
     mutate(bio_t_km2 = wgtcpue/1000/stations,
            bio_tons  = bio_t_km2 * area)
-
-  tot_area <- sum(strat_summary(this.model)$area)
-
+  
+  model_area <- sum(strata_lookup$area[strata_lookup$model==this.model])
+  
   bio_totals <- stratsum %>%
-    group_by(year,model,race_guild) %>%
-    summarize(bio_tot_tons = sum(bio_tons),
-              area_km2     = tot_area,
-              bio_tkm2     = bio_tot_tons/area_km2, .groups="keep")
-
+    group_by(year, model, race_guild) %>%
+    summarize(bio_tons = sum(bio_tons),
+              bio_tkm2 = bio_tons/model_area, .groups="keep")
+  
   bio_combined <- rbind(bio_combined,bio_totals)  
+
+    
+# Split pools  
+  preds      <- predlist %>% filter(model==this.model)
+  pred_names <- unique(preds$predator)
+  pred_params=list()
+  for (p in pred_names){
+    pdat <- as.list(preds[preds$predator==p,])
+    pred_params[[p]] <- pdat
+    pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+    pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+    pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+    pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+  }
+  
+  for (p in pred_names){
+    p <- pred_names[1]
+    bio_pred <- bio_totals %>%
+      filter(race_guild==p)
+    
+    juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model) %>%
+    group_by(year,model,stratum,species_name,lbin) %>%
+      summarize(strat_bio_t_km2 = mean(tot_wlcpue_t_km2), .groups="keep") %>%
+      left_join((strata_lookup %>% select(model, stratum, stratum_bin, area)),
+                by=c("model","stratum")) %>%
+      mutate(bio_tons = strat_bio_t_km2 * area,
+             jcat     = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu"))  
+    
+    juvprops <- juv_adu_lencons %>%
+      group_by(year,model,species_name,jcat) %>%
+      summarize(bio_tons = sum(bio_tons), .groups="keep") %>%
+      pivot_wider(names_from=jcat, values_from=bio_tons)
+    
+    juv_combined <- bio_pred %>%
+      left_join(juvprops,by=c("year","model","race_guild"="species_name"))
 }
 
+write.csv(bio_combined,"goa_bio_combined.csv",row.names=F)
 
 ##################################################################
 
