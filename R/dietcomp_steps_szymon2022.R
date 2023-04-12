@@ -55,9 +55,7 @@ for (this.model in c("EGOA","WGOA")){
     summarize(bio_tons = sum(bio_tons),
               bio_tkm2 = bio_tons/model_area, .groups="keep")
   
-  bio_combined <- rbind(bio_combined,bio_totals)  
 
-    
 # Split pools  
   preds      <- predlist %>% filter(model==this.model)
   pred_names <- unique(preds$predator)
@@ -72,30 +70,43 @@ for (this.model in c("EGOA","WGOA")){
     pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
   }
   
+  juv_combined <- NULL
   for (p in pred_names){
-    p <- pred_names[1]
+    #p <- pred_names[1]
     bio_pred <- bio_totals %>%
       filter(race_guild==p)
     
     juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model) %>%
-    group_by(year,model,stratum,species_name,lbin) %>%
-      summarize(strat_bio_t_km2 = mean(tot_wlcpue_t_km2), .groups="keep") %>%
-      left_join((strata_lookup %>% select(model, stratum, stratum_bin, area)),
-                by=c("model","stratum")) %>%
-      mutate(bio_tons = strat_bio_t_km2 * area,
-             jcat     = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu"))  
+    group_by(year, model, species_name, stratum, lbin) %>%
+      summarize(strat_bio_sum = sum(tot_wlcpue_t_km2), .groups="keep") %>%
+      left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+      mutate(bio_t_km2 = strat_bio_sum/stations,
+             bio_tons  = bio_t_km2 * area,
+             jcat      = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu")) 
     
-    juvprops <- juv_adu_lencons %>%
+    juv_proportions <- juv_adu_lencons %>%
       group_by(year,model,species_name,jcat) %>%
       summarize(bio_tons = sum(bio_tons), .groups="keep") %>%
-      pivot_wider(names_from=jcat, values_from=bio_tons)
+      pivot_wider(names_from=jcat, values_from=bio_tons) %>%
+      mutate(juv_bio_prop = juv/(juv+adu))
     
-    juv_combined <- bio_pred %>%
-      left_join(juvprops,by=c("year","model","race_guild"="species_name"))
+    juv_combined <- rbind(juv_combined,juv_proportions)
+  }
+  
+  bio_with_juvs <- bio_totals %>%
+    left_join(juv_combined,by=c("year","model","race_guild"="species_name")) %>%
+    select(-c(juv,adu)) %>%
+    mutate(juv_bio_prop  = replace_na(juv_bio_prop,0.0),
+           adu_bio_tkm2  = (1.0-juv_bio_prop) * bio_tkm2,
+           juv_bio_tkm2  = juv_bio_prop       * bio_tkm2)
+  
+  
+    bio_combined <- rbind(bio_combined,bio_with_juvs)      
 }
 
-write.csv(bio_combined,"goa_bio_combined.csv",row.names=F)
+write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
 
+##################################################################
 ##################################################################
 
 model_area <- sum(strat_areas$area[strat_areas$model==this.model])
