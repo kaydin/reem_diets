@@ -56,7 +56,7 @@ for (this.model in c("EGOA","WGOA")){
               bio_tkm2 = bio_tons/model_area, .groups="keep")
   
 
-# Split pools  
+# Split pools - loading juv/adu parameters 
   preds      <- predlist %>% filter(model==this.model)
   pred_names <- unique(preds$predator)
   pred_params=list()
@@ -69,7 +69,9 @@ for (this.model in c("EGOA","WGOA")){
     pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
     pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
   }
+
   
+# Getting biomass-at-length and converting to split pool biomass  
   juv_combined <- NULL
   for (p in pred_names){
     #p <- pred_names[1]
@@ -91,7 +93,7 @@ for (this.model in c("EGOA","WGOA")){
       mutate(juv_bio_prop = juv/(juv+adu))
     
     juv_combined <- rbind(juv_combined,juv_proportions)
-  }
+  } # end of pred_names loop
   
   bio_with_juvs <- bio_totals %>%
     left_join(juv_combined,by=c("year","model","race_guild"="species_name")) %>%
@@ -102,7 +104,16 @@ for (this.model in c("EGOA","WGOA")){
   
   
     bio_combined <- rbind(bio_combined,bio_with_juvs)      
+  
+      
 }
+
+# Diets
+p <- pred_names[1]
+this.model <- "WGOA"
+juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model)
+strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model)
+
 
 write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
 
