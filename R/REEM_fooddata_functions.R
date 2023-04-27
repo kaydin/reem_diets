@@ -25,10 +25,11 @@ get_stratum_length_cons <- function(
     group_by(year,model,stratum_bin,species_name, hauljoin, 
              stationid, stratum, lat, lon, bottom_temp, surface_temp, 
              lbin) %>%
-    summarize(tot_wtcpue_t_km2  = mean(wgtcpue)/1000,
-              tot_wlcpue_t_km2 = sum(WgtLBin_CPUE_kg_km2)/1000,
-              f_t              = mean(f_t),
-              tot_cons_t_km2   = sum(cons_kg_km2)/1000,
+    summarize(tot_wtcpue_t_km2       = mean(wgtcpue)/1000,
+              tot_wlcpue_t_km2       = sum(WgtLBin_CPUE_kg_km2)/1000,
+              f_t                    = mean(f_t),
+              tot_cons_t_km2_bioen   = sum(cons_kg_km2_bioen)/1000,
+              tot_cons_vonb_rel      = sum(cons_vonb_rel_pop)/1000,
               .groups="keep")
 }
 
@@ -233,13 +234,17 @@ add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod"
   len_diet <- strata_length_cons %>%
     left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
     replace_na(list(prey_guild="MISSING", dietprop_wt=1.0,dietprop_sci=1.0)) %>%
-    mutate(preycons_sci_t_km2 = tot_cons_t_km2 * dietprop_sci)
+    mutate(preycons_sci_t_km2_bioen = tot_cons_t_km2_bioen * dietprop_sci,
+           preycons_sci_vonb_rel    = tot_cons_vonb_rel    * dietprop_sci)
   
   diet_sum <- len_diet %>%
     group_by(year,model,stratum_bin,species_name,lbin,prey_guild) %>%
-    summarize(strat_preycons_t_km2 = mean(preycons_sci_t_km2), .groups="keep") %>%
+    summarize(strat_preycons_sci_t_km2    = mean(preycons_sci_t_km2_bioen), 
+              strat_preycons_sci_vonb_rel = mean(preycons_sci_vonb_rel),
+              .groups="keep") %>%
     left_join(strat_areas,by=c("model","stratum_bin")) %>%
-    mutate(cons_tons_day = strat_preycons_t_km2 * area)
+    mutate(cons_tons_day = strat_preycons_sci_t_km2 * area,
+           cons_rel_vonb = strat_preycons_sci_vonb_rel * area)
   
 }
 

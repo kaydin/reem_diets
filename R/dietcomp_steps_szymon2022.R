@@ -108,14 +108,48 @@ for (this.model in c("EGOA","WGOA")){
       
 }
 
-# Diets
-p <- pred_names[1]
-this.model <- "WGOA"
-juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model)
-strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model)
-
-
 write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
+
+
+# Diets
+diet_combined <- NULL
+for (this.model in c("EGOA","WGOA")){
+  
+  preds      <- predlist %>% filter(model==this.model)
+  pred_names <- unique(preds$predator)
+  pred_params=list()
+  for (p in pred_names){
+    pdat <- as.list(preds[preds$predator==p,])
+    pred_params[[p]] <- pdat
+    pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+    pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+    pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+    pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+  }
+  
+  
+  for (p in pred_names){
+    
+    juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model)
+    strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model, min_sample=5) %>%
+      mutate( jcat = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu"))
+
+    strat_dietprops <- strat_dietcons %>%
+      group_by(year, model, species_name, jcat, prey_guild) %>%
+      summarize(cons_tot_prey = sum(cons_rel_vonb), .groups="keep") %>%
+      group_by(year, model, species_name, jcat) %>%
+      mutate(cons_tot = sum(cons_tot_prey)) %>%
+      ungroup() %>%
+      mutate(diet_prop = cons_tot_prey/cons_tot)
+    
+  diet_combined <- rbind(diet_combined,strat_dietprops)
+  
+  }
+}
+
+write.csv(diet_combined,"diet_combined2.csv",row.names=F)
+
 
 ##################################################################
 ##################################################################
