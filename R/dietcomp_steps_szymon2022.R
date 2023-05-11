@@ -150,6 +150,42 @@ for (this.model in c("EGOA","WGOA")){
 
 write.csv(diet_combined,"diet_combined2.csv",row.names=F)
 
+# Sample sizes
+
+diet_counts_combined <- NULL
+
+for (this.model in c("EGOA","WGOA")){ #this.model <- "WGOA"
+
+preds      <- predlist %>% filter(model==this.model)
+pred_names <- unique(preds$predator)
+pred_params=list()
+for (p in pred_names){
+  pdat <- as.list(preds[preds$predator==p,])
+  pred_params[[p]] <- pdat
+  pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+  pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+  pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+  pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+  pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+}
+
+for (p in pred_names){ #p <- pred_names[1]
+juv_adu_lencons_summary  <- get_stratum_length_cons(predator=p, model=this.model) %>%
+  group_by(species_name,model,stratum_bin,year,lbin) %>%
+  summarize(cons_vonb_tot = sum(tot_cons_vonb_rel),.groups="keep")
+
+diet_summary <- predprey_tables(predator=p, model=this.model) %>%
+  group_by(predator,model,stratum_bin,year,lbin,pred_n,pred_full) %>%
+  summarize(dtot = sum(dietprop_sci),.groups="keep")
+
+pred_counts <- juv_adu_lencons_summary %>%
+  left_join(diet_summary,by=c("species_name"="predator","model","stratum_bin","year","lbin"))
+
+diet_counts_combined <- rbind(diet_counts_combined,pred_counts)
+}
+}
+
+write.csv(diet_counts_combined, "diet_counts_combined.csv",row.names=F)
 
 ##################################################################
 ##################################################################
