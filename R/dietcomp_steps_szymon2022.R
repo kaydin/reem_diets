@@ -110,7 +110,7 @@ for (this.model in c("EGOA","WGOA")){
 
 write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
 
-
+###########################################################################
 # Diets
 diet_combined <- NULL
 for (this.model in c("EGOA","WGOA")){
