@@ -1,0 +1,163 @@
+pred_nodc,pred_name,pred_n,SPECIES_CODE,SPECIES_NAME,COMMON_NAME
+8842120101,Acantholumpenus mackayi (pighead prickleback),118,23809,Acantholumpenus mackayi,pighead prickleback
+8831090207,Alaska Snailfish Careproctus colletti,3,22235,Careproctus colletti,Alaska snailfish
+8794010108,Albatrosia pectoralis (giant grenadier),1194,21230,Albatrossia pectoralis,giant grenadier
+8762090102,Alepisaurus ferox (longnose lancetfish),4,23657,Alepisaurus ferox,longnose lancetfish
+8845010100,Ammodytes sp. (sandlance),12,NA,NA,NA
+8842020101,Anarhichas orientalis (Bering wolffish),4,20322,Anarhichas orientalis,Bering wolffish
+8842122301,Anisarchus medius (stout eelblenny),95,23806,Anisarchus medius,stout eelblenny
+8827020101,Anoplopoma fimbria (sablefish),5063,20510,Anoplopoma fimbria,sablefish
+8791010102,Antimora microlepis (Pacific flatnose),1,21731,Antimora microlepis,Pacific flatnose
+8831021002,Antlered sculpin Enophrys diceraus,127,21388,Enophrys diceraus,antlered sculpin
+8831090101,Aptocyclus ventricosus (smooth lumpsucker),7,22175,Aptocyclus ventricosus,smooth lumpsucker
+8857041001,Arctic Flounder Liopsetta glacialis,9,10155,Liopsetta glacialis,Arctic flounder
+8842121301,Arctic shanny Stichaeus punctatus,5,23804,Stichaeus punctatus,Arctic shanny
+8831021304,Arctic staghorn sculpin Gymnocanthus tricuspis,194,21315,Gymnocanthus tricuspis,Arctic staghorn sculpin
+8831080301,Aspidophoroides bartoni (Aleutian alligatorfish),22,20050,Aspidophoroides monopterygius,Aleutian alligatorfish
+8857040101,Atheresthes evermanni (Kamchatka flounder),4350,10112,Atheresthes evermanni,Kamchatka flounder
+8857040100,Atheresthes sp.,154,NA,NA,NA
+8857040102,Atheresthes stomias (arrowtooth flounder),49780,10110,Atheresthes stomias,arrowtooth flounder
+8756020105,Bathylagus pacificus (slender blacksmelt),10,20615,Bathylagus pacificus,Pacific blacksmelt
+8840030103,Bathymaster signatus (searcher),257,20720,Bathymaster signatus,searcher
+8713040101,Bathyraja abyssicola (Deepsea skate),4,410,Bathyraja abyssicola,deepsea skate
+8713040102,Bathyraja aleutica (Aleutian skate),470,472,Bathyraja aleutica,Aleutian skate
+8713040103,Bathyraja binoculata (big skate),259,420,Beringraja binoculata,big skate
+8713040105,Bathyraja interrupta (Bering skate),776,435,Bathyraja interrupta,Bering skate
+8713040899,Bathyraja maculata (white blotched skate),248,480,Bathyraja maculata,whiteblotched skate
+8713040199,Bathyraja panthera (leopard skate),29,477,Bathyraja panthera,leopard skate
+8713040107,Bathyraja parmifera (Alaska skate),12479,471,Bathyraja parmifera,Alaska skate
+8713040800,Bathyraja sp. (skate),589,NA,NA,NA
+8713040898,Bathyraja tarantetzi (mud skate),491,455,Bathyraja taranetzi,mud skate
+8713040810,Bathyraja trachura (black skate),37,460,Bathyraja trachura,roughtail skate
+5707030301,Berryteuthis magister (squid),19,79210,Berryteuthis magister,magistrate armhook squid
+8831070102,blob sculpin Psychrolutes phrictus,11,21395,Psychrolutes phrictus,blob sculpin
+8791030201,Boreogadus saida (Arctic cod),1910,21725,Boreogadus saida,Arctic cod
+8793010711,Canadian eelpout Lycodes polaris,2,24188,Lycodes polaris,Canadian eelpout
+8831090209,Careproctus cypselurus (blackfinned redsnail),1,22228,Careproctus cypselurus,blackfin snailfish
+8831090224,Careproctus rastrinus (salmon snailfish),198,22236,Careproctus rastrinus,salmon snailfish
+8759060101,Chauliodus macouni (Pacific viperfish),3,21010,Chauliodus macouni,Pacific viperfish
+8747010201,Clupea pallasi (Pacific herring),905,21110,Clupea pallasii,Pacific herring
+8794010101,Coryphaenoides acrolepis (Pacific rattail),387,21220,Coryphaenoides acrolepis,Pacific grenadier
+8794010105,Coryphaenoides cinereus (popeye grenadier),161,21232,Coryphaenoides cinereus,popeye grenadier
+8831020901,Dasycottus setiger (spinyhead sculpin),187,21390,Dasycottus setiger,spinyhead sculpin
+8762140201,Diaphus theta (California headlightfish),6,22610,Diaphus theta,California headlightfish
+8831091102,Elassodiscus caudatus (humpback snailfish),3,22215,Elassodiscus caudatus,humpback snailfish
+8791030301,Eleginus gracilis (saffron cod),2023,21735,Eleginus gracilis,saffron cod
+8857040301,Embassichthys bathybius (deepsea sole),18,10190,Embassichthys bathybius,deepsea sole
+8857041101,Eopsetta exilis (slender sole),28,10150,Lyopsetta exilis,slender sole
+8857040501,Errex zachirus (rex sole),3020,10200,Glyptocephalus zachirus,rex sole
+8831090501,Eumicrotremus andriashevi  (pimpled lumpsucker),9,22182,Eumicrotremus andriashevi,pimpled lumpsucker
+8831090506,Eumicrotremus orbis (Pacific spiny lumpsucker),17,22178,Eumicrotremus orbis,Pacific spiny lumpsucker
+8791030701,Gadus chalcogrammus (walleye pollock),256624,21740,Gadus chalcogrammus,walleye pollock
+8791030401,Gadus macrocephalus (Pacific cod),256275,21720,Gadus macrocephalus,Pacific cod
+8831021302,Gymnocanthus galeatus (sculpin),23,21316,Gymnocanthus galeatus,armorhead sculpin
+8831021303,Gymnocanthus pistilliger (threaded sculpin),557,21314,Gymnocanthus pistilliger,threaded sculpin
+8831021403,Hemilepidotus jordani (yellow Irish lord),3403,21347,Hemilepidotus jordani,yellow Irish lord
+8831021404,Hemilepidotus papilio (butterfly sculpin),1354,21348,Hemilepidotus papilio,butterfly sculpin
+8831021406,Hemilepidotus zapus (longfin irish lord),2,21345,Hemilepidotus zapus,longfin Irish lord
+8831021502,Hemitripterus bolini (bigmouth sculpin),245,21420,Hemitripterus bolini,bigmouth sculpin
+8827010101,Hexagrammos decagrammus (kelp greenling),144,21935,Hexagrammos decagrammus,kelp greenling
+8827010104,Hexagrammos stelleri (white-spotted greenling),152,21932,Hexagrammos stelleri,whitespotted greenling
+8857040601,Hippoglossoides elassodon (flathead sole),16139,10130,Hippoglossoides elassodon,flathead sole
+8857040602,Hippoglossoides robustus (Bering flounder),1797,10140,Hippoglossoides robustus,Bering flounder
+8857041901,Hippoglossus stenolepis (Pacific halibut),39448,10120,Hippoglossus stenolepis,Pacific halibut
+8831080701,Hypsagonus quadricornis (4-horn poacher),3,20071,Hypsagonus quadricornis,fourhorn poacher
+8831021601,Icelinus borealis (Northern Sculpin),6,21311,Icelinus borealis,northern sculpin
+8831010106,Icelus spiniger (thorny sculpin),42,21438,Icelus spiniger,thorny sculpin
+8857040701,Isopsetta isolepis (butter sole),137,10270,Isopsetta isolepis,butter sole
+8831090829,kelp snailfish Liparis tunicatus,42,22238,Liparis tunicatus,kelp snailfish
+8762140301,Lampanyctus jordani (broken line myctophid),8,22625,Lampanyctus jordani,brokenline lampfish
+8603010211,Lampetra tridentata (Pacific lamprey),1,21,Lampetra tridentata,Pacific lamprey
+8857040801,Lepidopsetta bilineatus (southern rock sole),2232,10262,Lepidopsetta bilineata,southern rock sole
+8857040803,Lepidopsetta polyxystra (northern rock sole),25163,10261,Lepidopsetta polyxystra,northern rock sole
+8857040800,Lepidopsetta sp. (rock sole type),716,NA,NA,NA
+8831021801,Leptocottus armatus (Pacific staghorn sculpin),3,21380,Leptocottus armatus,Pacific staghorn sculpin
+8831090701,Lethotremus muticus (docked snailfish),3,22176,Lethotremus muticus,docked snailfish
+8756020302,Leuroglossus schmidti (northern smoothtongue),9,20622,Leuroglossus schmidti,northern smoothtongue
+8857040901,Limanda aspera (yellowfin sole),29932,10210,Limanda aspera,yellowfin sole
+8857040902,Limanda proboscideus (longhead dab),461,10211,Limanda proboscidea,longhead dab
+8857040999,Limanda sakhalinensis (Sakalin sole),338,10212,Limanda sakhalinensis,Sakhalin sole
+8831090808,Liparis dennyi (marbled snailfish),21,22204,Liparis dennyi,marbled snailfish
+8831090811,Liparis fucensis (slipskin snailfish),3,22202,Liparis fucensis,slipskin snailfish
+8831090812,Liparis gibbus (snailfish),453,22205,Liparis gibbus,variegated snailfish
+8842120801,Lumpenella longirostris (longsnout prickleback),10,23836,Lumpenella longirostris,longsnout prickleback
+8842120901,Lumpenus fabricii (slender eelblenny),422,23807,Lumpenus fabricii,slender eelblenny
+8842120903,Lumpenus maculatus (daubed shanny),85,23805,Leptoclinus maculatus,daubed shanny
+8842120902,Lumpenus sagitta (snake prickleback),1,23808,Lumpenus sagitta,snake prickleback
+8793010301,Lycenchelys crotalinus (snakehead eelpoout),1,24130,Lycenchelys crotalinus,snakehead eelpout
+8793010703,Lycodes brevipes (shortfin eelpout),301,24191,Lycodes brevipes,shortfin eelpout
+8793010706,Lycodes diapterus (black eelpout),3,24190,Lycodes diapterus,black eelpout
+8793010710,Lycodes palearis (wattled eelpout),690,24185,Lycodes palearis,wattled eelpout
+8793010712,Lycodes raridens (marbled eelpout),730,24184,Lycodes raridens,marbled eelpout
+8793010714,Lycodes turneri (polar eelpout),44,24189,Lycodes turneri,polar eelpout
+8831021901,Malacocottus kincaidi (blackfin sculpin),6,21340,Malacocottus kincaidi,blackfin sculpin
+8831021902,Malacocottus zonurus (darkfin sculpin),660,21341,Malacocottus zonurus,darkfin sculpin
+8755030201,Mallotus villosus (capelin),698,23041,Mallotus catervarius (=villosus),Pacific capelin
+8808020101,Melamphaes lugubris (highsnout bigscale),2,22320,Melamphaes lugubris,highsnout bigscale
+8791040102,Merluccius productus (Pacifc hake),106,22500,Merluccius productus,Pacific hake
+8857041201,Microstomus pacificus (Dover sole),1926,10180,Microstomus pacificus,Dover sole
+8762140000,Myctophidae (lanternfish),9,NA,NA,NA
+8831022201,Myoxocephalus jaok (plain sculpin),2648,21371,Myoxocephalus jaok,plain sculpin
+8831022204,Myoxocephalus polyacanthocephalus (great sculpin),1579,21370,Myoxocephalus polyacanthocephalus,great sculpin
+8831022205,Myoxocephalus quadricornis (fourhorn sculpin),18,21377,Myoxocephalus quadricornis,fourhorn sculpin
+8831022302,Nautichthys pribilovius (eyeshade sculpin),31,21405,Nautichthys pribilovius,eyeshade sculpin
+8831080901,Occella dodecaedron (Bering poacher),42,20061,Occella dodecaedron,Bering poacher
+8755010201,Oncorhynchus gorbuscha (pink salmon),13,23230,Oncorhynchus gorbuscha,pink salmon
+8755010202,Oncorhynchus keta (chum salmon),56,23235,Oncorhynchus keta,chum salmon
+8755010203,Oncorhynchus kisutch (coho salmon),11,23225,Oncorhynchus kisutch,coho salmon
+8755010205,Oncorhynchus nerka (sockeye salmon),2,23240,Oncorhynchus nerka,sockeye salmon
+8755010206,Oncorhynchus tshawytscha (chinook salmon),36,23220,Oncorhynchus tshawytscha,chinook salmon
+8788040202,Oneirodes bulbosus (bulbus dreamer),1,22914,Oneirodes bulbosus,hairy-lure dreamer
+8827010201,Ophiodon elongatus (lingcod),191,21910,Ophiodon elongatus,lingcod
+8755030302,Osmerus mordax (rainbow smelt),366,23055,Osmerus mordax,rainbow smelt
+8857041301,Parophrys vetulus (English sole),318,10170,Parophrys vetulus,English sole
+8857040401,Petrale Sole Eopsetta jordani,15,10160,Eopsetta jordani,petrale sole
+8857041401,Platichthys stellatus (Starry flounder),566,10220,Platichthys stellatus,starry flounder
+8827010501,Pleurogrammus monopterygius (Atka mackerel),14339,21921,Pleurogrammus monopterygius,Atka mackerel
+8857041501,Pleuronectes quadrituberculatus (Alaska plaice),14241,10285,Pleuronectes quadrituberculatus,Alaska plaice
+8831080802,Podothecus acipenserinus (sturgeon poacher),483,20040,Podothecus accipenserinus,sturgeon poacher
+8762141002,Protomyctophum thompsoni (bigeye lanternfish),5,22649,Protomyctophum thompsoni,northern flashlightfish
+8857041701,Psettichthys melanostictus (sand sole),13,10250,Psettichthys melanostictus,sand sole
+8831070101,Psychrolutes paradoxus (tadpole sculpin),1,21394,Psychrolutes paradoxus,tadpole sculpin
+8713040108,Raja Rhina (longnose skate),160,440,Raja rhina,longnose skate
+8713040000,Rajidae (skate),1455,NA,NA,NA
+8831070401,Rastrinus scutiger (roughskin sculpin),2,21444,Rastrinus scutiger,roughskin sculpin
+8857041801,Reinhardtius hippoglossoides (Greenland turbot),2923,10115,Reinhardtius hippoglossoides,Greenland turbot
+8840030201,Ronquilus jordani (northern ronquil),2,20702,Ronquilus jordani,northern ronquil
+5704020101,Rossia pacifica (eastern Pacific bobtail),1,79020,Rossia pacifica,eastern Pacific bobtail
+8755010401,Salvelinus malma Dolly Varden,11,23252,Salvelinus malma,Dolly Varden
+8831081201,Sarritor frenatus (sawback poacher),220,20006,Leptagonus frenatus,sawback poacher
+8826010101,Sebastes aleutianus (rougheye rockfish),1376,30051,Sebastes aleutianus,rougheye rockfish
+8826010102,Sebastes alutus (Pacific ocean perch),15108,30060,Sebastes alutus,Pacific ocean perch
+8826010105,Sebastes babcocki (redbanded rockfish),104,30475,Sebastes babcocki,redbanded rockfish
+8826010107,Sebastes borealis (shortraker rockfish),730,30576,Sebastes borealis,shortraker rockfish
+8826010106,Sebastes brevispinis (silvergray rockfish),135,30100,Sebastes brevispinis,silvergray rockfish
+8826010109,Sebastes ciliatus (dark rockfish),220,30151,Sebastes ciliatus,dark rockfish
+8826010110,Sebastes crameri (darkblotched rockfish),1,30170,Sebastes crameri,darkblotched rockfish
+8826010115,Sebastes flavidus (yellowtail rockfish),21,30240,Sebastes flavidus,yellowtail rockfish
+8826010118,Sebastes helvomaculatus (rosethorn rockfish),3,30270,Sebastes helvomaculatus,rosethorn rockfish
+8826010197,Sebastes melanostictus (black spotted rockfish),409,30052,Sebastes melanostictus,blackspotted rockfish
+8826010129,Sebastes polyspinis (northern rockfish),3017,30420,Sebastes polyspinis,northern rockfish
+8826010130,Sebastes proriger (redstripe rockfish),34,30430,Sebastes proriger,redstripe rockfish
+8826010134,Sebastes ruberrimus (yelloweye rockfish),24,30470,Sebastes ruberrimus,yelloweye rockfish
+8826010198,Sebastes variabilis (dusky rockfish),358,30152,Sebastes variabilis,dusky rockfish
+8826010136,Sebastes variegatus (harlequin rockfish),48,30535,Sebastes variegatus,harlequin rockfish
+8826010138,Sebastes zacentrus (sharpchin rockfish),234,30560,Sebastes zacentrus,sharpchin rockfish
+8826010201,Sebastolobus alascanus (shortspine thornyhead),1883,30020,Sebastolobus alascanus,shortspine thornyhead
+8831022207,Shorthorn sculpin Myoxocephalus scorpius,1531,21368,Myoxocephalus scorpius,shorthorn (=warty) sculpin
+8710010101,Somniosus pacificus (Pacific sleeper shark),5,320,Somniosus pacificus,Pacific sleeper shark
+8710010201,Squalus acanthias (spiny dogfish),337,310,Squalus suckleyi,spiny dogfish
+8762140501,Stenobrachius leucopsarus (northern lampfish),212,22602,Stenobrachius leucopsarus,northern lampfish
+8762140502,Stenobranchius nannochir (garnet myctophid),1,22603,Stenobrachius nannochir,garnet lampfish
+5.71E+09,Teuthida (squid),13,NA,NA,NA
+8755030501,Thaleichthys pacificus (eulachon),262,23010,Thaleichthys pacificus,eulachon
+8831023701,Thyriscus anoplus (sponge sculpin),8,21308,Thyriscus anoplus,sponge sculpin
+8831090403,Toad Lumpsucker Eumicrotremus phrynoides,9,22190,Eumicrotremus phrynoides,toad lumpsucker
+8840010201,Trichodon trichodon (Pacific sandfish),23,21592,Trichodon trichodon,Pacific sandfish
+8831023801,Triglops forficata (scissortail sculpin),47,21352,Triglops forficata,scissortail sculpin
+8831023805,Triglops pingeli (ribbed sculpin),9,21355,Triglops pingeli,ribbed sculpin
+8831023806,Triglops scepticus (spectacled sculpin),200,21354,Triglops scepticus,spectacled sculpin
+8831023895,Triglops xenostethus (scalebreasted sculpin),1,21429,Triglops xenostethus,scalybreasted sculpin
+8831080303,Ulcina olrikii (Arctic alligatorfish),35,20051,Aspidophoroides olrikii,Arctic alligatorfish
+8831080804,vetern poacher Podothecus veternus,60,20041,Podothecus veternus,veteran poacher
+8842150101,Zaprora silenus (prowfish),250,24001,Zaprora silenus,prowfish

@@ -576,7 +576,7 @@ SPECIES_CODE,SPECIES_NAME,COMMON_NAME,ECOPATH_Name.goa,EGOA,FINAL_GOA,wgoa.wt,eg
 22955,Lestidiops ringens,slender barracudina,Misc. fish deep,NA,Miscellaneous_deep_sea_fish,0.522732458,0.139630019,Chordata,Actinopterygii,Aulopiformes,Paralepididae,Lestidiops,ringens
 22956,Arctozenus risso,ribbon barracudina,NA,NA,Miscellaneous_deep_sea_fish,0,0,Chordata,Actinopterygii,Aulopiformes,Paralepididae,Arctozenus,risso
 23000,Osmeridae,smelt unid.,Gen fish,Shelf_forage_fish,Shelf_forage_fish,529.9179624,147.8969002,Chordata,Actinopterygii,Osmeriformes,Osmeridae,NA,NA
-23010,Thaleichthys pacificus,eulachon,Eulachon,Shelf_forage_fish,Shelf_forage_fish,1335366.165,247366.0906,Chordata,Actinopterygii,Osmeriformes,Osmeridae,Thaleichthys,pacificus
+23010,Thaleichthys pacificus,eulachon,Eulachon,Shelf_forage_fish,Eulachon,1335366.165,247366.0906,Chordata,Actinopterygii,Osmeriformes,Osmeridae,Thaleichthys,pacificus
 23020,Hypomesus pretiosus,surf smelt,Oth. pelagic smelt,Shelf_forage_fish,Shelf_forage_fish,0,37.52287327,Chordata,Actinopterygii,Osmeriformes,Osmeridae,Hypomesus,pretiosus
 23030,Allosmerus elongatus,whitebait smelt,NA,Shelf_forage_fish,Shelf_forage_fish,0,0,Chordata,Actinopterygii,Osmeriformes,Osmeridae,Allosmerus,elongatus
 23041,Mallotus catervarius (=villosus),Pacific capelin,Capelin,Pacific_capelin,Pacific_capelin,66954.29691,3619.075344,Chordata,Actinopterygii,Osmeriformes,Osmeridae,Mallotus,villosus

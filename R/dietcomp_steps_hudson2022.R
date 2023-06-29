@@ -64,10 +64,12 @@ lw.out <- lwdat %>%
 source("R/REEM_fooddata_functions.R")
 
 strat.diet <- NULL
+strata_lookup$stratum_bin <- strata_lookup$stratum
 for(this.pred in c("Atka.mackerel","POP","W.pollock","P.cod")){
   pred_params[[this.pred]] <- c(pred_params[[this.pred]], 
                               get_lw(predator=this.pred, model="AI", years=1982:2021, all.data=F) )
-  strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI", months=5:8))  
+  #strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI", months=5:8))  
+  strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI")) 
 }
 
 logit_diets <- strat.diet %>% 

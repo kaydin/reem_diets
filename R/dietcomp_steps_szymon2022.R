@@ -36,13 +36,47 @@ predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
 race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
   mutate(race_guild  = .data[["final_goa"]])
 
+##############################################################################
+# Diet sample summaries
 
-# To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
-# (or Ecopath annual QB/365) and CB=0, C_TM=100, C_T0=-100, C_Q=1.000000001
-# If you're using this for diet proportions not total consumption, can simply
-# use 1.0 for CA.
+nodc_key <- read.clean.csv("lookups/nodc_predators.csv")
+
+# this does it once for all ecosystem models
+allpred_tab <- predprey %>%
+  left_join(preynames_lookup, by=c("prey_nodc"="nodc_code")) %>%
+  left_join(strata_lookup, by=c("region"="survey","stratum"="stratum")) %>%
+  relocate(stratum_bin) %>% relocate(model) %>%
+  group_by(year, model, stratum_bin, pred_nodc, predjoin) %>%
+  summarize(stom_wt_g=sum(twt),.groups="keep") %>%
+  group_by(year, model, stratum_bin, pred_nodc) %>%
+  summarize(n_stomachs=n(), stom_wt_g=sum(stom_wt_g), .groups="keep")
+
+bio_combined <- NULL
+for (this.model in c("EGOA","WGOA")){
+
+  strat_bio_totals <- get_cpue_all(model=this.model) %>%
+    group_by(year, model, race_guild, species_code, stratum) %>%
+    summarize(wgtcpue = sum(wgtcpue),
+            numcpue = sum(numcpue),.groups="keep") %>%
+    left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+    mutate(bio_t_km2 = wgtcpue/1000/stations,
+           bio_tons  = bio_t_km2 * area) %>%
+    left_join(race_lookup[,c("species_code","species_name","common_name")], by=c("species_code")) %>%
+    group_by(year, model, race_guild, species_code, species_name, common_name, stratum_bin) %>%
+    summarize(n_stations=sum(stations),bio_tons=sum(bio_tons),.groups="keep") %>%
+    left_join(nodc_key[,c("species_code","pred_nodc","pred_name")],by=c("species_code"))
+
+  bio_combined <- rbind(bio_combined,strat_bio_totals)  
+}
+
+bio_and_pred_sums <- bio_combined %>%
+  left_join(allpred_tab, by=c("year","model","stratum_bin","pred_nodc"))
+
+write.csv(bio_and_pred_sums,"sample_totals.csv",row.names=F)
+
 
 ##############################################################################
+# Biomass extraction by item
 
 bio_combined <-NULL
 
