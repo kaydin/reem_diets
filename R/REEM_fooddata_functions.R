@@ -400,6 +400,17 @@ REEM.loadclean.diets<- function(data_path = "data/local_reem_data"){
 }
 
 ##########################################################################
+REEM.loadclean.strata<-function(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
+                                stratum_bin_column    = "strat_groups"){
+  strata_lookup    <<- read.clean.csv(strata_lookup_file) %>% 
+    mutate(stratum_bin = .data[[stratum_bin_column]])
+  strat_areas <<- strata_lookup %>%
+    select(model,stratum_bin,area) %>%
+    group_by(model, stratum_bin) %>%
+    summarize(area=sum(area),.groups="keep")  
+}  
+
+##########################################################################
 REEM.loadclean.lookups<-function(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
                                  stratum_bin_column    = "strat_groups",
                                  preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
