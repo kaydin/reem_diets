@@ -23,6 +23,7 @@ REEM.loadclean.strata(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
 race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
   mutate(race_guild  = .data[["species_code"]])
   #race_lookup$race_guild <- as.character(race_lookup$race_guild)
+  race_lookup$race_guild <- paste("race",race_lookup$race_guild,sep="_")
 
 ##############################################################################
 # Biomass extraction by item
@@ -32,11 +33,8 @@ race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>%
 #for (this.model in c("EGOA","WGOA")){
 
 this.model <- "EGOA"  
-#predlist   <- read.clean.csv("lookups/Alaska_Predators_EGOA.csv")
-predlist   <- read.clean.csv("lookups/Alaska_Predators_EGOA_small.csv")
-
-# Set guild lookup to match predator "name" as race_[race_code]
-race_lookup$race_guild <- paste("race",race_lookup$race_guild,sep="_")
+predlist   <- read.clean.csv("lookups/Alaska_Predators_EGOA.csv")
+#predlist   <- read.clean.csv("lookups/Alaska_Predators_EGOA_small.csv")
 
 bio_combined <-NULL
 # get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
