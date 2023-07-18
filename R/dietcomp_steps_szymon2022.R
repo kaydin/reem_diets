@@ -177,6 +177,56 @@ write.csv(bio_combined,"results/goa_bio_combined_juvadu.csv",row.names=F)
 # to be commented later
 
 diet_combined <- NULL
+
+for (this.model in c("EGOA","WGOA")){
+
+#this.model <- "EGOA"
+
+all_preds <- bio_and_pred_sums %>%
+  ungroup() %>%
+  select(common_name,pred_nodc,species_code) %>%
+  distinct() %>%
+  filter(!is.na(pred_nodc))
+
+pred_nodc <- all_preds$pred_nodc;    names(pred_nodc)<-all_preds$common_name
+pred_race <- all_preds$species_code; names(pred_race)<-all_preds$common_name
+
+pred_params=list()
+#pred_nodc <- pred_nodc[1:2]
+for (p in names(pred_nodc)){
+  pred_params[[p]] <-list(base_name=p, nodc_code=as.numeric(pred_nodc[p]), race=as.numeric(pred_race[p]))
+  pred_params[[p]]$LCLASS <- c(0,9999)
+  #pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+  pred_params[[p]]$lw_b   <- 1.0
+  pred_params[[p]]$lw_a   <- 3.0
+  #pred_params[[p]]$bioen  <- list(CA=NA, CB=NA, C_TM=NA, C_T0=NA, C_Q=NA)
+  
+  diet_summary <- predprey_tables(predator=p, model=this.model) %>%
+    filter(prey_n>0) %>%
+    mutate(species_code=pred_params[[p]]$race) # %>%
+    #group_by(predator,model,stratum_bin,year,lbin,pred_n,pred_full) %>%
+    #summarize(dtot = sum(dietprop_sci),.groups="keep")
+  #if(nrow(diet_summary)>0){
+   diet_combined <- rbind(diet_combined, diet_summary)
+  #}
+  
+}
+}
+
+bio_diets <- bio_and_pred_sums %>%
+  left_join(diet_combined,by=c("model","year","stratum_bin","species_code")) %>%
+  replace_na(list(prey_guild="UNSAMPLED", pred_n=0, dietprop_wt=1.0,dietprop_sci=1.0)) %>%
+  mutate(sampled=ifelse(pred_n==0,FALSE,TRUE))
+
+write.csv(bio_diets,"GOA_bio_diets_Jul18_23.csv",row.names=F)
+
+
+##############################################
+#diet data by length
+diet_combined <- NULL
+
+MIN_SAMPLE <- 5
+
 for (this.model in c("EGOA","WGOA")){
   
   preds      <- predlist %>% filter(model==this.model)
@@ -185,18 +235,18 @@ for (this.model in c("EGOA","WGOA")){
   for (p in pred_names){
     pdat <- as.list(preds[preds$predator==p,])
     pred_params[[p]] <- pdat
-    pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+    pred_params[[p]]$LCLASS <- c(0,20,9999)
     pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
-    pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
-    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
-    pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+    pred_params[[p]]$lw_b   <- 1.0
+    pred_params[[p]]$lw_a   <- 3.0
+    pred_params[[p]]$bioen  <- list(CA=NA, CB=NA, C_TM=NA, C_T0=NA, C_Q=NA)
   }
   
   
   for (p in pred_names){
     
     juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model)
-    strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model, min_sample=5) %>%
+    strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model, min_sample=MIN_SAMPLE) %>%
       mutate( jcat = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu"))
 
     strat_dietprops <- strat_dietcons %>%
