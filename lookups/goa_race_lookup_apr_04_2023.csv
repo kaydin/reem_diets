@@ -613,7 +613,7 @@ SPECIES_CODE,SPECIES_NAME,COMMON_NAME,ECOPATH_Name.goa,EGOA,FINAL_GOA,wgoa.wt,eg
 23712,Holtbyrnia innesi,lanternjaw tubeshoulder,NA,NA,ZERO,0,0,Chordata,Actinopterygii,Argentiformes,Platytroctidae,Holtbyrnia,innesi
 23720,Mirorictus taningi,striped tubeshoulder,NA,NA,ZERO,0,0,Chordata,Actinopterygii,Argentiformes,Platytroctidae,Mirorictus,taningi
 23791,Cryptacanthodes aleutensis,dwarf wrymouth,Misc. fish shallow,Shelf_forage_fish,Shelf_forage_fish,13.62480031,8.161945954,Chordata,Actinopterygii,Perciformes,Cryptacanthodidae,Cryptacanthodes,aleutensis
-23792,Cryptacanthodes giganteus,giant wrymouth,Misc. fish shallow,NA,Shelf_forage_fish,23971.92741,770.0795164,Chordata,Actinopterygii,Perciformes,Cryptacanthodidae,Cryptacanthodes,giganteus
+23792,Cryptacanthodes giganteus,giant wrymouth,Misc. fish shallow,NA,Shelf_demersals,23971.92741,770.0795164,Chordata,Actinopterygii,Perciformes,Cryptacanthodidae,Cryptacanthodes,giganteus
 23800,Stichaeidae,prickleback unid.,Oth. managed forage,Shelf_forage_fish,Shelf_forage_fish,276.6099832,1.697103157,Chordata,Actinopterygii,Perciformes,Stichaeidae,NA,NA
 23801,Lumpenus sp.,NA,Oth. managed forage,Shelf_forage_fish,Shelf_forage_fish,1.322469962,0.086317599,Chordata,Actinopterygii,Perciformes,Stichaeidae,Lumpenus,NA
 23802,Plectobranchus evides,bluebarred prickleback,NA,NA,Shelf_forage_fish,0,0,Chordata,Actinopterygii,Perciformes,Stichaeidae,Plectobranchus,evides
