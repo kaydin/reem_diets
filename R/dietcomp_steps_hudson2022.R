@@ -15,7 +15,7 @@ REEM.loadclean.diets(data_path = "data/local_reem_data")
 REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
                        stratum_bin_column    = "strat_groups",
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
-                       prey_guild_column     = "hudson")
+                       prey_guild_column     = "ecopath_prey")
 
 ###############################################################################
 
@@ -90,6 +90,13 @@ lw_joined <- lw.out %>%
 write.csv(lw_joined,"gam_hudson_nov29_2022.csv",row.names=F)
 
 
+
+allpred_tab <- predprey %>%
+  # Add lookup tables
+  left_join(preynames_lookup, by=c("prey_nodc"="nodc_code")) %>%
+  left_join(strata_lookup, by=c("region"="survey","stratum"="stratum")) %>%
+  #left_join(yearblock, by=c("year"="year")) %>%
+  relocate(stratum_bin) %>% relocate(model) 
 
 
 
