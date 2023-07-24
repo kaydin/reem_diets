@@ -13,7 +13,7 @@ REEM.loadclean.diets(data_path = "data/local_reem_data")
 REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
                        stratum_bin_column    = "strat_groups",
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
-                       prey_guild_column     = "ecopath_prey")
+                       prey_guild_column     = "hudson")
 
 ###############################################################################
 
