@@ -1,5 +1,3 @@
-
-
 # setwd() if needed here.  Everything should be run from the main repo
 # directory (that contains the data/ R/ and lookups/ subfolders).  
 library("tidyverse")
@@ -31,11 +29,25 @@ pred_params <- list(
 
 #################################
 ######################################################################################
-#Hudson Length-Weight example
+#Hudson diet tables
 
-# LW regressions
 source("R/REEM_fooddata_functions.R")
 
+strat.diet <- NULL
+strata_lookup$stratum_bin <- strata_lookup$stratum
+for(this.pred in c("Atka.mackerel","POP","W.pollock","P.cod")){
+  pred_params[[this.pred]] <- c(pred_params[[this.pred]], 
+                                get_lw(predator=this.pred, model="AI", years=1982:2021, all.data=F) )
+  #strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI", months=5:8))  
+  strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI")) 
+}
+
+write.csv(strat.diet,"results/AI_stratum_diets.csv",row.names=F)
+
+
+###########################################################
+# Older stuff (2022 GAM data extractions) below this line
+# LW regressions
 lwdat <- rbind(get_lw(predator="P.cod", model="AI",all.data=T),
               get_lw(predator="W.pollock", model="AI",all.data=T),
               get_lw(predator="Atka.mackerel", model="AI",all.data=T),
@@ -61,16 +73,7 @@ lw.out <- lwdat %>%
 
 #write.csv(lw.out,"hudson_lw_01.csv",row.names=F)
 
-source("R/REEM_fooddata_functions.R")
 
-strat.diet <- NULL
-strata_lookup$stratum_bin <- strata_lookup$stratum
-for(this.pred in c("Atka.mackerel","POP","W.pollock","P.cod")){
-  pred_params[[this.pred]] <- c(pred_params[[this.pred]], 
-                              get_lw(predator=this.pred, model="AI", years=1982:2021, all.data=F) )
-  #strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI", months=5:8))  
-  strat.diet <- rbind(strat.diet, predprey_tables(predator=this.pred, model="AI")) 
-}
 
 logit_diets <- strat.diet %>% 
       filter(!is.na(prey_guild)) %>%
