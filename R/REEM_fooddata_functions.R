@@ -249,7 +249,7 @@ add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod"
 }
 
 ################################################################################
-predprey_tables <- function(predator="P.cod", model="EBS", all.data=F){
+predprey_tables <- function(predator="P.cod", model="EBS", combine.data=F, all.data=F){
 
   # Global variables
   stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
@@ -300,8 +300,15 @@ predprey_tables <- function(predator="P.cod", model="EBS", all.data=F){
     select(predator,model,stratum_bin,year,lbin,full,tot_wt,tot_sci) %>%
     group_by(predator,model,stratum_bin,year,lbin) %>%
     summarize(pred_n=n(), pred_full=sum(full), tot_wt=sum(tot_wt), tot_sci=sum(tot_sci), .groups="keep")
+  
+  global_tots <- pred_tots %>% 
+    ungroup() %>%
+    select(predator,model,full,tot_wt,tot_sci) %>%
+    group_by(predator,model) %>%
+    summarize(pred_n=n(), pred_full=sum(full), tot_wt=sum(tot_wt), tot_sci=sum(tot_sci), .groups="keep")
 
   # Sum 
+if (!combine.data){
   strat_dietprop <- pred_tab %>%
     ungroup() %>%  
     mutate(prey_sci = prey_wt/bodywt) %>%
@@ -323,7 +330,30 @@ predprey_tables <- function(predator="P.cod", model="EBS", all.data=F){
     filter(!is.na(pred_n)) %>%
     mutate(dietprop_wt = prey_wt/tot_wt) %>%
     mutate(dietprop_sci = prey_sci/tot_sci)
-
+} else {
+  strat_dietprop <- pred_tab %>%
+    ungroup() %>%  
+    mutate(prey_sci = prey_wt/bodywt) %>%
+    select(predator,model,prey_guild,prey_wt,prey_sci) %>%  
+    #filter(prey_wt>0) %>%
+    #adding zeros with complete
+    complete(predator,model, prey_guild,fill=list(prey_n=0,prey_wt=0,prey_sci=0)) %>%
+    group_by(predator,model, prey_guild) %>%
+    summarize(prey_n=n(), 
+              prey_wt=sum(prey_wt), 
+              prey_sci=sum(prey_sci), 
+              .groups="keep") %>%
+    ungroup() %>%
+    # Count prey_n but exclude 0's
+    mutate(prey_n=ifelse(prey_wt>0, prey_n, 0)) %>% 
+    left_join(global_tots, 
+              by=c("predator"="predator","model"="model")) %>%
+    relocate(any_of(c("pred_n","pred_full","tot_wt","tot_sci")), .before=prey_guild) %>%
+    filter(!is.na(pred_n)) %>%
+    mutate(dietprop_wt = prey_wt/tot_wt) %>%
+    mutate(dietprop_sci = prey_sci/tot_sci)  
+  
+}
   # No longer using the crosstab version - saving here for future reference (may need tweaks)
   #pred_crosstab <- PP_data %>%
   #  # Add lookup tables

@@ -36,44 +36,6 @@ predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
 race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
   mutate(race_guild  = .data[["final_goa"]])
 
-##############################################################################
-# Diet sample summaries
-
-nodc_key <- read.clean.csv("lookups/nodc_predators.csv")
-
-# this does it once for all ecosystem models
-allpred_tab <- predprey %>%
-  left_join(preynames_lookup, by=c("prey_nodc"="nodc_code")) %>%
-  left_join(strata_lookup, by=c("region"="survey","stratum"="stratum")) %>%
-  relocate(stratum_bin) %>% relocate(model) %>%
-  group_by(year, model, stratum_bin, pred_nodc, predjoin) %>%
-  summarize(stom_wt_g=sum(twt),.groups="keep") %>%
-  group_by(year, model, stratum_bin, pred_nodc) %>%
-  summarize(n_stomachs=n(), stom_wt_g=sum(stom_wt_g), .groups="keep")
-
-bio_combined <- NULL
-for (this.model in c("EGOA","WGOA")){
-
-  strat_bio_totals <- get_cpue_all(model=this.model) %>%
-    group_by(year, model, race_guild, species_code, stratum) %>%
-    summarize(wgtcpue = sum(wgtcpue),
-            numcpue = sum(numcpue),.groups="keep") %>%
-    left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
-    mutate(bio_t_km2 = wgtcpue/1000/stations,
-           bio_tons  = bio_t_km2 * area) %>%
-    left_join(race_lookup[,c("species_code","species_name","common_name")], by=c("species_code")) %>%
-    group_by(year, model, race_guild, species_code, species_name, common_name, stratum_bin) %>%
-    summarize(n_stations=sum(stations),bio_tons=sum(bio_tons),.groups="keep") %>%
-    left_join(nodc_key[,c("species_code","pred_nodc","pred_name")],by=c("species_code"))
-
-  bio_combined <- rbind(bio_combined,strat_bio_totals)  
-}
-
-bio_and_pred_sums <- bio_combined %>%
-  left_join(allpred_tab, by=c("year","model","stratum_bin","pred_nodc"))
-
-write.csv(bio_and_pred_sums,"sample_totals.csv",row.names=F)
-
 
 ##############################################################################
 # Biomass extraction by item
@@ -167,7 +129,7 @@ for (this.model in c("EGOA","WGOA")){
   
 } # end of loop by model (e.g. WGOA, EGOA)
 
-write.csv(bio_combined,"results/goa_bio_combined_juvadu.csv",row.names=F)
+write.csv(bio_combined,"results/goa_bio_2023_08_18.csv",row.names=F)
 
 
 # Biomass code stops here
@@ -176,11 +138,54 @@ write.csv(bio_combined,"results/goa_bio_combined_juvadu.csv",row.names=F)
 # Diet data
 # to be commented later
 
+##############################################################################
+# Diet sample summaries
+
+nodc_key <- read.clean.csv("lookups/nodc_predators.csv")
+
+# this does it once for all ecosystem models
+allpred_tab <- predprey %>%
+  left_join(preynames_lookup, by=c("prey_nodc"="nodc_code")) %>%
+  left_join(strata_lookup, by=c("region"="survey","stratum"="stratum")) %>%
+  relocate(stratum_bin) %>% relocate(model) %>%
+  group_by(year, model, stratum_bin, pred_nodc, predjoin) %>%
+  summarize(stom_wt_g=sum(twt),.groups="keep") %>%
+  group_by(year, model, stratum_bin, pred_nodc) %>%
+  summarize(n_stomachs=n(), stom_wt_g=sum(stom_wt_g), .groups="keep")
+
+bio_combined <- NULL
+for (this.model in c("EGOA","WGOA")){
+  
+  strat_bio_totals <- get_cpue_all(model=this.model) %>%
+    group_by(year, model, race_guild, species_code, stratum) %>%
+    summarize(wgtcpue = sum(wgtcpue),
+              numcpue = sum(numcpue),.groups="keep") %>%
+    left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+    mutate(bio_t_km2 = wgtcpue/1000/stations,
+           bio_tons  = bio_t_km2 * area) %>%
+    left_join(race_lookup[,c("species_code","species_name","common_name")], by=c("species_code")) %>%
+    group_by(year, model, race_guild, species_code, species_name, common_name, stratum_bin) %>%
+    summarize(n_stations=sum(stations),bio_tons=sum(bio_tons),.groups="keep") %>%
+    left_join(nodc_key[,c("species_code","pred_nodc","pred_name")],by=c("species_code"))
+  
+  bio_combined <- rbind(bio_combined,strat_bio_totals)  
+}
+
+bio_and_pred_sums <- bio_combined %>%
+  left_join(allpred_tab, by=c("year","model","stratum_bin","pred_nodc"))
+
+write.csv(bio_and_pred_sums,"results/sample_totals_2023_08_18.csv",row.names=F)
+
+#################################################
+#
+
 diet_combined <- NULL
+diet_noyears  <- NULL
 
 for (this.model in c("EGOA","WGOA")){
 
-#this.model <- "EGOA"
+#
+  #this.model <- "EGOA"
 
 all_preds <- bio_and_pred_sums %>%
   ungroup() %>%
@@ -203,22 +208,32 @@ for (p in names(pred_nodc)){
   
   diet_summary <- predprey_tables(predator=p, model=this.model) %>%
     filter(prey_n>0) %>%
-    mutate(species_code=pred_params[[p]]$race) # %>%
-    #group_by(predator,model,stratum_bin,year,lbin,pred_n,pred_full) %>%
-    #summarize(dtot = sum(dietprop_sci),.groups="keep")
-  #if(nrow(diet_summary)>0){
-   diet_combined <- rbind(diet_combined, diet_summary)
-  #}
+    mutate(species_code=pred_params[[p]]$race, .after="predator") %>%
+    select(-dietprop_sci)
   
-}
-}
+   diet_noyear_summary <- predprey_tables(predator=p, model=this.model, combine.data=T) %>%
+     filter(prey_n>0) %>%
+     mutate(species_code=pred_params[[p]]$race, .after="predator") %>%
+     select(-dietprop_sci)
+   
+   diet_combined <- rbind(diet_combined, diet_summary)
+   diet_noyears <- rbind(diet_noyears, diet_noyear_summary)   
+  }
+} # End of Ecosystem loop
+
 
 bio_diets <- bio_and_pred_sums %>%
   left_join(diet_combined,by=c("model","year","stratum_bin","species_code")) %>%
   replace_na(list(prey_guild="UNSAMPLED", pred_n=0, dietprop_wt=1.0,dietprop_sci=1.0)) %>%
   mutate(sampled=ifelse(pred_n==0,FALSE,TRUE))
 
-write.csv(bio_diets,"GOA_bio_diets_Jul18_23.csv",row.names=F)
+noyears_diets <- diet_noyears %>%
+  left_join((race_lookup%>%select(species_code,species_name,common_name,race_guild)),
+             by="species_code") %>%
+  relocate(species_name,common_name,race_guild, .after=predator)
+
+write.csv(bio_diets,"GOA_diets_biomass_20230818.csv",row.names=F)
+write.csv(noyears_diets,"GOA_diets_noyears_20230818.csv",row.names=F)
 
 
 ##############################################
@@ -235,10 +250,10 @@ for (this.model in c("EGOA","WGOA")){
   for (p in pred_names){
     pdat <- as.list(preds[preds$predator==p,])
     pred_params[[p]] <- pdat
-    pred_params[[p]]$LCLASS <- c(0,20,9999)
+    pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999))) #c(0,20,9999)
     pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
-    pred_params[[p]]$lw_b   <- 1.0
-    pred_params[[p]]$lw_a   <- 3.0
+    pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pred_params[[p]]$b_l_mm_g)  
     pred_params[[p]]$bioen  <- list(CA=NA, CB=NA, C_TM=NA, C_T0=NA, C_Q=NA)
   }
   
@@ -264,42 +279,44 @@ for (this.model in c("EGOA","WGOA")){
 
 write.csv(diet_combined,"diet_combined2.csv",row.names=F)
 
-# Sample sizes
 
-diet_counts_combined <- NULL
-
-for (this.model in c("EGOA","WGOA")){ #this.model <- "WGOA"
-
-preds      <- predlist %>% filter(model==this.model)
-pred_names <- unique(preds$predator)
-pred_params=list()
-for (p in pred_names){
-  pdat <- as.list(preds[preds$predator==p,])
-  pred_params[[p]] <- pdat
-  pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
-  pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
-  pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
-  pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
-  pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
-}
-
-for (p in pred_names){ #p <- pred_names[1]
-juv_adu_lencons_summary  <- get_stratum_length_cons(predator=p, model=this.model) %>%
-  group_by(species_name,model,stratum_bin,year,lbin) %>%
-  summarize(cons_vonb_tot = sum(tot_cons_vonb_rel),.groups="keep")
-
-diet_summary <- predprey_tables(predator=p, model=this.model) %>%
-  group_by(predator,model,stratum_bin,year,lbin,pred_n,pred_full) %>%
-  summarize(dtot = sum(dietprop_sci),.groups="keep")
-
-pred_counts <- juv_adu_lencons_summary %>%
-  left_join(diet_summary,by=c("species_name"="predator","model","stratum_bin","year","lbin"))
-
-diet_counts_combined <- rbind(diet_counts_combined,pred_counts)
-}
-}
-
-write.csv(diet_counts_combined, "diet_counts_combined.csv",row.names=F)
+# Sample sizes of size-structured/age-structured species
+# # Sample sizes
+# 
+# diet_counts_combined <- NULL
+# 
+# for (this.model in c("EGOA","WGOA")){ #this.model <- "WGOA"
+# 
+# preds      <- predlist %>% filter(model==this.model)
+# pred_names <- unique(preds$predator)
+# pred_params=list()
+# for (p in pred_names){
+#   pdat <- as.list(preds[preds$predator==p,])
+#   pred_params[[p]] <- pdat
+#   pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+#   pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+#   pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+#   pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+#   pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+# }
+# 
+# for (p in pred_names){ #p <- pred_names[1]
+# juv_adu_lencons_summary  <- get_stratum_length_cons(predator=p, model=this.model) %>%
+#   group_by(species_name,model,stratum_bin,year,lbin) %>%
+#   summarize(cons_vonb_tot = sum(tot_cons_vonb_rel),.groups="keep")
+# 
+# diet_summary <- predprey_tables(predator=p, model=this.model) %>%
+#   group_by(predator,model,stratum_bin,year,lbin,pred_n,pred_full) %>%
+#   summarize(dtot = sum(dietprop_sci),.groups="keep")
+# 
+# pred_counts <- juv_adu_lencons_summary %>%
+#   left_join(diet_summary,by=c("species_name"="predator","model","stratum_bin","year","lbin"))
+# 
+# diet_counts_combined <- rbind(diet_counts_combined,pred_counts)
+# }
+# }
+# 
+# write.csv(diet_counts_combined, "diet_counts_combined.csv",row.names=F)
 
 ##################################################################
 ##################################################################
