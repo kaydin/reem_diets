@@ -1,2 +1,2 @@
-# GOA_Rpath
-Western GOA Rpath and related calculations
+# REEM diets
+Calculations related to AFSC REEM diet data.
