@@ -1,0 +1,159 @@
+---
+title: "Dietcomp_steps"
+author: "Kerim Aydin"
+date: "8/24/2022"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data loading from Oracle
+To load data into the data directory from Oracle, see Dietcomp_dataload.Rmd.  To load the data, you need a VPN connection to the AFSC Oracle database, an account, and obdc drivers installed/set up.  If you are running the rest of this script without first doing direct download from Oracle, check the data/ directory to ensure a complete set of data files have been provided.
+
+## REEM Diet Composition Tools
+This set of tools generates diet composition estimates from REEM BTS data, includes queries for bottom-trawl survey data provided by RACE.  All of thesesteps should be run from the top directory of this package, so please ensure that the working directory is set correctly, and add a directory-setting command if needed.  This also loads user-supplied parameters from user.R (most R files are in the R subdirectory; user.R is in the top directory).
+```{r environ}
+#setwd() if needed here
+library("tidyverse")
+library("janitor") 
+library("lubridate")
+
+# User supplied stuff
+  REGION    <- "GOA"
+  SUBMODEL  <- "WGOA"
+  #source("./user.R")
+  
+# Load functions - note: reload these if you change user inputs above.
+  source("R/REEM_fooddata_functions.R")
+  
+```
+
+
+## Now the processing starts
+```{r load_clean_data, eval=FALSE}
+
+# REEM.loadclean.RACE loads all files with a .csv extension that are in the 
+# directory indicated by path and names them after the file.  Any csv file
+# in the directory will be loaded.
+  REEM.loadclean.RACE(path = "data/local_racebase")
+
+# Above RACE data is all regions.  For food habits and strata, only the
+# region-specific data is loaded (re-run from here if switching regions).
+# REEM.loadclean.diets [region]_predprey and _predlength data.
+  REEM.loadclean.diets(region=REGION, path="data/local_reem_data")
+  
+# Load the table of combined survey strata.  
+  raw_strata <- read.csv("lookups/combined_BTS_strata.csv") %>% janitor::clean_names()
+  region_strata <- raw_strata %>% filter(survey == REGION)
+  model_strata  <- raw_strata %>% filter(submodel == SUBMODEL)
+  
+# Load length/weight regression parameters (currently from pre-made file, could
+# re-generate here)  
+  LWparam=read.csv("lookups/LengthWeightRegressionParams.csv") %>%
+    filter(EwEReg == SUBMODEL)  
+
+## Raw data should be loaded into the Workspace at this point
+  
+# Cleanup-type data manipulations
+  # convert to area in km given width in m
+    haul <- haul %>% 
+            mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
+  # Simple tidy up function for the dates in the cruise data  
+    cruisedat <- tidy.cruise.dates(cruise) 
+  # Add length/weight regressions to length table
+    lengthdat<-length %>%
+      filter(region == REGION)%>%
+      group_by (cruise, haul, species_code)%>%
+      mutate(NumSamp_SpHaul=sum(frequency))%>%
+      ungroup()%>%
+      left_join(LWparam, by=c("species_code"="sp_code"))%>%
+      mutate(PropLength_Num = frequency/NumSamp_SpHaul)%>%
+      mutate (weight_Lbin=LW.intercept_a*length^LW.slope_b) #weight of fish (sp, haul) in given length bin
+  # KYA - not sure if the below are needed  
+    #lengthhaul <- lengthdat %>%
+    #  left_join(haul,by=c("hauljoin"="hauljoin"))
+    #length_sp <- lengthhaul %>%
+    #  filter()  
+```
+
+## Some tests to see if length data is working
+```{r biomass_tests, eval=FALSE}
+
+#racebase_data <- list(cruisedat=cruisedat, haul=haul, catch=catch, lengthdat=lengthdat)
+test1 <- get_cpue_noLength(survey_area = "GOA", speciescode = 21740)
+test2 <- get_cpue_Length(survey_area = "GOA", speciescode = 21740)
+# The below functions don't include year (all years pooled)?
+test3 <- get_biomass_stratum_noLength(survey_area = "GOA", speciescode = 21740, strata=model_strata) 
+test4 <- get_biomass_stratum_Length(survey_area = "GOA", speciescode = 21740) 
+
+
+testx <- get_biomass_stratum_noLength(survey_area="BS", speciescode = 21740, strata=raw_strata)
+```
+
+## 04_BiomassCalc_Stratum_Length
+```{r 04_Biomass, eval=FALSE}
+
+FunGrp <- read.csv("lookups/ModelSpeciesList_GAP_Biomass.csv")
+# RACE codes of predators with juv and adult stanzas (multiple length bins) to calculate biomass by length bin (all must be on above list)
+ RACE <- FunGrp$RACE
+ 
+# create empty dataframe to fill 
+  final_list <- list()
+  
+#  final_table=data.frame(matrix(nrow=1, ncol=10, NA))
+#  colnames(final_table)=c("survey", "RACE", "stratum", "haul_count", "catch_count","length", "mean_wgtLbin_cpue", "mean_numLbin_cpue", 
+# "stratum_biomass.Lbin", "stratum_pop.Lbin") #remove year
+
+ #Start loop through each RACE code to calculate biomass by length bin by stratum - 
+ # OK if multiple RACE codes for same species - solve this later in code
+  for (i in 1:length(RACE)) {
+      
+         
+      # Pick the func group and run through biomass estimates for that species (maybe multiple RACE codes for that species)
+    RACEcode <- RACE[i]    #test: RACEcode=30060
+  
+  # call function to calculate biomass per length bins per stratum for that speciescode
+    biomass_stratum <- get_biomass_stratum_Length(speciescode = RACEcode,survey_area = "GOA")  #from 03_get_biomass_stratum_length.R 
+    
+    cat(RACE[i],nrow(biomass_stratum),"\n"); flush.console()
+     
+    biomass_stratum<-biomass_stratum %>%
+     select (survey, RACE, stratum, haul_count, catch_count,length, mean_wgtLbin_cpue, mean_numLbin_cpue, stratum_biomass.Lbin, stratum_pop.Lbin) #remove year
+    
+  final_list[[as.character(RACEcode)]] <- biomass_stratum  
+     
+  #add to final table of all results       
+ #final_table<-final_table %>%
+ #       bind_rows(final_table, biomass_stratum)
+       
+    } #end loop for each RACE code
+     
+final_table <- do.call(rbind,final_list)
+  
+
+#combine final biomass table with other Strata info file and Model Species List_GAP_Biomass.csv file (species names)  
+ final_table2<- final_table %>%
+       left_join(region_strata, by = c("stratum" = "stratum")) %>%
+        left_join (FunGrp, by = "RACE")
+       
+ # sum biomass by length by stratum  by species across multiple RACE codes (if have >1)
+ Biomass_Strata_Lbin<-final_table2 %>%
+   group_by(survey, Species, stratum, length) %>%
+   mutate(new.stratum_biomass.Lbin=sum(stratum_biomass.Lbin)) %>%
+   ungroup()  %>%
+   distinct(Species,length, stratum, .keep_all=TRUE) %>%
+   select (survey, Species, RACE, stratum, haul_count, catch_count,length, mean_wgtLbin_cpue, mean_numLbin_cpue, new.stratum_biomass.Lbin, stratum_pop.Lbin,INPFC_AREA, MAX_DEPTH, REGULATORY_AREA_NAME, NODC, NAME, ECOPATH_PRED) #remove year
+
+  
+#write.csv(Biomass_Strata_Lbin,"../results/Biomass_Strata_Lbin2.csv",row.names=F) 
+head(Biomass_Strata_Lbin)
+
+
+```
+
+
+
+
+
