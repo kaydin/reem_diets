@@ -227,13 +227,30 @@ bio_diets <- bio_and_pred_sums %>%
   replace_na(list(prey_guild="UNSAMPLED", pred_n=0, dietprop_wt=1.0,dietprop_sci=1.0)) %>%
   mutate(sampled=ifelse(pred_n==0,FALSE,TRUE))
 
+bio_90_93 <- bio_and_pred_sums %>% 
+  ungroup() %>%
+  select(species_code,species_name,common_name,race_guild,model,year,bio_tons) %>%
+  group_by(species_code,species_name,common_name,race_guild,model,year) %>%
+  summarize(tot_bio_tons=sum(bio_tons),.groups="keep") %>%
+  ungroup() %>%
+  filter(year==1990 | year==1993) %>% 
+  group_by(species_code,species_name,common_name,race_guild,model) %>%
+  summarize(bio_90_93_tons=mean(tot_bio_tons),.groups="keep")
+
+
 noyears_diets <- diet_noyears %>%
   left_join((race_lookup%>%select(species_code,species_name,common_name,race_guild)),
              by="species_code") %>%
-  relocate(species_name,common_name,race_guild, .after=predator)
+  relocate(species_name,common_name,race_guild, .after=predator) 
+
+noyears_w_bio <- bio_90_93 %>%
+  left_join(noyears_diets,by=c("species_code","species_name","common_name","race_guild","model"))
+
+
+write.csv(noyears_w_bio,"GOA_diets_noyears_with90_93_bio.csv",row.names=F)
 
 write.csv(bio_diets,"GOA_diets_biomass_20230818.csv",row.names=F)
-write.csv(noyears_diets,"GOA_diets_noyears_20230818.csv",row.names=F)
+
 
 
 ##############################################
