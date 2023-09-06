@@ -1,0 +1,269 @@
+---
+title: "Groundfish Diet Composition Calculations"
+author: "Bridget Ferriss"
+date: '2022-05-26'
+output: html_document
+---
+Diet Composition Calculations For GOA Rpath and Ecopath models
+
+
+proportion prey/pred (average across haul within stratum)
+mt prey consumed/ stratum=multiply proportion prey/pred by pred biomass within stratum (mt) = mt prey consumed/ stratum (pred biomass CPUE*stratum area in 03_get_biomass_stratum.r; proportino & pred biomass in 04_Biomass_weighting2Lbin.r)
+sum 
+
+General Equations RoadMap for Species with length categories (in diet claculations and eventually juv/adult stanzas in Ecopath)
+Pred biomass
+1)	Proportion fish in haul subsample [Pred,Length,HaulSubsample]: (number fish of length/total fish of species in subsample)
+a.	 PropLength_Num = frequency/NumSamp_SpHaul 
+2)	Number fish in Haul [Pred,Length,Haul] 
+a.	= PropLength_Num [Pred,Length,HaulSubsample] *#fish in haul [Pred,Length,Haul]  
+3)	Weight in each length bin per haul [Pred,Length,Haul ]= Number fish * W (=aL^b)
+a.	Get slope and intercept of length/weight regression from separate analyses
+4)	CPUE by number per haul: 
+a.	NUMCPUE = number_fish / AreaSwept_km2
+5)	CPUE by number per haul by length 
+a.	NumLBin_CPUE_km2 = PropLength_Num*NUMCPUE
+6)	CPUE by weight by haul [Pred, Length, Haul] 
+a.	WgtLBin_CPUE_km2 = NumLBin_CPUE_km2*weight_Lbin
+7)	Mean CPUE across hauls within Stratum (Pred, Length, Stratum)
+8)	Pred.biomass.stratum (mt) [Pred,Length,Stratum] = Mean CPUE in stratum * stratum.area
+
+Pred diet
+1)	Diet proportion [Pred, Length, Stratum]
+2)	PreyConsumed.mt.stratum [Pred,Length, Stratum]
+         =Diet proportion[Pred, Length,Stratum]*Pred.biomass.Stratum[Pred,Length,Stratum]
+3)	PreyConsumed.mt.NPFMC [Pred,Length,NPFMC]=sum(PreyConsumed.mt.stratum)
+4)	Proportion at total tons consumed/ total biomass 
+
+
+###########################
+DIET PROPORTION CALCULATIONS
+###########################
+
+1. Data Prep 
+"01_Diet_dataprep_length.r"
+
+One version for species with length categories and one with no length categories
+a) Define predator species list
+b) define length categories for each predator
+b) Read in various data files
+
+
+2. Length-Weight Regression
+"02_LengthWeightRegression.R"
+
+Using lengths and weights from RACEBASE (subset of samples collected from each haul of bottom trawl survey that is weighed and measured) to calculate regression parameters for each species using all years and all areas of GOA. 
+
+Only calculate length-weight regression if sample size 5 or greater.
+
+Linear regression
+
+lm1<-lm(logW~logL,data=speciesLW ) 
+
+save parameters for each species
+write.csv(LWparam,"../results/LengthWeightRegressionParams.csv",row.names=F) 
+
+the length-weight relationship is used to convert length of fish in food habits data to weight when dividing weight of prey by weight of pred for individual stomach data
+
+3. 03_StationCountsBF.r
+load and combine bottom trawl data (csv) (species, haul, lat, lon, species caught,...)
+
+used to list predators caught in BTS to in "04_DietComp_Length.r" to search for each Pred and link to haul etc. then calc diet
+
+4. Calculate diet proportions
+"04_DietComp_length.r"
+
+Calculate diet composition by predator species by stratum, length bin
+
+
+5. Biomass weighting
+weight diet proportions by biomass of predator (within each length bin) caught in each stratum 
+
+Use biomass calculations from GOA_Biomass/R/ #this is code from RACE division using bottom trawl survey data but theirs was not divide by length bin so this version is modified to include length data
+calculate CPUE at haul level then multiply mean CPUE within stratum by stratum area
+
+##########################
+BIOMASS BY LENGTH BINS for SPECIES WITH JUVENILE and ADULT STANZAS
+########################
+
+STEP 2: Calculate Biomass by Predatore by Length Bin
+FILE: 01_cleanup_data.R
+a) read in various data and standardize naming
+
+b) calculate proportion of fish in each length bin from subsample in each haul (only measure lengths of subsample of each haul-assume this is 'random' and 'representative' sample) by dividing number of fish in each length bin  ('frequency') by total number of fish in subsample of haul (NumSamp_SpHaul) for a given predator species
+
+PropLength_Num = frequency/NumSamp_SpHaul
+
+c) initial calculations to determine biomass by length bins; this step is proportion of number of fish in each length by species by haul
+(i) read in length weight regression parameters from previous caluclations ("01_LengthWeightRegression.R") in (C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_dietcomp/R) generates csv file
+(ii)  convert length in length bins in hauls to weight in length bins in hauls
+(iii) W =a*L^b
+
+```{r BiomassAtLengthStep2}
+LWparam=read.csv("C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_dietcomp/results/LengthWeightRegressionParams.csv") #,row.names=F) 
+head(LWparam)
+
+head(length)
+
+lengthdat<-length %>%
+  group_by (cruise, haul, species_code)%>%
+  mutate(NumSamp_SpHaul=sum(frequency))%>%
+  ungroup()%>%
+  left_join(LWparam, by=c("species_code"="RACE.species.code"))%>%
+  mutate(PropLength_Num = frequency/NumSamp_SpHaul)%>%
+  mutate (weight_Lbin=intercept_a*length^slope_b) #weight of fish (sp, haul) in given length bin
+ 
+```
+
+STEP 3: Calculate Biomass by Predatore by Length Bin
+FILE: 02_get_cpuebyLength.R
+Calculate CPUE by number ("NumLBin_CPUE_km2") and by weight ("WgtLBin_CPUE_km2") for each haul. Use these values instead of actual #fish caught in the trawl as this accounts for area swept.  
+
+Carrying forward, unit of measure is number or weight of fish within length bin/ km2 reflected by CPUE
+
+
+```{r BiomassAtLengthStep3}
+x <- dat %>%
+    mutate(
+      WGTCPUE = Catch_KG / AreaSwept_km2,
+      NUMCPUE = number_fish / AreaSwept_km2,
+      survey = survey_area
+    ) %>%
+    mutate (
+      NumLBin_CPUE_km2 = PropLength_Num*NUMCPUE  # Length step: convert proportion of number fish in each length bin to numberCPUE in each length bin (#fish/km2)
+    )%>%
+    mutate (WgtLBin_CPUE_km2 = NumLBin_CPUE_km2*weight_Lbin) %>% # Length step: calc weight for all fish in Lbin using proportion of CPUE (number fish in Lbin *weight)
+    replace_na(list(species_code = speciescode)) %>%
+```
+
+
+STEP 4: Calculate Biomass by length by species by stratum
+File: 03_get_biomass_stratum_length.R
+
+a) average biomass (weight fish CPUE-/km2) per length bin across hauls (mean_wgtLbin_cpue)
+b) average number (number fish CPUE/km2) per length bin across hauls (mean_numLbin_cpue)
+c) calculate biomass within stratum within Lbin and convert to metric tons from kg by
+  (i) multiple area of stratum by mean_wgtLbin_cpue (ave across hauls witin stratum)
+  (ii) multiple by 0,001 to convert kg to mt
+
+
+```{r BiomassAtLengthStep4}
+  mean_wgtLbin_cpue = mean(WgtLBin_CPUE_km2) #Length step - average biomass (CPUE-/km2) per length bin across hauls
+  mean_numLbin_cpue =mean(NumLBin_CPUE_km2)
+
+  stratum_biomass.Lbin = area * mean_wgtLbin_cpue / vulnerability * 0.001 # kg --> mt
+```
+
+
+
+STEP 5:
+FILE: 04_BiomassCalc_Stratum_Length.r
+Calculate biomass per length bin per stratum per species for selected species codes (all years combined)
+
+note since some species have multiple species code need to sum across multiple codes
+1) create csv file with species, codes (sometimes multiple) that have juv and adult stanzas in Ecopath so need length bins for biomass
+ FunGrp=read.csv("C:/Users/Bridget.Ferriss/Work/Rpath/GOA_Rpath_git/GOA_Rpath/GOA_biomass/data/ModelSpeciesList_GAP_BiomassbyLength.csv")
+ 
+2) Call function "get_biomass_stratum" (from 03_get_biomass_stratum_length.R) for each RACEcode in csv file (ok if more than one RACE code for same species- add them up later)
+3) Create one table with all results
+4) Join table to strata table to get strata and NPFMC area info
+5) Join table to ModelSpeciesList.csv to get species names
+6) sum across multiple RACE codes within same species/lengthbins/stratum
+
+
+
+```{r BiomassAtLengthStep5}
+ #Start loop through each RACE code to calculate biomass by length bin by stratum - OK if multiple RACE codes for same species - solve this later in code
+      for (i in 1:length(RACE)) {
+        
+      # Pick the func group and run through biomass estimates for that species (maybe multiple RACE codes for that species)
+    RACEcode <- RACE[i]    #test: RACEcode=30060
+  
+  # call function to calculate biomass per length bins per stratum for that speciescode
+    biomass_stratum <- get_biomass_stratum(speciescode = RACEcode,survey_area = "GOA")  #from 03_get_biomass_stratum_length.R 
+     
+    biomass_stratum<-biomass_stratum %>%
+     select (survey, RACE, stratum, haul_count, catch_count,length, mean_wgtLbin_cpue, mean_numLbin_cpue, stratum_biomass.Lbin, stratum_pop.Lbin) #remove year
+     
+  #add to final table of all results       
+ final_table<-final_table %>%
+       bind_rows(final_table, biomass_stratum)
+       
+    } #end loop for each RACE code
+     
+ 
+#combine final biomass table with other Strata info file and Model Species List_GAP_Biomass.csv file (species names)  
+ final_table2<- final_table %>%
+       left_join(stratalist, by = c("stratum" = "STRATUM")) %>%
+        left_join (FunGrp, by = "RACE")
+       
+ # sum biomass by length by stratum  by species across multiple RACE codes (if have >1)
+ Biomass_Strata_Lbin<-final_table2 %>%
+   group_by(survey, Species, stratum, length) %>%
+   mutate(new.stratum_biomass.Lbin=sum(stratum_biomass.Lbin)) %>%
+   ungroup()  %>%
+   distinct(Species,length, stratum, .keep_all=TRUE) %>%
+   select (survey, Species, RACE, stratum, haul_count, catch_count,length, mean_wgtLbin_cpue, mean_numLbin_cpue, new.stratum_biomass.Lbin, stratum_pop.Lbin,INPFC_AREA, MAX_DEPTH, REGULATORY_AREA_NAME, NODC, NAME, ECOPATH_PRED) #remove year
+
+```
+
+
+########################
+BIOMASS WITH NO LENGTH BINS (NO STANZAS IN ECOPATH)
+########################
+
+STEP1
+01_Cleanup_data.R
+has some length data but just don't use it later
+
+STEP2
+
+
+STEP4 :: read in csv file with species names and RACE codes - only include species with no stanzas (no length bins)
+
+Same Steps
+
+
+############################
+Diet
+
+```{r BiomassAtLengthStep4}
+ 
+```
+
+
+
+```{r biomassWt}
+# calculate new diet proportion weighted by pred biomass summed at stratum level
+dietprop.strata2<-dietprop.strata2 %>%
+  mutate(dietpropWtbiom=dietprop*PredBiom)  
+```
+
+Then aggregate up from stratum to INPFC area & Depth category areas: sum prey_sp (g_prey/g_pred/stratum/yr) across pred, year, prey species, INPFC to
+
+```{r aggregateINPFC}
+#### #aggregate to INPFC & Depth category areas: sum prey_sp (g_prey/g_pred/stratum/yr) across pred, year, prey species, INPFC to 
+dietprop.INPFC<-dietprop.strata2%>%
+  group_by(PRED,sp_prey, YY, INPFC_AREA, Depth) %>%
+  summarise(dietpropWt.INPFC.Depth = sum(dietpropWtbiom), .groups = "keep")
+```
+
+
+Then calculate spatial by dividing weighted diet proportion at NPFMC/Depth level by area of NPFMC/Depth region (g_prey/g_pred/km2/yr). This involves calculating the area within each INPFC area and each depth category (shelf, slope, gully). These are separate calculations in ("../Rpath/GOA Rpath/GOA_area_calc/GOA_area_calc.R")
+
+```{r areaWt}
+
+#### Divide by Area of INPFC/Depth region as used in EwE
+source("../Rpath/GOA Rpath/GOA_area_calc/GOA_area_calc.R") # area (km2) by super strata ( by region (Shumagin, Cherikof, Kodiak) by depth strata (shelf, gully, slope)
+GOAareaEwE
+
+#join area (km2) by NPFMC region and by depth category (slope, shelf, gully)
+dietprop.INPFC.km2<-dietprop.INPFC %>%
+  left_join(GOAareaEwE, by = c("Depth", "INPFC_AREA"="INPFC_area")) 
+
+
+#calculate spatial by dividing weighted diet proportion at NPFMC/Depth level by area of NPFMC/Depth region (g_prey/g_pred/km2/yr)
+dietprop.INPFC.km2<-dietprop.INPFC %>%
+  mutate(gprey.gpred.km2=dietpropWt.INPFC.Depth/sum.km2) #divide superstrata by area
+```
+
