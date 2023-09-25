@@ -42,6 +42,20 @@ strat_summary<- function(model){
 }
 
 #############################################################
+haul_list <- function(model){
+  this.model=model
+  stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  x <- haul %>% 
+    filter(abundance_haul == "Y") %>% 
+    mutate(year=floor(cruise/100)) %>% 
+    left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
+    filter(model==this.model) %>%
+    group_by(model, stratum_bin, stratum, year,hauljoin) %>%
+    summarize(.groups="keep")
+  
+}
+
+#############################################################
 haul_stratum_summary <- function(model){
   
   this.model=model
