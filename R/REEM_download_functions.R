@@ -51,7 +51,7 @@ reem.download.bts.predprey <- function(channel, path="data/local_reem_data"){
       "HH.REGION, HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
       "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP, HH.START_HOUR,",
       "HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE,HH.RLAT, HH.RLONG,",
-      "PP.PREDJOIN, PP.PRED_LEN,",
+      "PP.PREDJOIN, PP.TYPE, PP.PRED_LEN,",
       "NPREY.nodc as PREY_NODC, NPREY.name as PREY_NAME,", #"NPREY.ECOPATH_Prey,", 
       "sum(PP.PREY_TWT) as TWT, sum(PP.PREY_CNT) as CNT", 
     "FROM",
@@ -66,7 +66,7 @@ reem.download.bts.predprey <- function(channel, path="data/local_reem_data"){
       "HH.VESSEL, HH.CRUISE, HH.HAUL, HH.STRATUM, HH.YEAR, HH.MONTH, HH.DAY,",
       "HH.GEAR_TEMP, HH.GEAR_DEPTH, HH.BOTTOM_DEPTH, HH.SURFACE_TEMP,",
       "HH.START_HOUR, HH.HAULJOIN, HH.STATIONID, HH.CRUISE_TYPE, HH.RLAT,",
-      "HH.RLONG, PP.PRED_LEN,",
+      "HH.RLONG, PP.TYPE, PP.PRED_LEN,",
       "NPREY.nodc, NPREY.name", 
       "",
     sep=' ')
