@@ -236,11 +236,17 @@ cons_summary <- data.frame(cons_summary)
 # OFL used geometric mean of geometric means as per past assessments
 OFL <- exp(mean(log(cons_summary$g_mean)))
 ABC <- 0.75 * OFL
-
 OFL
 ABC
 
 write.csv(cons_summary,"cons_summary_1million_samples.csv",row.names=F)
+
+sample_sizes <- cons_bio_stats %>%
+  group_by(year) %>%
+  summarize(samples=sum(pred_n), .groups="keep")
+ write.csv(sample_sizes,"samples_sizes.csv",row.names=F)
+
+
 
 ################################################################################
 
