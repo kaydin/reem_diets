@@ -263,6 +263,29 @@ add_diets_to_strata_length_cons <- function(strata_length_cons, predator="P.cod"
 }
 
 ################################################################################
+preylength_tables_all <- function(){
+
+  stratbins    <- strata_lookup    
+  preylookup    <- preynames_lookup 
+  raw_pl        <- preylengths
+  #model_name    <- model    # renamed to avoid name confusion during lookup  
+
+  allpred_tab <- raw_pl %>%
+    # Add lookup tables
+    left_join(preylookup %>% select(nodc_code, prey_guild), by=c("pred_nodc"="nodc_code")) %>%
+    left_join(stratbins %>% select(survey, model, stratum, stratum_bin), by=c("region"="survey","stratum"="stratum")) %>%
+    relocate(stratum_bin) %>% 
+    relocate(model) %>% 
+    rename(pred_guild=prey_guild) %>%
+    relocate(pred_guild, .after=pred_nodc) %>%
+    left_join(preylookup %>% select(nodc_code, prey_guild), by=c("prey_nodc"="nodc_code")) %>%
+    relocate(prey_guild, .after=prey_nodc)
+  
+  return(allpred_tab)
+    
+}
+
+################################################################################
 predprey_tables <- function(predator="P.cod", model="EBS", combine.data=F, all.data=F){
 
   # Global variables
