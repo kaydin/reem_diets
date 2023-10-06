@@ -28,7 +28,7 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
 # Load lookup file for predators.  Name needs to match the name
 # (including case sensitivity) in prey guild and race lookups
 # Ecosystem Model and name as primary key
-predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
+predlist <- read.clean.csv("lookups/Alaska_Multistanza_GOA_vonb_2023_10_04.csv")
 
 # Lookup file and column for mapping RACE codes to biomass
 # Primary key is RACE codes, race lookup names should match
@@ -131,6 +131,12 @@ for (this.model in c("EGOA","WGOA")){
 
 write.csv(bio_combined,"results/goa_bio_2023_08_18.csv",row.names=F)
 
+#####
+# Checking length distributions
+
+p <- "Pacific_cod"
+this.model <- "EGOA"
+juv_adu_lenbio  <- get_cpue_length_cons(predator=p, model=this.model)
 
 # Biomass code stops here
 
@@ -294,8 +300,47 @@ for (this.model in c("EGOA","WGOA")){
   }
 }
 
-write.csv(diet_combined,"diet_combined2.csv",row.names=F)
+diet_combined <- diet_combined %>% 
+  replace_na(list(diet_prop=1))
 
+
+write.csv(diet_combined,"diet_multistanza_2023_10_05.csv",row.names=F)
+
+######################################################################
+# Juveniles as prey
+
+source("R/REEM_fooddata_functions.R")
+
+preylen <- preylength_tables_all() %>%
+  filter(model %in% c("EGOA","WGOA"))
+
+prey_lenwt <- preylen %>%
+  left_join(predlist %>% select(model,predator,juv_cm),by=c("model","pred_guild"="predator")) %>%
+  rename(pred_juv_cm=juv_cm) %>%
+  relocate(pred_juv_cm, .after=pred_len) %>%
+  replace_na(list(pred_juv_cm=0)) %>%
+  mutate(pred_juv = ifelse(pred_len     < pred_juv_cm,"juv","adu"), .after=pred_juv_cm) %>%
+  left_join(predlist %>% select(model,predator,juv_cm,a_l_mm_g,b_l_mm_g),by=c("model","prey_guild"="predator")) %>%
+  rename(prey_juv_cm=juv_cm) %>%
+  relocate(prey_juv_cm, .after=prey_size_mm) %>%
+  mutate(prey_juv = ifelse(prey_size_mm/10 < prey_juv_cm,"juv","adu"), .after=prey_juv_cm) %>%
+  filter(!is.na(prey_juv_cm)) %>%
+  mutate(prey_wt = freq * a_l_mm_g * prey_size_mm^b_l_mm_g)
+
+prey_juv_summary <- prey_lenwt %>%
+  select(year, model, pred_guild, pred_juv,
+         prey_guild, prey_juv, freq, prey_wt) %>%
+  group_by(year, model, pred_guild, pred_juv,
+           prey_guild, prey_juv) %>%
+  summarize(freq=sum(freq), prey_wt=sum(prey_wt), .groups="keep")
+
+prey_juv_crosstab <- prey_juv_summary %>%
+  pivot_wider(names_from=prey_juv,values_from=c(freq,prey_wt),values_fill=0) %>%
+  rename(predator=pred_guild,prey=prey_guild,pred_stage=pred_juv) %>%
+  mutate(samples= freq_juv+freq_adu, .after=prey) %>%
+  mutate(prop_juv_bywt=prey_wt_juv/(prey_wt_juv+prey_wt_adu))
+
+write.csv(prey_juv_crosstab,"prey_juv_crosstab_2023_10_06.csv",row.names=F)
 
 # Sample sizes of size-structured/age-structured species
 # # Sample sizes

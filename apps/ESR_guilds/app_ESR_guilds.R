@@ -53,8 +53,16 @@ for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
 # haul_stratum_summary() gets the total stations and area for each model domain.
   cpue_dat <- get_cpue_all(model=this.model)
 
+# The filter tries to eliminate slope species by keeping only lines that
+# have a stationid that starts with a letter (EBS) or is an NA (NBS), so
+# discarding stationids that start with a number.  This seems to eliminate
+# the 2000-onward slope stations, but not sure about 1988 or 1991.
+  bs_cpue_dat <- rbind(get_cpue_all(model="EBS"),get_cpue_all(model="NBS")) %>%
+    filter(grepl("^[A-Za-z]", stationid) | is.na(stationid))
+  
+
 # Check for RACE codes missing a guild assignment on the local lookoup table
-  cpue_code_test <- cpue_dat %>%
+  cpue_code_test <- bs_cpue_dat %>%
     filter(is.na(race_guild) & wgtcpue>0.0)
   missing_guilds <- sort(unique(cpue_code_test$species_code))
   if(length(missing_guilds)>0){
@@ -90,3 +98,5 @@ for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
 
 write.csv(bio_totals,"apps/ESR_guilds/bio_totals_test.csv",row.names=F)
 write.csv(stratsum, "apps/ESR_guilds/stratsum_test.csv",row.names=F)
+
+grep

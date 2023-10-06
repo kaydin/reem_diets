@@ -1,0 +1,8 @@
+"cruisejoin","region","vessel","cruise","start_date","end_date","min_latitude","max_latitude","min_longitude","max_longitude","agency_name","survey_name","auditjoin"
+1023495,"BS",57,200001,"2000-06-20","2000-07-19",54.28084,60.33742,-179.1712,-166.50999,"USA","2000 Bering Sea Slope Survey",10
+1225395,"BS",134,200401,"2004-06-06","2004-08-08",54.20847,60.59806,-179.4809,-165.408,"USA","2004 Bering Sea Slope Survey",569
+1129895,"BS",57,200202,"2002-06-05","2002-07-29",54.20232,60.59889,-179.6859,-165.73511,"USA","2002 Bering Sea Slope Survey",594
+-629,"BS",94,200801,"2008-06-06","2008-08-06",54.26328,60.60577,-179.491,-165.41341,"USA","2008 Eastern Bering Sea Slope Survey",-629
+-657,"BS",94,201001,"2010-06-03","2010-07-20",54.27885,60.60875,-179.49085,-165.49793,"USA","2010 Eastern Bering Sea Slope Survey",-657
+-680,"BS",94,201201,"2012-06-08","2012-07-25",54.26365,60.60923,-179.49565,-165.42688,"USA","2012 Eastern Bering Sea Slope Survey",-680
+-708,"BS",178,201601,"2016-06-16","2016-08-09",54.2701,60.58248,-179.4826,-165.39767,"USA","2016 Eastern Bering Sea Slope Survey",-708

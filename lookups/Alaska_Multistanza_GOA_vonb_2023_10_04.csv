@@ -1,0 +1,19 @@
+﻿NODC_CODE,RACE,BASE_NAME,PREDATOR,Model,juv_cm,adu_1,adu_2,adu_3,a_l_mm_g,b_l_mm_g,vb_linf_mm,vb_k,vb_t0,Rec_age_months,VonB_rec_len_cm
+8791030401,21720,Gadus macrocephalus (Pacific cod),Pacific_cod,EGOA,35,60,85,9999,6.47E-06,3.07350055,811.90,2.89E-01,4.18E-02,24,35.09903541
+8791030701,21740,Gadus chalcogrammus (walleye pollock),Walleye_pollock,EGOA,30,40,55,9999,6.05E-06,3.036241818,597.76,3.27E-01,-2.34E-01,24,30.98929474
+8857040102,10110,Atheresthes stomias (arrowtooth flounder),Arrowtooth_flounder,EGOA,20,30,50,9999,3.20E-06,3.165720821,759.17,1.11E-01,-8.82E-01,24,20.75420128
+8857040601,10130,Hippoglossoides elassodon (flathead sole),Flathead_sole,EGOA,20,9999,9999,9999,1.61E-06,3.299140913,459.28,1.46E-01,-4.60E-01,36,18.25430807
+8857040501,10200,Errex zachirus (rex sole),Rex_sole,EGOA,20,9999,9999,9999,8.18E-07,3.349785089,394.40,2.10E-01,-6.15E-01,36,20.9898568
+8827020101,20510,Anoplopoma fimbria (sablefish),Sablefish,EGOA,40,9999,9999,9999,4.90E-06,3.099548865,740.26,1.81E-01,-2.72E+00,24,42.52617006
+8826010102,30060,Sebastes alutus (Pacific ocean perch),POP,EGOA,20,9999,9999,9999,9.49E-06,3.058828798,420.35,1.63E-01,-6.33E-01,36,18.81356093
+8857041901,10120,Hippoglossus stenolepis (Pacific halibut),Pacific_halibut,EGOA,30,50,70,9999,3.90E-06,3.1645,2222.880462,5.80E-02,-4.49E-01,24,29.42803135
+8826010201,30020,Sebastolobus alascanus (shortspine thornyhead),Thornyheads,EGOA,10,9999,9999,9999,3.81E-06,3.196103731,700,0.012,-8,48,9.387857636
+8791030401,21720,Gadus macrocephalus (Pacific cod),Pacific_cod,WGOA,35,60,85,9999,4.49E-06,3.1362,1132.90,1.42E-01,-4.46E-01,24,33.2320753
+8791030701,21740,Gadus chalcogrammus (walleye pollock),Walleye_pollock,WGOA,30,40,55,9999,5.63E-06,3.0434,631.16,2.96E-01,4.53E-02,24,27.74040054
+8857040102,10110,Atheresthes stomias (arrowtooth flounder),Arrowtooth_flounder,WGOA,20,30,50,9999,3.69E-06,3.1404,770.75,1.11E-01,-8.42E-01,24,20.89050267
+8857040601,10130,Hippoglossoides elassodon (flathead sole),Flathead_sole,WGOA,20,9999,9999,9999,1.68E-06,3.286,455.85,1.56E-01,-7.46E-02,36,17.3951078
+8857040501,10200,Errex zachirus (rex sole),Rex_sole,WGOA,20,9999,9999,9999,5.73E-07,3.4148,488.21,2.03E-01,-1.79E-01,36,23.24966562
+8827020101,20510,Anoplopoma fimbria (sablefish),Sablefish,WGOA,40,9999,9999,9999,1.44E-06,3.2993,705.97,2.81E-01,-1.40E+00,24,43.4745546
+8826010102,30060,Sebastes alutus (Pacific ocean perch),POP,WGOA,20,9999,9999,9999,1.19E-05,3.0218,410.93,1.88E-01,-3.71E-01,36,19.3102877
+8857041901,10120,Hippoglossus stenolepis (Pacific halibut),Pacific_halibut,WGOA,30,50,70,9999,3.13E-06,3.202,3229,0.043,-1.43E-01,24,28.1566099
+8826010201,30020,Sebastolobus alascanus (shortspine thornyhead),Thornyheads,WGOA,10,9999,9999,9999,3.07E-06,3.233,700,0.012,-8,48,9.387857636
