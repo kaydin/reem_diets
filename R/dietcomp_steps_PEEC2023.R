@@ -150,8 +150,8 @@ for (this.model in c("EBS","NBS","AI")){
   }
 }
 
-write.csv(diet_strat_combined,"diet_strat_combined_peec.csv",row.names=F)
-write.csv(diet_combined,"diet_combined_peec.csv",row.names=F)
+write.csv(diet_strat_combined,"diet_strat_combined_ESR.csv",row.names=F)
+write.csv(diet_combined,"diet_combined_ESR.csv",row.names=F)
 
 
 ##################################################################
