@@ -205,6 +205,10 @@ cons_bio_stats <- haul_bio_stats %>%
   filter(!is.na(stratum_bin)) %>%
   replace_na(list(alpha=0,beta=Inf))
 
+save(cons_bio_stats,file="cons_bio_stats.rdata")
+
+#quantprobs <- c(0, 0.025, 0.25, 0.50, 0.75, 0.975, 1.0) 
+quantprobs <- seq(0,1,0.05)#c(0, 0.025, 0.25, 0.50, 0.75, 0.975, 1.0) 
 cons_summary <- NULL
 for (YY in year_list){ #YY <- 2010
   cat(YY,"\n"); flush.console()
@@ -228,7 +232,7 @@ for (YY in year_list){ #YY <- 2010
                 a_mean = mean(cons_samples),
                 g_mean = exp(mean(log(cons_samples))),
                 h_mean = 1/(mean(1/cons_samples)),
-                quantile(cons_samples, probs= c(0, 0.025, 0.25, 0.50, 0.75, 0.975, 1.0))))
+                quantile(cons_samples, probs= quantprobs)))
 }
 
 cons_summary <- data.frame(cons_summary)
@@ -239,7 +243,7 @@ ABC <- 0.75 * OFL
 OFL
 ABC
 
-write.csv(cons_summary,"cons_summary_1million_samples.csv",row.names=F)
+write.csv(cons_summary,"cons_summary_1million_samples_2.csv",row.names=F)
 
 sample_sizes <- cons_bio_stats %>%
   group_by(year) %>%
