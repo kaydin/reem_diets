@@ -96,8 +96,69 @@ if(all_classes){
   write.csv(diet_combined,"apps/ESR_ESP_diets/cod_diet_combined_Bering_ESR.csv",row.names=F)
     
 }
-  
 
+
+min_sample <- 10
+
+library(matrixStats)
+
+SCI_out <- NULL
+
+for (this.model in c("EBS")){  
+  pred_params <- load_predators(this.model, "apps/ESR_ESP_diets/predator_cod.csv")
+  for (p in names(pred_params)){
+    diet_all <- predprey_tables(predator=p, model=this.model,all.data=T)  
+    # Crosstab query
+    all_dat <- diet_all$predprey_table %>%
+      pivot_wider(names_from=prey_guild, values_from=prey_wt, values_fill=0.0)
+    
+    lc_list    <- sort(unique(all_dat$lbin))
+    year_list  <- sort(unique(all_dat$year))
+    strat_list <- sort(unique(all_dat$stratum_bin))
+
+    for (YY in year_list){ #YY <- 1994
+      for (SS in strat_list){ #SS <- "MiddleNW"
+        for (LL in lc_list){ #LL <- "[40,60)"
+            
+          wt_dat <- all_dat %>%
+            filter(lbin==LL & year==YY & stratum_bin==SS) %>%
+            select(bodywt:last_col()) # %>% select(-bodywt)
+          
+          dat    <- data.frame(wt_dat/wt_dat$bodywt) %>% select(-bodywt) 
+  
+          n <- nrow(dat)
+          cat(LL,YY,SS,n,"\n"); flush.console()
+          if(n >= min_sample){
+            samples <- 10000
+            sdat <- matrix(NA,samples,ncol(dat))
+            
+            SCI_mean <- colMeans(data.frame(dat))
+            
+            for (i in 1:samples){
+              pick <- sample.int(n, replace=T)
+               sdat[i,]=colSums(dat[pick,])/n
+            }
+            
+            dquant <- rownames_to_column(data.frame(SCI_mean, colQuantiles(sdat,probs=c(0, 0.025, 0.25, 0.5, 0.75, 0.975, 1.0))))
+            dout <- data.frame(this.model,p,YY,SS,LL,n,dquant)
+            SCI_out <- rbind(SCI_out,dout)
+                        
+          } else {
+            # what to do if min_sample is too small
+          }
+            
+          
+        } ## LL loop
+      } ## SS loop
+    } ## YY Loop
+    
+  } #pred_params loop
+} # this.model loop
+
+SCI_cleaned <- SCI_out %>%
+  rename(Model=this.model, Predator=p, Year=YY, Stratgroup=SS, Lbin=LL, Pred_n=n, Prey_guild=rowname)
+
+write.csv(SCI_cleaned,"apps/ESR_ESP_diets/SCI_cleaned.csv", row.names=F)
 
 ################################################################################
 #

@@ -41,6 +41,7 @@ race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>%
 # Biomass extraction by item
 
 bio_combined <-NULL
+stratbio_combined <- NULL
 
 # Can loop through multiple models, saving results in a single
 # table (bio_combined)
@@ -58,6 +59,8 @@ for (this.model in c("EGOA","WGOA")){
     left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
     mutate(bio_t_km2 = wgtcpue/1000/stations,
            bio_tons  = bio_t_km2 * area)
+  
+  stratbio_combined <- rbind(stratbio_combined,stratsum)  
   
 # These two lines then sum stratsum to the total biomass and biomass density
 # for the entire model area
@@ -129,7 +132,9 @@ for (this.model in c("EGOA","WGOA")){
   
 } # end of loop by model (e.g. WGOA, EGOA)
 
-write.csv(bio_combined,"results/goa_bio_2023_08_18.csv",row.names=F)
+write.csv(stratbio_combined, "results/goa_bio_bystrat_2024_02_13.csv",row.names=F)
+
+write.csv(bio_combined,"results/goa_bio_2023_11_21.csv",row.names=F)
 
 #####
 # Checking length distributions

@@ -30,12 +30,12 @@ AI,AI,Eastern_Aleutians,621,1740.635,NA,Eastern Aleutians,1,100,SE Eastern Aleut
 AI,AI,Eastern_Aleutians,622,1900.189,NA,Eastern Aleutians,101,200,SE Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
 AI,AI,Eastern_Aleutians,623,2060.609,NA,Eastern Aleutians,201,300,SE Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
 AI,AI,Eastern_Aleutians,624,2574.73,NA,Eastern Aleutians,301,500,SE Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,NA,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,NA,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,NA,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,NA,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,NA,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH
-AI,AI,NA,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH
+AI,AI,Southern_Bering,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH
+AI,AI,Southern_Bering,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH
+AI,AI,Southern_Bering,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH
+AI,AI,Southern_Bering,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH
+AI,AI,Southern_Bering,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH
+AI,AI,Southern_Bering,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH
 AI,AI,Western_Aleutians,211,3693.321,NA,Western Aleutians,1,100,W Western Aleutians,299,991,291,ALEUTIANS,NEITHER
 AI,AI,Western_Aleutians,212,4065.172,NA,Western Aleutians,101,200,W Western Aleutians,299,992,292,ALEUTIANS,NEITHER
 AI,AI,Western_Aleutians,213,940.226,NA,Western Aleutians,201,300,W Western Aleutians,299,993,293,ALEUTIANS,NEITHER
