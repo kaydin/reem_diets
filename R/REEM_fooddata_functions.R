@@ -286,6 +286,55 @@ preylength_tables_all <- function(){
 }
 
 ################################################################################
+predprey_tables_all <- function(model="EBS"){
+  
+  # Global variables
+  stratbins    <- strata_lookup    # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  preylookup    <- preynames_lookup # %>% mutate(prey_guild  = .data[[preylook_col]])
+  #yearblock    <- years_lookup
+  #ppar          <- pred_params[[predator]]
+  raw_pp        <- predprey
+  model_name    <- model    # renamed to avoid name confusion during lookup
+  #predator_name <- predator # renamed to avoid name confusion during lookup
+  
+  # Operations done on all predators before selection  
+  allpred_tab <- raw_pp %>%
+    # Add lookup tables
+    left_join(preylookup, by=c("prey_nodc"="nodc_code")) %>%
+    left_join(stratbins, by=c("region"="survey","stratum"="stratum")) %>%
+    #left_join(yearblock, by=c("year"="year")) %>%
+    relocate(stratum_bin) %>% relocate(model) 
+  
+  # Select predator (and apply other filters like model and months), apply predator-specific values
+  pred_tab <- allpred_tab %>%
+    filter(model %in% model_name)   %>%
+    #filter(pred_nodc %in% ppar$nodc)  %>%
+    #filter(!is.na(year)) %>%
+    #filter(month %in% months)   %>%
+    #mutate(predator = predator_name) %>% relocate(predator) %>%
+    # Then add predator_specific data and make sure it's located before the prey_guild column
+    #mutate(full = twt>0) %>% 
+    #mutate(lbin = as.character(cut(pred_len, ppar$LCLASS, right=F))) %>%
+    #mutate(bodywt = ppar$lw_a * pred_len^ppar$lw_b) %>%
+    #relocate(any_of(c("lbin","bodywt")), .before=prey_nodc) %>%
+    # Group by all columns up to prey_nodc EXCEPT prey_nodc, then stratum and prey bins 
+    group_by(across(c(1:prey_nodc,-prey_nodc)), stratum_bin, year, prey_guild) %>%
+    summarize(prey_wt=sum(twt), .groups="keep")
+  
+  cat(nrow(pred_tab),"predprey records found, summarizing...\n"); flush.console()
+  
+  #assign("pred_tab_tmp", value = pred_tab, envir = .GlobalEnv)
+  
+  # This creates one line per predator with stomach weight totals
+  pred_tots <- pred_tab %>%
+    group_by(across(c(1:prey_guild,-prey_guild))) %>%
+    summarize(tot_wt=sum(prey_wt), full=(prey_wt>0), prey_nguilds=n(), .groups="keep") %>%
+    unique()
+  
+return(pred_tots)
+} 
+
+################################################################################
 predprey_tables <- function(predator="P.cod", model="EBS", combine.data=F, all.data=F){
 
   # Global variables

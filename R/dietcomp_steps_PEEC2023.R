@@ -150,8 +150,13 @@ for (this.model in c("EBS","NBS","AI")){
   }
 }
 
-write.csv(diet_strat_combined,"diet_strat_combined_ESR.csv",row.names=F)
-write.csv(diet_combined,"diet_combined_ESR.csv",row.names=F)
+write.csv(diet_strat_combined,"diet_strat_combined_ESR_2024.csv",row.names=F)
+write.csv(diet_combined,"diet_combined_ESR_2024.csv",row.names=F)
+
+##################################################################
+# Sankey testing 2024
+  sample <- diet_strat_combined %>%
+     filter(species_name=="Pacific_cod")
 
 
 ##################################################################
