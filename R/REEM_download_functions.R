@@ -26,6 +26,21 @@ racebase.download <- function(channel, tables="HAUL", path="./data/local_racebas
   }
 }  
 
+##############################
+# As above function, but for RACE_DATA
+race_data.download <- function(channel, tables="HAUL", path="./data/local_racebase"){
+  
+  # Setup folders for local files -------------------------------------------
+  if(!file.exists(path)) dir.create(path, recursive = TRUE)
+  
+  for (tab in tables){
+    cat("Loading",tab,"... "); flush.console()
+    query.to.csv(channel = channel,
+                 query   = paste("SELECT * FROM RACE_DATA.", tab , sep=""),
+                 file    = paste(path,"/", tolower(tab), ".csv", sep=""))
+  }
+}  
+
 
 
 ###################################

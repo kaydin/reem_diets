@@ -31,7 +31,9 @@ channel <- oracle.connect("AFSC")
 
 racebase.tables   <- c("CATCH", "HAUL", "LENGTH", "SPECIMEN", "STRATUM", "STATIONS",
                        "SPECIES", "CRUISE", "SPECIES_CLASSIFICATION") #"SIZECOMP_TOTAL"
-
 racebase.download(channel, tables=racebase.tables, path="data/local_racebase")
+
+race_data.tables <- c("V_CRUISES")
+race_data.download(channel, tables=race_data.tables, path="data/local_racebase")
 
 oracle.disconnect(channel)
