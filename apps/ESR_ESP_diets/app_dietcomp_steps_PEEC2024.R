@@ -6,7 +6,7 @@ library("janitor")
 library("lubridate")
 
 ####################################################################
-outfiles   <- "apps/ESR_ESP_diets/ESR_Fall2024_"
+outfiles   <- "apps/ESR_ESP_diets/ESR_Fall2024_EBSfix_"
 output.csv <- function(df,fname){write.csv(df,paste(outfiles,fname,".csv",sep=""),row.names=F)}
 
 source("R/REEM_fooddata_functions.R")
@@ -153,10 +153,12 @@ for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
       mutate(cons_tot = sum(cons_tot_prey)) %>%
       ungroup() %>%
       mutate(diet_prop = cons_tot_prey/cons_tot)
-    
-  diet_strat_combined <- rbind(diet_strat_combined,strat_dietcons)  
-  diet_combined <- rbind(diet_combined,strat_dietprops)
-  
+  if(nrow(strat_dietcons)>0){  
+    diet_strat_combined <- rbind(diet_strat_combined,strat_dietcons)
+  }
+  if(nrow(strat_dietprops)>0){  
+    diet_combined <- rbind(diet_combined,strat_dietprops)
+  }
   }
 }
 
@@ -164,6 +166,57 @@ output.csv(diet_strat_combined,"diet_strat_combined")
 output.csv(diet_combined,"diet_combined")
 #write.csv(diet_strat_combined,"diet_strat_combined_ESR_2024.csv",row.names=F)
 #write.csv(diet_combined,"diet_combined_ESR_2024.csv",row.names=F)
+
+
+pl_dat <- preylengths %>% 
+  left_join(v_cruises%>%select(region,vessel_id,cruise,survey_name,survey_definition_id),
+                 by=c("region","vessel"="vessel_id","cruise")) %>%
+  rename(survey_id = survey_definition_id) %>%
+  filter(survey_id==SURVEY_IDS["EBS"]) %>%
+  filter(pred_nodc==8791030401 & prey_nodc %in% c("6187010300", "6187010301")  )
+
+library(ggridges)
+library(ggplot2)
+plens <- do.call("c",mapply(rep, pl_dat$prey_size_mm, pl_dat$freq))
+years <- do.call("c",mapply(rep, pl_dat$year,         pl_dat$freq))
+
+plens <- c(plens,0,0)
+years <- c(years,2004,2020)
+len_dat <- data.frame(plens,years)
+
+
+png("Crab_size.png",1600,2400)
+ldat <- len_dat
+ggplot(ldat, aes(x = plens, y = as.factor(years), fill="#5072B2")) +
+  geom_density_ridges() +
+  theme_ridges() + 
+  xlab("Crab carapace width (mm)") +
+  ylab("") +
+  labs(title="Snow crab size in EBS Pacific cod stomachs")+
+  xlim(0,80) +
+  theme(legend.position = "none",
+        axis.title.x = element_text(hjust = 0.5,size=48,face="bold"),
+        plot.title = element_text(hjust = 0.5,size=64,face="bold"),
+        axis.text=element_text(size=42),
+        )
+dev.off()
+
+png("Crab_size_recent.png",1600,2400)
+ldat <- len_dat[len_dat$years>2004,]
+ggplot(ldat, aes(x = plens, y = as.factor(years), fill="#5072B2")) +
+  geom_density_ridges() +
+  theme_ridges() + 
+  xlab("Crab carapace width (mm)") +
+  ylab("") +
+  labs(title="Snow crab size in EBS Pacific cod stomachs")+
+  xlim(0,80) +
+  theme(legend.position = "none",
+        axis.title.x = element_text(hjust = 0.5,size=48,face="bold"),
+        plot.title = element_text(hjust = 0.5,size=64,face="bold"),
+        axis.text=element_text(size=42),
+  )
+dev.off()
+
 
 
 
