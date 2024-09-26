@@ -51,15 +51,20 @@ for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
 # get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
 # biomasses for all groups at once, binned by the race_lookup names (race_guild column)
 # haul_stratum_summary() gets the total stations and area for each model domain.
-  cpue_dat <- get_cpue_all(model=this.model)
+#
+# This is filtered here by survey_id from the v_cruises table to filter out 
+# EBS slope stations mainly.
+  #survey_ids <- c("EBS"=98, "NBS"=143, "WGOA"=47, "EGOA"=47, "AI"=78)
+  cpue_dat <- get_cpue_all(model=this.model) %>%
+    filter(survey_id==survey_ids[this.model])
 
+#old filter for slope - don't use
 # The filter tries to eliminate slope species by keeping only lines that
 # have a stationid that starts with a letter (EBS) or is an NA (NBS), so
 # discarding stationids that start with a number.  This seems to eliminate
 # the 2000-onward slope stations, but not sure about 1988 or 1991.
-  bs_cpue_dat <- rbind(get_cpue_all(model="EBS"),get_cpue_all(model="NBS")) %>%
-    filter(grepl("^[A-Za-z]", stationid) | is.na(stationid))
-  
+#  bs_cpue_dat <- rbind(get_cpue_all(model="EBS"),get_cpue_all(model="NBS")) %>%
+#    filter(grepl("^[A-Za-z]", stationid) | is.na(stationid))
 
 # Check for RACE codes missing a guild assignment on the local lookoup table
   cpue_code_test <- bs_cpue_dat %>%
@@ -99,4 +104,3 @@ for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
 write.csv(bio_totals,"apps/ESR_guilds/bio_totals_test.csv",row.names=F)
 write.csv(stratsum, "apps/ESR_guilds/stratsum_test.csv",row.names=F)
 
-grep

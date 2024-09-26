@@ -42,7 +42,7 @@ get_cpue <- function(racebase_tables = list(
     left_join(cruisedat,
       by = c("cruisejoin", "region")
     ) %>%
-    filter(abundance_haul == "Y" &
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model_name] &
       #region == survey_area) %>%
       model == model_name) %>% # KYA changed
     left_join(sp_catch, by = "hauljoin") %>%
@@ -168,7 +168,7 @@ get_haul_means <- function(model){
   
   dat <- model_haul %>%
     left_join(cruisedat, by = c("cruisejoin", "region")) %>%
-    filter(abundance_haul == "Y" & model == model_name) # KYA changed    
+    filter(abundance_haul == "Y" & model == model_name & survey_id == SURVEY_IDS[model_name]) # KYA changed    
   
   out <- dat %>%
     group_by(year, stratum_bin) %>%
@@ -237,7 +237,7 @@ get_cpue_all <- function(racebase_tables = list(
     left_join(cruisedat,
               by = c("cruisejoin", "region")
     ) %>%
-    filter(abundance_haul == "Y" &
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model_name] &
              #region == survey_area) %>%
              model == model_name) %>% # KYA changed
     left_join(sp_catch, by = "hauljoin") %>%
@@ -259,7 +259,7 @@ get_cpue_all <- function(racebase_tables = list(
       Lat = start_latitude,
       Lon = start_longitude,
       catch_kg = weight,
-      Vessel = vessel.x,
+      vessel = vessel.x,
       region = region.x,
       Bottom_temp = gear_temperature,
       Surface_temp = surface_temperature
@@ -275,7 +275,7 @@ get_cpue_all <- function(racebase_tables = list(
     ) %>%
     #replace_na(list(species_code = speciescode)) %>%
     select(
-      year, model, species_code, race_guild, stratum_bin, survey, Vessel, haul.x, cruise.x, hauljoin,
+      year, model, species_code, race_guild, stratum_bin, survey, vessel, haul.x, cruise.x, hauljoin,
       stationid, bottom_depth,
       stratum, start_time, distance_fished,Lat,Lon,Bottom_temp,Surface_temp,
       species_code, catch_kg, number_fish,

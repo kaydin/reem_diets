@@ -8,7 +8,11 @@ source("R/GAP_get_cpue_guild.R")
 source("R/GAP_get_biomass_stratum.R")
 #source("R/GAP_loadclean.R")
 
-#############################################################\
+# Need to link supported model names to survey id, mainly to filter
+# out slope surveys from the EBS samples.
+SURVEY_IDS <<- c("EBS"=98, "NBS"=143, "WGOA"=47, "EGOA"=47, "AI"=78)
+
+#############################################################
 get_stratum_length_cons <- function(
   racebase_tables = list(
   cruisedat = cruisedat,
@@ -46,7 +50,7 @@ haul_list <- function(model){
   this.model=model
   stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
   x <- haul %>% 
-    filter(abundance_haul == "Y") %>% 
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model]) %>% 
     mutate(year=floor(cruise/100)) %>% 
     left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
     filter(model==this.model) %>%
@@ -61,7 +65,7 @@ haul_stratum_summary <- function(model){
   this.model=model
   stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
   x <- haul %>% 
-    filter(abundance_haul == "Y") %>% 
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model]) %>% 
     mutate(year=floor(cruise/100)) %>% 
     left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
     filter(model==this.model) %>%
@@ -80,7 +84,7 @@ haul_summary <- function(model){
   this.model=model
   stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
   x <- haul %>% 
-    filter(abundance_haul == "Y") %>% 
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model]) %>% 
     mutate(year=floor(cruise/100)) %>% 
     left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
     filter(model==this.model) %>%
@@ -115,7 +119,7 @@ get_lw <- function(predator="P.cod", model="EBS", years=NULL, all.data=F){
     left_join(cruisedat,
               by = c("cruisejoin", "region")
     ) %>%
-    filter(abundance_haul == "Y" &
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model] &
              model == model_name) %>% # KYA changed
     left_join(sp_specimen, by = "hauljoin") %>%
     dplyr::select(
@@ -594,6 +598,9 @@ REEM.loadclean.RACE <- function(path="data/local_racebase"){
   
     # Add area swept in km2 to hauls
     haul <- haul %>% 
+      dplyr::left_join(v_cruises%>%select(region,vessel_id,cruise,survey_name,survey_definition_id),
+                by=c("region","vessel"="vessel_id","cruise")) %>%
+      dplyr::rename(survey_id = survey_definition_id) %>%
       dplyr::mutate(AreaSwept_km2 = distance_fished * (0.001 * net_width)) 
     haul <<- haul
     
