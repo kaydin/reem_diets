@@ -39,7 +39,33 @@ get_stratum_length_cons <- function(
 
 
 #############################################################
+check_RACE_codes <- function(cpue_dat){
+  cpue_code_test <- cpue_dat %>%
+    filter(is.na(race_guild) & wgtcpue>0.0)
+  
+  missing_guilds <- sort(unique(cpue_code_test$species_code))
 
+  if(length(missing_guilds)>0){
+    message("The following RACE codes have biomass in this model ecosystem, but no guild assigned:")
+    print(missing_guilds)
+    message("From raw RACE species table:")
+    print(species[species$species_code %in% missing_guilds,])
+    message("From raw RACE species_classification table:")
+    print(species_classification[species_classification$species_code %in% missing_guilds,])
+    unknown_guilds <- missing_guilds[!(missing_guilds %in% species$species_code)]
+    if(length(unknown_guilds)>0){
+      message("Codes not on any RACE lookup table:")
+      print(unknown_guilds)
+    }
+  }
+  else{
+    message("RACE codes checked - none missing.")
+  }
+  
+}
+
+
+#############################################################
 strat_summary<- function(model){
   this.model=model
   return(strata_lookup %>% filter(model==this.model) %>% select(stratum_bin,area))

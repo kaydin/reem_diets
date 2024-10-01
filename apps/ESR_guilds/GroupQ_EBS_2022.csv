@@ -1,0 +1,126 @@
+NN,GROUP,TL,BB,SS91,QQ,GUILD,Bindex
+1,transient_killers,4.825993538,0.000135059,#N/A,0,XXApex predators,n/a
+2,sperm_whales,4.724488735,0.017674729,#N/A,0,XXApex predators,n/a
+3,resident_killers,4.684011936,0.00135018,#N/A,0,XXApex predators,n/a
+4,porpoises,4.630122185,0.003618792,#N/A,0,XXApex predators,n/a
+5,belugas,4.594192505,0.01225278,#N/A,0,XXApex predators,n/a
+6,gray_whales,3.511069298,0.032667201,#N/A,0,XXBenthic foragers,n/a
+7,humpbacks,3.943032503,0.01209702,#N/A,0,XXPelagic foragers,n/a
+8,fin_whales,3.731283903,0.454739988,#N/A,0,XXPelagic foragers,n/a
+9,sei_whales,3.665329456,0.006334031,#N/A,0,XXPelagic foragers,n/a
+10,right_whales,3.501749992,0.003554848,#N/A,0,XXPelagic foragers,n/a
+11,minke_whales,4.120175362,0.024038279,#N/A,0,XXApex predators,n/a
+12,bowhead_whales,3.524302959,0.007173534,#N/A,0,XXPelagic foragers,n/a
+13,otters,3.738600731,0.000750327,#N/A,0,XXApex predators,n/a
+14,walrus_bd_seals,3.573738575,0.114248402,#N/A,0,XXBenthic foragers,n/a
+15,nf_seal_juv,4.58318758,0.000878013,#N/A,0,XXApex predators,n/a
+16,nf_seal,4.58318758,0.03262547,#N/A,0,XXApex predators,n/a
+17,steller_sl_juv,4.65362215,2.68E-05,#N/A,0,XXApex predators,n/a
+18,steller_sl,4.658423424,0.001466855,#N/A,0,XXApex predators,n/a
+19,resident_seals,4.528830051,0.01344924,#N/A,0,XXApex predators,n/a
+20,wintering_seals,4.579491138,0.03029022,#N/A,0,XXApex predators,n/a
+21,shearwater,4.536387444,0.0004,#N/A,0,XXApex predators,n/a
+22,murres,4.433144093,0.008142997,#N/A,0,XXApex predators,n/a
+23,kittiwakes,4.400294781,0.000662705,#N/A,0,XXApex predators,n/a
+24,auklets,3.570476055,0.001754495,#N/A,0,XXPelagic foragers,n/a
+25,puffins,4.397296429,0.000474985,#N/A,0,XXApex predators,n/a
+26,fulmars,4.58780098,0.000520162,#N/A,0,XXApex predators,n/a
+27,storm_petrels,4.280564785,1.75E-06,#N/A,0,XXApex predators,n/a
+28,cormorants,4.485171318,0.000149799,#N/A,0,XXApex predators,n/a
+29,gulls,4.469694614,0.00010491,#N/A,0,XXApex predators,n/a
+30,albatross_jaeger,4.605689526,1.00E-04,#N/A,0,XXApex predators,n/a
+31,sleeper_shark,4.685585022,0.053247299,0,1,Poor Apex predators,poor survey est
+32,pollock_juv,3.546344995,4.492683887,#N/A,0,XXPelagic foragers,poor survey est
+33,pollock,3.681783676,18.48620987,10.17315422,1.817156162,Pelagic foragers,good index
+34,pcod_juv,3.620096684,0.185954094,#N/A,0,XXBenthic foragers,poor survey est
+35,pcod,4.104910374,2.46496892,1.096357307,2.248326256,Apex predators,good index
+36,herring_juv,3.521964073,0.171157703,#N/A,0,XXPelagic foragers,poor survey est
+37,herring,3.52392602,0.61155802,0.067040119,9.122269319,Pelagic foragers,good index
+38,arrowtooth_juv,3.976933002,0.00624092,#N/A,0,XXBenthic foragers,poor survey est
+39,arrowtooth,4.321147919,0.944342077,0.554406661,1.70333826,Apex predators,good index
+40,kamchatka_juv,4.127982616,0.000370553,#N/A,0,XXApex predators,poor survey est
+41,kamchatka,4.487145424,0.05607,0.069846345,0.802762122,Apex predators,good index
+42,gr_turbot_juv,3.538616657,0.007470302,#N/A,0,XXPelagic foragers,poor survey est
+43,gr_turbot,4.583570957,0.349304408,0.023431831,14.90726075,Apex predators,good index
+44,halibut_juv,3.790332556,0.001864732,#N/A,0,XXBenthic foragers,poor survey est
+45,halibut,4.562645435,0.221896902,0.205635254,1.079080058,Apex predators,good index
+46,yf_sole_juv,3.513369322,0.424662292,#N/A,0,XXBenthic foragers,poor survey est
+47,yf_sole,3.542567253,4.833312035,4.877398537,0.990961062,Benthic foragers,good index
+48,fh_sole_juv,3.549802303,0.147326693,#N/A,0,XXBenthic foragers,poor survey est
+49,fh_sole,3.67606616,1.193845987,1.024209625,1.165626604,Benthic foragers,good index
+50,nr_sole_juv,3.50488019,0.157305598,#N/A,0,XXBenthic foragers,poor survey est
+51,nr_sole,3.653100491,3.2257061,3.42525989,0.941740541,Benthic foragers,good index
+52,ak_plaice,3.509846687,1.068403006,1.091120956,0.979179256,Benthic foragers,good index
+53,dover_sole,3.709782362,0.000229773,0.000101011,2.274737451,Benthic foragers,good index
+54,rex_sole,3.724755287,0.040625561,0.029187239,1.39189463,Benthic foragers,good index
+55,misc_flats,3.70583272,0.221691862,0.194652208,1.138912646,Benthic foragers,good index
+56,ak_skate,4.185295582,0.680454373,0.787392539,0.864186971,Apex predators,good index
+57,oth_skate,4.425169468,0.092932269,0.131198973,0.708330767,Apex predators,good index
+58,sablefish_juv,3.636665583,0.003844913,#N/A,0,XXPelagic foragers,poor survey est
+59,sablefish,4.519145966,0.031446379,0.000607953,51.72498311,Apex predators,good index
+60,eelpouts,3.577774525,2.371533632,0.087252959,27.1799795,Motile epifauna,good index
+61,grenadiers,4.293328285,0.968098998,#N/A,0,XXApex predators,poor survey est
+62,misc_fish_deep,4.293328285,0.008094369,0,1,Poor Apex predators,poor survey est
+63,pac_ocean_perch,3.548366308,0.1666428,0,1,Poor Pelagic foragers,poor survey est
+64,sharpchin_rock,3.768889189,0.001528288,#N/A,1,Poor Pelagic foragers,poor survey est
+65,north_rockfish,3.602633238,0.027925313,0,1,Poor Pelagic foragers,poor survey est
+66,dusky_rock,3.517008305,0.000611554,0.001542334,1,Poor Pelagic foragers,poor survey est
+67,shortraker_rock,3.86427331,0.009492034,#N/A,1,Poor Benthic foragers,poor survey est
+68,rougheye_rock,4.296509266,0.003686704,0,1,Poor Pelagic foragers,poor survey est
+69,shortspine_thorns,3.575534344,0.00461327,#N/A,1,Poor Benthic foragers,poor survey est
+70,oth_sebastes,3.768889189,0.011135655,#N/A,1,Poor Pelagic foragers,poor survey est
+71,atka_juv,3.5224998,0.03712653,#N/A,0,XXPelagic foragers,poor survey est
+72,atka,3.530183315,0.106847301,0.000142617,749.1929684,Pelagic foragers,good index
+73,greenlings,4.243580341,0.001190085,0.001358816,0.875824513,Benthic foragers,good index
+74,lg_sculpins,4.028891563,0.540323079,0.579123267,0.933001849,Apex predators,good index
+75,oth_sculpins,3.878763676,1.136691928,0.024177687,47.01408937,Benthic foragers,good index
+76,misc_fish_shallow,3.674926043,1.167694449,0.177025914,6.596178055,Pelagic foragers,good index
+77,octopus,3.817606211,0.192476004,0.014925329,12.89593015,Motile epifauna,n/a
+78,squids,3.679156303,0.926997602,2.24E-05,1,Poor Pelagic foragers,poor survey est
+79,salmon_returning,3.827081203,0.163769707,0.001189135,137.7216795,Pelagic foragers,good index
+80,salmon_smolts,3.512499809,0.014197201,#N/A,0,XXPelagic foragers,poor survey est
+81,bathylagid,3.5224998,0.161643669,#N/A,1,Poor Pelagic foragers,poor survey est
+82,myctophid,3.5224998,0.826217771,0,1,Poor Pelagic foragers,poor survey est
+83,capelin,3.5224998,1.244671345,0.00377373,329.8252128,Pelagic foragers,good index
+84,sandlance,3.5224998,2.527657986,6.45E-05,39165.29772,Pelagic foragers,poor index
+85,eulachon,3.5224998,0.552082777,0.011363022,48.58591256,Pelagic foragers,good index
+86,oth_managed_forage,3.5224998,1.050980091,0.00246597,426.1933498,Pelagic foragers,good index
+87,oth_pelagic_smelt,3.5224998,0.498683631,0.0034578,144.2199136,Pelagic foragers,good index
+88,bairdi,3.368986845,0.521853685,0.386715677,1.349450555,Motile epifauna,n/a
+89,king_crabs,3.383165598,0.238389403,0.235308119,1.013094676,Motile epifauna,n/a
+90,opilio,3.280631304,2.178832054,1.639118406,1.329270689,Motile epifauna,n/a
+91,pandalid,2.907500029,6.742452145,0.014075355,479.0253747,Shrimp,n/a
+92,np_shrimp,2.907500029,12.70143509,0.001093507,11615.32217,Shrimp,n/a
+93,sea_stars,3.529754639,2.471359015,2.592882254,0.953131987,Motile epifauna,n/a
+94,brittle_stars,2.150000095,2.950092793,0.308147099,9.573651029,Motile epifauna,n/a
+95,urchins_dollars_cucs,2,1.167417765,0.043207582,27.01881752,Motile epifauna,n/a
+96,snails,2.904999971,0.807168901,0.646604246,1.248319827,Motile epifauna,n/a
+97,hermits,3.131249905,1.773872495,0.930511819,1.906340637,Motile epifauna,n/a
+98,misc_crabs,3.131249905,0.710121751,0.103340386,6.871677005,Motile epifauna,n/a
+99,misc_crustaceans,2.5,8.885809898,0.000624276,14233.78164,Infauna,n/a
+100,benthic_amphipods,2.5,12.79599571,0,0,Infauna,n/a
+101,anemones,2.525000095,0.109520704,0.110326522,0.992696055,Structural epifauna,n/a
+102,corals,2.525000095,0.01316798,0.012456396,1.057126024,Structural epifauna,n/a
+103,hydroids,2.525000095,0.236198992,#N/A,0,XXStructural epifauna,n/a
+104,urochordata,2.525000095,0.354496688,0.376496766,0.941566356,Structural epifauna,n/a
+105,sea_pens,2.525000095,0.01341994,0.000885184,15.16062057,Structural epifauna,n/a
+106,sponges,2.525000095,0.05448509,0.038725119,1.406970243,Structural epifauna,n/a
+107,bivalves,2.525000095,61.87306976,0.005395909,11466.66211,Infauna,n/a
+108,polychaetes,2.5,21.68737984,0.006327101,3427.695997,Infauna,n/a
+109,misc_worms,2.5,3.6694839,1.91E-05,192211.3099,Infauna,n/a
+110,scyphozoid_jellies,3.428904533,0.337930411,0.149871804,2.254796446,Pelagic foragers,n/a
+111,fish_larvae,2.524999857,0.011669125,0,0,Mesozooplankton,n/a
+112,chaetognaths,2.906250238,0.704880238,#N/A,0,Mesozooplankton,n/a
+113,euphausiids,2.524999857,17.83091545,#N/A,0,Mesozooplankton,n/a
+114,mysids,2.524999857,1.500249028,#N/A,0,Mesozooplankton,n/a
+115,pelagic_amphipods,2.524999857,1.695003748,#N/A,0,Mesozooplankton,n/a
+116,gelatinous_filter_feeders,2.524999857,0.773875952,0,0,Mesozooplankton,n/a
+117,pteropods,2.524999857,0.231749848,#N/A,0,Mesozooplankton,n/a
+118,copepods,2.5,26.85725021,#N/A,0,Copepods,n/a
+119,pelagic_microbes,2,45,#N/A,0,Pelagic production,n/a
+120,benthic_microbes,2,22.06093025,#N/A,0,Benthic production,n/a
+121,macroalgae,1,0.750176311,#N/A,0,Pelagic production,n/a
+122,lg_phytoplankton,1,4.350328922,#N/A,0,Pelagic production,n/a
+123,sm_phytoplankton,1,39.50389862,#N/A,0,Pelagic production,n/a
+124,outside_prod,1,4,#N/A,0,NA,n/a
+999,hybrid_chion,3.280631304,2.178832054,1.639118406,1.329270689,Motile epifauna,n/a
