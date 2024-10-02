@@ -224,7 +224,7 @@ get_cpue_all <- function(racebase_tables = list(
   model_name    <- model    # renamed to avoid name confusion during lookup
 
   racebins <- race_lookup %>%
-    select(species_code,race_guild)
+    select(species_code,race_group)
   sp_catch <- catch %>% #%>% filter(species_code == speciescode)
     left_join(racebins, by="species_code")
 
@@ -245,7 +245,7 @@ get_cpue_all <- function(racebase_tables = list(
       weight = 0,
       number_fish = 0)) %>%
     dplyr::select(
-      species_code,race_guild,model,stratum_bin,region.x,#KYA added model, stratum_bin
+      species_code,race_group,model,stratum_bin,region.x,#KYA added model, stratum_bin
       cruisejoin.x, vessel.x, haul.x, cruise.x, hauljoin,
       haul_type, performance, start_time, duration,
       stratum, stationid, bottom_depth,
@@ -275,7 +275,7 @@ get_cpue_all <- function(racebase_tables = list(
     ) %>%
     #replace_na(list(species_code = speciescode)) %>%
     select(
-      year, model, species_code, race_guild, stratum_bin, survey, vessel, haul.x, cruise.x, hauljoin,
+      year, model, species_code, race_group, stratum_bin, survey, vessel, haul.x, cruise.x, hauljoin,
       stationid, bottom_depth,
       stratum, start_time, distance_fished,Lat,Lon,Bottom_temp,Surface_temp,
       species_code, catch_kg, number_fish,

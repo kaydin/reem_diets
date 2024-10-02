@@ -41,7 +41,7 @@ get_stratum_length_cons <- function(
 #############################################################
 check_RACE_codes <- function(cpue_dat){
   cpue_code_test <- cpue_dat %>%
-    filter(is.na(race_guild) & wgtcpue>0.0)
+    filter(is.na(race_group) & wgtcpue>0.0)
   
   missing_guilds <- sort(unique(cpue_code_test$species_code))
 
