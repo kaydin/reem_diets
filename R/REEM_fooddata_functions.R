@@ -10,7 +10,7 @@ source("R/GAP_get_biomass_stratum.R")
 
 # Need to link supported model names to survey id, mainly to filter
 # out slope surveys from the EBS samples.
-SURVEY_IDS <<- c("EBS"=98, "NBS"=143, "WGOA"=47, "EGOA"=47, "AI"=78)
+SURVEY_IDS <<- c("EBS"=98, "NBS"=143, "WGOA"=47, "EGOA"=47, "AI"=52)
 
 #############################################################
 get_stratum_length_cons <- function(

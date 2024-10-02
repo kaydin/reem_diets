@@ -20,34 +20,13 @@ source("R/REEM_fooddata_functions.R")
 # which column to use for group mapping (varies by ecosystem)
   race_lookup_base <- read.clean.csv("apps/ESR_guilds/species_test_join.csv")
 
-race_lookup_col <- c("EBS"="ebs_ecopath", "AI"="ai_ecopath", "WGOA"= "goa_ecopath")
+#race_lookup_col <- c("EBS"="ebs_ecopath", "AI"="ai_ecopath", "WGOA"= "goa_ecopath")
 
 ##############################################################################
 # Biomass extraction by item
 #for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
-
-# get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
-# biomasses for all groups at once, binned by the race_lookup names (race_guild column)
-# haul_stratum_summary() gets the total stations and area for each model domain.
-#
-# Note: BS Survey filter (for slope stations) moved to core loading code
-  this.model <- "EBS"
-
-  race_lookup <- race_lookup_base %>% mutate(race_guild  = .data[["ebs_ecopath"]])  
-  q_table     <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
-  
-  cpue_dat <- get_cpue_all(model=this.model)
-  
-  #cpue_test <- cpue_dat %>%
-  #  filter(year==1982 & stratum==10 & race_guild =="ak_plaice")
-  
-
-# Check for RACE codes missing a species or guild assignment on the local lookoup table
-  check_RACE_codes(cpue_dat)
-  
-# This code groups the two together at the stratum level to get stratum biomass
-# in both tons and t/km^2
-  stratsum <- cpue_dat %>%
+get_stratsum_q <- function(cpuedat, q_table){
+  stratsum <- cpuedat %>%
     group_by(year, model, race_guild, stratum) %>%
     summarize(wgtcpue = sum(wgtcpue),
               numcpue = sum(numcpue),.groups="keep") %>%
@@ -58,9 +37,49 @@ race_lookup_col <- c("EBS"="ebs_ecopath", "AI"="ai_ecopath", "WGOA"= "goa_ecopat
   stratsum_q <- stratsum %>%
     left_join(q_table,by=c("race_guild"="group")) %>%
     mutate(bio_tons_q  = bio_tons  *qq,
-           bio_t_km2_q = bio_t_km2 *qq)
-  
+           bio_t_km2_q = bio_t_km2 *qq)  
+
+  return(stratsum_q)
+}
+
+# get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
+# biomasses for all groups at once, binned by the race_lookup names (race_guild column)
+# haul_stratum_summary() gets the total stations and area for each model domain.
+#
+# Note: BS Survey filter (for slope stations) moved to core loading code
+
+# EBS GUILDS ------------------------------------------------
+  this.model  <- "EBS"
+
+  race_lookup     <- race_lookup_base %>% mutate(race_guild  = .data[["ebs_ecopath"]])  
+  q_table         <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
   strata_included <-  c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", "StMatt", "SE_outer", "NW_outer")
+  
+  cpue_dat  <- get_cpue_all(model=this.model)
+  check_RACE_codes(cpue_dat)
+ 
+  stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+
+  guild_bio_table <-stratsum_q %>%
+    filter(stratum_bin %in% strata_included) %>%
+    group_by(year,guild) %>%
+    summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
+    spread(guild,bio_tons_q_tot,fill=0)
+
+  write.csv(stratsum_q, "apps/ESR_guilds/EBS_stratsum_2024test.csv",row.names=F)
+  write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2024test.csv",row.names=F)
+
+  
+# AI GUILDS -----------------------------------------------
+  this.model  <- "AI"  
+  race_lookup     <- race_lookup_base %>% mutate(race_guild  = .data[["ai_ecopath"]])  
+  q_table         <- read.clean.csv("apps/ESR_guilds/GroupQ_2018_AI.csv")
+  strata_included <-  c("Eastern_AI","Central_AI","Western_AI")
+  
+  cpue_dat  <- get_cpue_all(model=this.model)
+  check_RACE_codes(cpue_dat)
+  
+  stratsum_q <- get_stratsum_q(cpue_dat, q_table)
   
   guild_bio_table <-stratsum_q %>%
     filter(stratum_bin %in% strata_included) %>%
@@ -68,18 +87,18 @@ race_lookup_col <- c("EBS"="ebs_ecopath", "AI"="ai_ecopath", "WGOA"= "goa_ecopat
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
   
+#cpue_test <- cpue_dat %>%
+#  filter(year==1982 & stratum==10 & race_guild =="ak_plaice")    
 # These two lines then sum stratsum to the total biomass and biomass density
 # for the entire model area
-  model_area <- sum(strata_lookup$area[strata_lookup$model==this.model])
-  bio_totals <- stratsum %>%
-    group_by(year, model, race_guild) %>%
-    summarize(bio_tons = sum(bio_tons),
-              bio_tkm2 = bio_tons/model_area, .groups="keep")
-  
-  # IF Looping through multiple ecosystems, need to save or rbind bio_totals
-  # at the end of each loop here.
+#model_area <- sum(strata_lookup$area[strata_lookup$model==this.model])
+#bio_totals <- stratsum %>%
+#  group_by(year, model, race_guild) %>%
+#  summarize(bio_tons = sum(bio_tons),
+#            bio_tkm2 = bio_tons/model_area, .groups="keep")
+
+# IF Looping through multiple ecosystems, need to save or rbind bio_totals
+# at the end of each loop here.
 #}
 
 #write.csv(bio_totals,"apps/ESR_guilds/bio_totals_2024test.csv",row.names=F)
-write.csv(stratsum_q, "apps/ESR_guilds/stratsum_2024test.csv",row.names=F)
-write.csv(guild_bio_table, "apps/ESR_guilds/guild_bio_2024test.csv",row.names=F)

@@ -1,49 +1,49 @@
 SURVEY,MODEL,STRAT_GROUPS,STRATUM,AREA,PERIMETER,INPFC_AREA,MIN_DEPTH,MAX_DEPTH,DESCRIPTION,SUMMARY_AREA,SUMMARY_DEPTH,SUMMARY_AREA_DEPTH,REGULATORY_AREA_NAME,STRATUM_TYPE
-AI,AI,Petrel_Bank,311,960.023,NA,Central Aleutians,1,100,Petrel Bank,3499,991,3491,ALEUTIANS,NORTH
-AI,AI,Petrel_Bank,312,1735.544,NA,Central Aleutians,101,200,Petrel Bank,3499,992,3492,ALEUTIANS,NORTH
-AI,AI,Petrel_Bank,313,766.43,NA,Central Aleutians,201,300,Petrel Bank,3499,993,3493,ALEUTIANS,NORTH
-AI,AI,Petrel_Bank,314,1237.475,NA,Central Aleutians,301,500,Petrel Bank,3499,994,3494,ALEUTIANS,NORTH
-AI,AI,N_Central_Aleutians,321,2105.636,NA,Central Aleutians,1,100,N Central Aleutians,3499,991,3491,ALEUTIANS,NORTH
-AI,AI,N_Central_Aleutians,322,1066.049,NA,Central Aleutians,101,200,N Central Aleutians,3499,992,3492,ALEUTIANS,NORTH
-AI,AI,N_Central_Aleutians,323,439.004,NA,Central Aleutians,201,300,N Central Aleutians,3499,993,3493,ALEUTIANS,NORTH
-AI,AI,N_Central_Aleutians,324,1239.743,NA,Central Aleutians,301,500,N Central Aleutians,3499,994,3494,ALEUTIANS,NORTH
-AI,AI,SW_Central_Aleutians,411,1617.669,NA,Central Aleutians,1,100,SW Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
-AI,AI,SW_Central_Aleutians,412,1052.298,NA,Central Aleutians,101,200,SW Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
-AI,AI,SW_Central_Aleutians,413,426.035,NA,Central Aleutians,201,300,SW Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
-AI,AI,SW_Central_Aleutians,414,789.21,NA,Central Aleutians,301,500,SW Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
-AI,AI,SE_Central_Aleutians,421,1164.035,NA,Central Aleutians,1,100,SE Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
-AI,AI,SE_Central_Aleutians,422,751.791,NA,Central Aleutians,101,200,SE Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
-AI,AI,SE_Central_Aleutians,423,477.36,NA,Central Aleutians,201,300,SE Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
-AI,AI,SE_Central_Aleutians,424,714.304,NA,Central Aleutians,301,500,SE Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
-AI,AI,NW_Eastern_Aleutians,511,1932.476,NA,Eastern Aleutians,1,100,NW Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
-AI,AI,NW_Eastern_Aleutians,512,1594.312,NA,Eastern Aleutians,101,200,NW Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
-AI,AI,NW_Eastern_Aleutians,513,155.929,NA,Eastern Aleutians,201,300,NW Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
-AI,AI,NE_Eastern_Aleutians,521,1268.056,NA,Eastern Aleutians,1,100,NE Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
-AI,AI,NE_Eastern_Aleutians,522,2012.55,NA,Eastern Aleutians,101,200,NE Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
-AI,AI,NE_Eastern_Aleutians,523,1968.564,NA,Eastern Aleutians,201,300,NE Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
-AI,AI,NA,594,2670.006,NA,Eastern Aleutians,301,500,Combined Eastern Aleutian Islands,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,SW_Eastern_Aleutians,611,1906.756,NA,Eastern Aleutians,1,100,SW Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
-AI,AI,SW_Eastern_Aleutians,612,2261.049,NA,Eastern Aleutians,101,200,SW Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
-AI,AI,SW_Eastern_Aleutians,613,716.376,NA,Eastern Aleutians,201,300,SW Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
-AI,AI,SW_Eastern_Aleutians,614,438.212,NA,Eastern Aleutians,301,500,SW Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,SE_Eastern_Aleutians,621,1740.635,NA,Eastern Aleutians,1,100,SE Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
-AI,AI,SE_Eastern_Aleutians,622,1900.189,NA,Eastern Aleutians,101,200,SE Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
-AI,AI,SE_Eastern_Aleutians,623,2060.609,NA,Eastern Aleutians,201,300,SE Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
-AI,AI,SE_Eastern_Aleutians,624,2574.73,NA,Eastern Aleutians,301,500,SE Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
-AI,AI,W_Southern_Bering_Sea,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,W_Southern_Bering_Sea,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,E_Southern_Bering_Sea,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH
-AI,AI,E_Southern_Bering_Sea,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH
-AI,AI,NA,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH
-AI,AI,NA,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH
-AI,AI,W_Western_Aleutians,211,3693.321,NA,Western Aleutians,1,100,W Western Aleutians,299,991,291,ALEUTIANS,NEITHER
-AI,AI,W_Western_Aleutians,212,4065.172,NA,Western Aleutians,101,200,W Western Aleutians,299,992,292,ALEUTIANS,NEITHER
-AI,AI,W_Western_Aleutians,213,940.226,NA,Western Aleutians,201,300,W Western Aleutians,299,993,293,ALEUTIANS,NEITHER
-AI,AI,W_Western_Aleutians,214,1711.084,NA,Western Aleutians,301,500,W Western Aleutians,299,994,294,ALEUTIANS,NEITHER
-AI,AI,E_Western_Aleutians,221,1183.328,NA,Western Aleutians,1,100,E Western Aleutians,299,991,291,ALEUTIANS,NEITHER
-AI,AI,E_Western_Aleutians,222,1252.459,NA,Western Aleutians,101,200,E Western Aleutians,299,992,292,ALEUTIANS,NEITHER
-AI,AI,E_Western_Aleutians,223,783.403,NA,Western Aleutians,201,300,E Western Aleutians,299,993,293,ALEUTIANS,NEITHER
-AI,AI,E_Western_Aleutians,224,1561.386,NA,Western Aleutians,301,500,E Western Aleutians,299,994,294,ALEUTIANS,NEITHER
+AI,AI,Central_AI,311,960.023,NA,Central Aleutians,1,100,Petrel Bank,3499,991,3491,ALEUTIANS,NORTH
+AI,AI,Central_AI,312,1735.544,NA,Central Aleutians,101,200,Petrel Bank,3499,992,3492,ALEUTIANS,NORTH
+AI,AI,Central_AI,313,766.43,NA,Central Aleutians,201,300,Petrel Bank,3499,993,3493,ALEUTIANS,NORTH
+AI,AI,Central_AI,314,1237.475,NA,Central Aleutians,301,500,Petrel Bank,3499,994,3494,ALEUTIANS,NORTH
+AI,AI,Central_AI,321,2105.636,NA,Central Aleutians,1,100,N Central Aleutians,3499,991,3491,ALEUTIANS,NORTH
+AI,AI,Central_AI,322,1066.049,NA,Central Aleutians,101,200,N Central Aleutians,3499,992,3492,ALEUTIANS,NORTH
+AI,AI,Central_AI,323,439.004,NA,Central Aleutians,201,300,N Central Aleutians,3499,993,3493,ALEUTIANS,NORTH
+AI,AI,Central_AI,324,1239.743,NA,Central Aleutians,301,500,N Central Aleutians,3499,994,3494,ALEUTIANS,NORTH
+AI,AI,Central_AI,411,1617.669,NA,Central Aleutians,1,100,SW Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
+AI,AI,Central_AI,412,1052.298,NA,Central Aleutians,101,200,SW Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
+AI,AI,Central_AI,413,426.035,NA,Central Aleutians,201,300,SW Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
+AI,AI,Central_AI,414,789.21,NA,Central Aleutians,301,500,SW Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
+AI,AI,Central_AI,421,1164.035,NA,Central Aleutians,1,100,SE Central Aleutians,3499,991,3491,ALEUTIANS,SOUTH
+AI,AI,Central_AI,422,751.791,NA,Central Aleutians,101,200,SE Central Aleutians,3499,992,3492,ALEUTIANS,SOUTH
+AI,AI,Central_AI,423,477.36,NA,Central Aleutians,201,300,SE Central Aleutians,3499,993,3493,ALEUTIANS,SOUTH
+AI,AI,Central_AI,424,714.304,NA,Central Aleutians,301,500,SE Central Aleutians,3499,994,3494,ALEUTIANS,SOUTH
+AI,AI,Central_AI,511,1932.476,NA,Eastern Aleutians,1,100,NW Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
+AI,AI,Central_AI,512,1594.312,NA,Eastern Aleutians,101,200,NW Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
+AI,AI,Central_AI,513,155.929,NA,Eastern Aleutians,201,300,NW Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
+AI,AI,Central_AI,521,1268.056,NA,Eastern Aleutians,1,100,NE Eastern Aleutians,5699,991,5691,ALEUTIANS,NORTH
+AI,AI,Central_AI,522,2012.55,NA,Eastern Aleutians,101,200,NE Eastern Aleutians,5699,992,5692,ALEUTIANS,NORTH
+AI,AI,Central_AI,523,1968.564,NA,Eastern Aleutians,201,300,NE Eastern Aleutians,5699,993,5693,ALEUTIANS,NORTH
+AI,AI,Central_AI,594,2670.006,NA,Eastern Aleutians,301,500,Combined Eastern Aleutian Islands,5699,994,5694,ALEUTIANS,SOUTH
+AI,AI,Central_AI,611,1906.756,NA,Eastern Aleutians,1,100,SW Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
+AI,AI,Central_AI,612,2261.049,NA,Eastern Aleutians,101,200,SW Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
+AI,AI,Central_AI,613,716.376,NA,Eastern Aleutians,201,300,SW Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
+AI,AI,Central_AI,614,438.212,NA,Eastern Aleutians,301,500,SW Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
+AI,AI,Central_AI,621,1740.635,NA,Eastern Aleutians,1,100,SE Eastern Aleutians,5699,991,5691,ALEUTIANS,SOUTH
+AI,AI,Central_AI,622,1900.189,NA,Eastern Aleutians,101,200,SE Eastern Aleutians,5699,992,5692,ALEUTIANS,SOUTH
+AI,AI,Central_AI,623,2060.609,NA,Eastern Aleutians,201,300,SE Eastern Aleutians,5699,993,5693,ALEUTIANS,SOUTH
+AI,AI,Central_AI,624,2574.73,NA,Eastern Aleutians,301,500,SE Eastern Aleutians,5699,994,5694,ALEUTIANS,SOUTH
+AI,AI,Eastern_AI,711,1585.64,NA,Southern Bering Sea,1,100,W Southern Bering Sea,799,991,791,S BERING SEA,NORTH
+AI,AI,Eastern_AI,712,669.513,NA,Southern Bering Sea,101,200,W Southern Bering Sea,799,992,792,S BERING SEA,NORTH
+AI,AI,Eastern_AI,721,2440.256,NA,Southern Bering Sea,1,100,E Southern Bering Sea,799,991,791,S BERING SEA,NORTH
+AI,AI,Eastern_AI,722,1179.124,NA,Southern Bering Sea,101,200,E Southern Bering Sea,799,992,792,S BERING SEA,NORTH
+AI,AI,Eastern_AI,793,563.858,NA,Southern Bering Sea,201,300,Combined Southern Bering Sea,799,993,793,S BERING SEA,NORTH
+AI,AI,Eastern_AI,794,1043.168,NA,Southern Bering Sea,301,500,Combined Southern Bering Sea,799,994,794,S BERING SEA,NORTH
+AI,AI,Western_AI,211,3693.321,NA,Western Aleutians,1,100,W Western Aleutians,299,991,291,ALEUTIANS,NEITHER
+AI,AI,Western_AI,212,4065.172,NA,Western Aleutians,101,200,W Western Aleutians,299,992,292,ALEUTIANS,NEITHER
+AI,AI,Western_AI,213,940.226,NA,Western Aleutians,201,300,W Western Aleutians,299,993,293,ALEUTIANS,NEITHER
+AI,AI,Western_AI,214,1711.084,NA,Western Aleutians,301,500,W Western Aleutians,299,994,294,ALEUTIANS,NEITHER
+AI,AI,Western_AI,221,1183.328,NA,Western Aleutians,1,100,E Western Aleutians,299,991,291,ALEUTIANS,NEITHER
+AI,AI,Western_AI,222,1252.459,NA,Western Aleutians,101,200,E Western Aleutians,299,992,292,ALEUTIANS,NEITHER
+AI,AI,Western_AI,223,783.403,NA,Western Aleutians,201,300,E Western Aleutians,299,993,293,ALEUTIANS,NEITHER
+AI,AI,Western_AI,224,1561.386,NA,Western Aleutians,301,500,E Western Aleutians,299,994,294,ALEUTIANS,NEITHER
 BS,EBS,SE_inner,10,77871,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 BS,EBS,NW_inner,20,41027,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 BS,EBS,SE_middle,31,94526,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
