@@ -27,7 +27,7 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
 predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
 
 race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
-  mutate(race_guild  = .data[["final_goa"]])
+  mutate(race_group  = .data[["final_goa"]])
 
 
 # To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
@@ -35,82 +35,6 @@ race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>%
 # If you're using this for diet proportions not total consumption, can simply
 # use 1.0 for CA.
 
-##############################################################################
-
-# bio_combined <-NULL
-# 
-# for (this.model in c("EGOA","WGOA")){
-# 
-# # Biomass pools (no size structure) biomass  
-#   stratsum <- get_cpue_all(model=this.model) %>%
-#     group_by(year, model, race_guild, stratum) %>%
-#     summarize(wgtcpue = sum(wgtcpue),
-#               numcpue = sum(numcpue),.groups="keep") %>%
-#     left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
-#     mutate(bio_t_km2 = wgtcpue/1000/stations,
-#            bio_tons  = bio_t_km2 * area)
-#   
-#   model_area <- sum(strata_lookup$area[strata_lookup$model==this.model])
-#   
-#   bio_totals <- stratsum %>%
-#     group_by(year, model, race_guild) %>%
-#     summarize(bio_tons = sum(bio_tons),
-#               bio_tkm2 = bio_tons/model_area, .groups="keep")
-#   
-# 
-# # Split pools - loading juv/adu parameters 
-#   preds      <- predlist %>% filter(model==this.model)
-#   pred_names <- unique(preds$predator)
-#   pred_params=list()
-#   for (p in pred_names){
-#     pdat <- as.list(preds[preds$predator==p,])
-#     pred_params[[p]] <- pdat
-#     pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
-#     pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
-#     pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
-#     pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
-#     pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
-#   }
-# 
-#   
-# # Getting biomass-at-length and converting to split pool biomass  
-#   juv_combined <- NULL
-#   for (p in pred_names){
-#     #p <- pred_names[1]
-#     bio_pred <- bio_totals %>%
-#       filter(race_guild==p)
-#     
-#     juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model) %>%
-#     group_by(year, model, species_name, stratum, lbin) %>%
-#       summarize(strat_bio_sum = sum(tot_wlcpue_t_km2), .groups="keep") %>%
-#       left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
-#       mutate(bio_t_km2 = strat_bio_sum/stations,
-#              bio_tons  = bio_t_km2 * area,
-#              jcat      = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu")) 
-#     
-#     juv_proportions <- juv_adu_lencons %>%
-#       group_by(year,model,species_name,jcat) %>%
-#       summarize(bio_tons = sum(bio_tons), .groups="keep") %>%
-#       pivot_wider(names_from=jcat, values_from=bio_tons) %>%
-#       mutate(juv_bio_prop = juv/(juv+adu))
-#     
-#     juv_combined <- rbind(juv_combined,juv_proportions)
-#   } # end of pred_names loop
-#   
-#   bio_with_juvs <- bio_totals %>%
-#     left_join(juv_combined,by=c("year","model","race_guild"="species_name")) %>%
-#     select(-c(juv,adu)) %>%
-#     mutate(juv_bio_prop  = replace_na(juv_bio_prop,0.0),
-#            adu_bio_tkm2  = (1.0-juv_bio_prop) * bio_tkm2,
-#            juv_bio_tkm2  = juv_bio_prop       * bio_tkm2)
-#   
-#   
-#     bio_combined <- rbind(bio_combined,bio_with_juvs)      
-#   
-#       
-# }
-# 
-# write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
 source("R/REEM_fooddata_functions.R")
 
 pred_tot_combined <- NULL
@@ -167,7 +91,15 @@ output.csv(diet_combined,"diet_combined")
 #write.csv(diet_strat_combined,"diet_strat_combined_ESR_2024.csv",row.names=F)
 #write.csv(diet_combined,"diet_combined_ESR_2024.csv",row.names=F)
 
+guild_look <- read.clean.csv("apps/ESR_ESP_diets/prey_guild_lookup.csv")
 
+diet_strat_guild <- diet_strat_combined %>%
+  left_join(guild_look, by = "prey_guild")
+
+output.csv(diet_strat_guild,"diet_strat_guild")
+
+#################################################
+### BERING SEA CRAB LENGTH PLOTS
 pl_dat <- preylengths %>% 
   left_join(v_cruises%>%select(region,vessel_id,cruise,survey_name,survey_definition_id),
                  by=c("region","vessel"="vessel_id","cruise")) %>%
@@ -217,6 +149,82 @@ ggplot(ldat, aes(x = plens, y = as.factor(years), fill="#5072B2")) +
   )
 dev.off()
 
+##############################################################################
+
+# bio_combined <-NULL
+# 
+# for (this.model in c("EGOA","WGOA")){
+# 
+# # Biomass pools (no size structure) biomass  
+#   stratsum <- get_cpue_all(model=this.model) %>%
+#     group_by(year, model, race_group, stratum) %>%
+#     summarize(wgtcpue = sum(wgtcpue),
+#               numcpue = sum(numcpue),.groups="keep") %>%
+#     left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+#     mutate(bio_t_km2 = wgtcpue/1000/stations,
+#            bio_tons  = bio_t_km2 * area)
+#   
+#   model_area <- sum(strata_lookup$area[strata_lookup$model==this.model])
+#   
+#   bio_totals <- stratsum %>%
+#     group_by(year, model, race_group) %>%
+#     summarize(bio_tons = sum(bio_tons),
+#               bio_tkm2 = bio_tons/model_area, .groups="keep")
+#   
+# 
+# # Split pools - loading juv/adu parameters 
+#   preds      <- predlist %>% filter(model==this.model)
+#   pred_names <- unique(preds$predator)
+#   pred_params=list()
+#   for (p in pred_names){
+#     pdat <- as.list(preds[preds$predator==p,])
+#     pred_params[[p]] <- pdat
+#     pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
+#     pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
+#     pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
+#     pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+#     pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+#   }
+# 
+#   
+# # Getting biomass-at-length and converting to split pool biomass  
+#   juv_combined <- NULL
+#   for (p in pred_names){
+#     #p <- pred_names[1]
+#     bio_pred <- bio_totals %>%
+#       filter(race_group==p)
+#     
+#     juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model) %>%
+#     group_by(year, model, species_name, stratum, lbin) %>%
+#       summarize(strat_bio_sum = sum(tot_wlcpue_t_km2), .groups="keep") %>%
+#       left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+#       mutate(bio_t_km2 = strat_bio_sum/stations,
+#              bio_tons  = bio_t_km2 * area,
+#              jcat      = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu")) 
+#     
+#     juv_proportions <- juv_adu_lencons %>%
+#       group_by(year,model,species_name,jcat) %>%
+#       summarize(bio_tons = sum(bio_tons), .groups="keep") %>%
+#       pivot_wider(names_from=jcat, values_from=bio_tons) %>%
+#       mutate(juv_bio_prop = juv/(juv+adu))
+#     
+#     juv_combined <- rbind(juv_combined,juv_proportions)
+#   } # end of pred_names loop
+#   
+#   bio_with_juvs <- bio_totals %>%
+#     left_join(juv_combined,by=c("year","model","race_group"="species_name")) %>%
+#     select(-c(juv,adu)) %>%
+#     mutate(juv_bio_prop  = replace_na(juv_bio_prop,0.0),
+#            adu_bio_tkm2  = (1.0-juv_bio_prop) * bio_tkm2,
+#            juv_bio_tkm2  = juv_bio_prop       * bio_tkm2)
+#   
+#   
+#     bio_combined <- rbind(bio_combined,bio_with_juvs)      
+#   
+#       
+# }
+# 
+# write.csv(bio_combined,"goa_bio_combined_juvadu.csv",row.names=F)
 
 
 

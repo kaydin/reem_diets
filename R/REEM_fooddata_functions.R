@@ -91,11 +91,30 @@ haul_stratum_summary <- function(model){
   this.model=model
   stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
   x <- haul %>% 
-    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[model]) %>% 
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[this.model]) %>% 
     mutate(year=floor(cruise/100)) %>% 
     left_join(stratbins, by=c("region"="survey", "stratum"="stratum")) %>%
     filter(model==this.model) %>%
     group_by(model, stratum_bin, stratum, area, year) %>% 
+    summarize(stations          = length(hauljoin),
+              bottom_temp_mean  = mean(gear_temperature,na.rm=T),
+              surface_temp_mean = mean(surface_temperature,na.rm=T),
+              .groups="keep")
+  return(x)
+}
+#############################################################
+haul_domain_summary <- function(model){
+  
+  this.model=model
+
+  stratbins    <- strata_lookup # %>% mutate(stratum_bin = .data[[stratbin_col]])
+  x <- haul %>% 
+    filter(abundance_haul == "Y" & survey_id == SURVEY_IDS[this.model]) %>% 
+    mutate(year=floor(cruise/100)) %>%
+    left_join(stratbins %>% select(model,survey,stratum,stratum_bin), by=c("region"="survey", "stratum"="stratum")) %>%
+    filter(model==this.model) %>%
+    left_join(strat_areas, by=c("model","stratum_bin")) %>%
+    group_by(model, stratum_bin, area, year) %>% 
     summarize(stations          = length(hauljoin),
               bottom_temp_mean  = mean(gear_temperature,na.rm=T),
               surface_temp_mean = mean(surface_temperature,na.rm=T),

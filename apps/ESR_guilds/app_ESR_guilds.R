@@ -25,12 +25,15 @@ source("R/REEM_fooddata_functions.R")
 ##############################################################################
 # Biomass extraction by item
 #for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
+source("R/REEM_fooddata_functions.R")
+  
+  
 get_stratsum_q <- function(cpuedat, q_table){
   stratsum <- cpuedat %>%
     group_by(year, model, race_group, stratum) %>%
     summarize(wgtcpue = sum(wgtcpue),
               numcpue = sum(numcpue),.groups="keep") %>%
-    left_join(haul_stratum_summary(this.model),by=c("year","model","stratum")) %>%
+    left_join(haul_stratum_summary(this.model), by=c("year","model","stratum")) %>%
     mutate(bio_t_km2 = wgtcpue/1000/stations,
            bio_tons  = bio_t_km2 * area)
   
@@ -41,8 +44,27 @@ get_stratsum_q <- function(cpuedat, q_table){
 
   return(stratsum_q)
 }
-
-# get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
+  ##############################################################################
+  get_domain_sum_q <- function(cpuedat, q_table){
+  
+    domain_sum <- cpuedat %>%
+      group_by(year, model, race_group, stratum_bin) %>%
+      summarize(wgtcpue = sum(wgtcpue),
+                numcpue = sum(numcpue),.groups="keep") %>%
+      left_join(haul_domain_summary(this.model), by=c("year","model","stratum_bin")) %>%
+      mutate(bio_t_km2 = wgtcpue/1000/stations,
+             bio_tons  = bio_t_km2 * area)
+    
+    domain_sum_q <- domain_sum %>%
+      left_join(q_table,by=c("race_group"="group")) %>%
+      mutate(bio_tons_q  = bio_tons  *qq,
+             bio_t_km2_q = bio_t_km2 *qq)  
+    
+    return(domain_sum_q)
+  } 
+  
+  ##############################################################################  
+#  get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
 # biomasses for all groups at once, binned by the race_lookup names (race_group column)
 # haul_stratum_summary() gets the total stations and area for each model domain.
 #
@@ -51,41 +73,45 @@ get_stratsum_q <- function(cpuedat, q_table){
 # EBS GUILDS ------------------------------------------------
   this.model  <- "EBS"
 
-  race_lookup     <- race_lookup_base %>% mutate(race_group  = .data[["ebs_ecopath"]])  
-  q_table         <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
-  strata_included <-  c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", "StMatt", "SE_outer", "NW_outer")
+  race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["ebs_ecopath"]])  
+  q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
+  domains_included <- c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", "StMatt", "SE_outer", "NW_outer")
   
   cpue_dat  <- get_cpue_all(model=this.model)
   check_RACE_codes(cpue_dat)
  
-  stratsum_q <- get_stratsum_q(cpue_dat, q_table)
-
-  guild_bio_table <-stratsum_q %>%
-    filter(stratum_bin %in% strata_included) %>%
+  #stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+  domain_sum_q <- get_domain_sum_q(cpue_dat, q_table)
+  
+  guild_bio_table <-domain_sum_q %>%
+    filter(stratum_bin %in% domains_included) %>%
     group_by(year,guild) %>%
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
 
-  write.csv(stratsum_q, "apps/ESR_guilds/EBS_stratsum_2024test.csv",row.names=F)
-  write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2024test.csv",row.names=F)
+  write.csv(domain_sum_q, "apps/ESR_guilds/EBS_domain_sum_2024test.csv",row.names=F)
+  write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2024_domaintest.csv",row.names=F)
 
   
 # AI GUILDS -----------------------------------------------
   this.model  <- "AI"  
-  race_lookup     <- race_lookup_base %>% mutate(race_group  = .data[["ai_ecopath"]])  
-  q_table         <- read.clean.csv("apps/ESR_guilds/GroupQ_2018_AI.csv")
-  strata_included <-  c("Eastern_AI","Central_AI","Western_AI")
+  race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["ai_ecopath"]])  
+  q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2018_AI.csv")
+  domains_included <-  c("Eastern_AI","Central_AI","Western_AI")
   
   cpue_dat  <- get_cpue_all(model=this.model)
   check_RACE_codes(cpue_dat)
   
-  stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+  #stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+  domain_sum_q <- get_domain_sum_q(cpue_dat, q_table)
   
-  guild_bio_table <-stratsum_q %>%
-    filter(stratum_bin %in% strata_included) %>%
+  guild_bio_table <-domain_sum_q %>%
+    filter(stratum_bin %in% domains_included) %>%
     group_by(year,guild) %>%
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
+  
+  write.csv(domain_sum_q, "apps/ESR_guilds/AI_domain_sum_2024.csv",row.names=F)
   
 #cpue_test <- cpue_dat %>%
 #  filter(year==1982 & stratum==10 & race_group =="ak_plaice")    
