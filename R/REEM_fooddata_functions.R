@@ -33,7 +33,7 @@ get_stratum_length_cons <- function(
               tot_wlcpue_t_km2       = sum(WgtLBin_CPUE_kg_km2)/1000,
               f_t                    = mean(f_t),
               tot_cons_t_km2_bioen   = sum(cons_kg_km2_bioen)/1000,
-              tot_cons_vonb_rel      = sum(cons_vonb_rel_pop)/1000,
+              tot_cons_vonb_t_km2    = sum(cons_vonb_kg_km2)/1000,
               .groups="keep")
 }
 

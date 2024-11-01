@@ -148,13 +148,14 @@ get_cpue_length_cons <- function(racebase_tables = list(
     mutate(bottom_temp_clean = ifelse(is.na(bottom_temp),bottom_temp_mean,bottom_temp),
            surface_temp_clean = ifelse(is.na(surface_temp),surface_temp_mean,surface_temp))
   
-  bpar = pred_params[[predator]]$bioen
+  bpar  = pred_params[[predator]]$bioen
+  vbpar = pred_params[[predator]]$vonb
   conslens <- res %>%
     mutate(cmax_g             = bpar$CA * body_wt^(1+bpar$CB),
            f_t                = fc_T_eq2(bottom_temp_mean, bpar),
            cons_kg_km2_bioen  = NumLBin_CPUE_km2 * cmax_g * f_t / 1000,
-           cons_vonb_rel_g    = body_wt ^ (2.0/3.0),
-           cons_vonb_rel_pop  = NumLBin_CPUE_km2 * cons_vonb_rel_g / 1000 )
+           cons_vonb_rel_g    = vbpar$h * body_wt ^ (2.0/3.0),
+           cons_vonb_kg_km2   = NumLBin_CPUE_km2 * cons_vonb_rel_g / 1000 )
 }
 
 

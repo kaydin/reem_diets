@@ -61,8 +61,8 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 474,Arctoraja parmifera egg case,Alaska skate egg case,2004,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,parmifera,Bathyraja parmifera,ak_skate,Other skates,Other skates,Apex predators,Apex predators,Apex predators
 475,Bathyraja lindbergi,Commander skate,1984,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,lindbergi,Bathyraja lindbergi,NA,Other skates,Other skates,NA,Apex predators,Apex predators
 476,Bathyraja lindbergi egg case,Commander skate egg case,2006,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,lindbergi,Bathyraja lindbergi,NA,NA,NA,NA,NA,NA
-477,Bathyraja panthera,leopard skate,2006,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,panthera,Bathyraja panthera,NA,Other skates,NA,NA,Apex predators,NA
-478,Bathyraja panthera egg case,leopard skate egg case,2010,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,panthera,Bathyraja panthera,NA,Other skates,NA,NA,Apex predators,NA
+477,Bathyraja panthera,leopard skate,2006,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,panthera,Bathyraja panthera,oth_skate,Other skates,Other skates,Apex predators,Apex predators,Apex predators
+478,Bathyraja panthera egg case,leopard skate egg case,2010,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,panthera,Bathyraja panthera,oth_skate,Other skates,Other skates,Apex predators,Apex predators,Apex predators
 480,Bathyraja maculata,whiteblotched skate,1984,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,maculata,Bathyraja maculata,oth_skate,Other skates,Other skates,Apex predators,Apex predators,Apex predators
 481,Bathyraja maculata egg case,whiteblotched skate egg case,2006,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,maculata,Bathyraja maculata,NA,Other skates,Other skates,NA,Apex predators,Apex predators
 483,Bathyraja mariposa,butterfly skate,2004,Animalia,Chordata,Chondrichthyes,Rajiformes,Rajidae,Bathyraja,mariposa,Bathyraja mariposa,NA,Other skates,Other skates,NA,Apex predators,Apex predators
@@ -508,7 +508,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 22287,Paraliparis melanobranchus,blackmouth snailfish,2020,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Paraliparis,melanobranchus,Paraliparis melanobranchus,NA,NA,NA,NA,NA,NA
 22288,Elassodiscus obscurus,NA,2021,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Elassodiscus,obscurus,Elassodiscus obscurus,NA,NA,NA,NA,NA,NA
 22289,Lopholiparis sp.,hardhead snailfishes,2021,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Lopholiparis,NA,Lopholiparis sp.,NA,NA,NA,NA,NA,NA
-22290,Careproctus ambustus,scorched snailfish,2021,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Careproctus,sp. cf. melanurus (Orr et al.),Careproctus sp. cf. melanurus (Orr et al.),misc_fish_shallow,NA,NA,Pelagic foragers,NA,NA
+22290,Careproctus ambustus,scorched snailfish,2021,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Careproctus,sp. cf. melanurus (Orr et al.),Careproctus sp. cf. melanurus (Orr et al.),misc_fish_shallow,Misc. fish deep,Misc. fish deep,Pelagic foragers,Pelagic foragers,Pelagic foragers
 22291,Careproctus sp. M (Orr),NA,2021,Animalia,Chordata,Actinopterygii,Scorpaeniformes,Liparidae,Careproctus,sp. M (Orr),Careproctus sp. M (Orr),NA,NA,NA,NA,NA,NA
 22292,Careproctus bromius,boisterous snailfish,2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 22300,Melamphaidae,bigscale unid.,1984,Animalia,Chordata,Actinopterygii,Stephanoberyciformes,Melamphaidae,NA,NA,Melamphaidae unid.,NA,Misc. fish deep,Misc. fish deep,NA,Apex predators,Apex predators
@@ -635,7 +635,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 23851,Chirolophis nugator,mosshead warbonnet,1984,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Chirolophis,nugator,Chirolophis nugator,NA,Oth. managed forage,NA,NA,Pelagic foragers,NA
 23861,Bryozoichthys lysimus,nutcracker prickleback,1984,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Bryozoichthys,lysimus,Bryozoichthys lysimus,NA,Oth. managed forage,Oth. managed forage,NA,Pelagic foragers,Pelagic foragers
 23862,Bryozoichthys marjorius,pearly prickleback,1984,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Bryozoichthys,marjorius,Bryozoichthys marjorius,NA,Oth. managed forage,Oth. managed forage,NA,Pelagic foragers,Pelagic foragers
-23863,Bryozoichthys sp.,NA,1989,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Bryozoichthys,NA,Bryozoichthys sp.,NA,Oth. managed forage,NA,NA,Pelagic foragers,NA
+23863,Bryozoichthys sp.,NA,1989,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Bryozoichthys,NA,Bryozoichthys sp.,Oth. managed forage,Oth. managed forage,Oth. managed forage,Pelagic foragers,Pelagic foragers,Pelagic foragers
 23865,Anoplarchus purpurescens,high cockscomb,1999,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Anoplarchus,purpurescens,Anoplarchus purpurescens,NA,NA,NA,NA,NA,NA
 23866,Anoplarchus insignis,slender cockscomb,2002,Animalia,Chordata,Actinopterygii,Perciformes,Stichaeidae,Anoplarchus,insignis,Anoplarchus insignis,NA,NA,NA,NA,NA,NA
 23871,Pholidae,gunnel unid.,1984,Animalia,Chordata,Actinopterygii,Perciformes,Pholidae,NA,NA,Pholidae unid.,NA,NA,Oth. managed forage,NA,NA,Pelagic foragers
@@ -1090,7 +1090,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 56310,Eunoe sp.,NA,1984,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Eunoe,NA,Eunoe sp.,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
 56311,Eunoe nodosa,giant scale worm,1984,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Eunoe,nodosa,Eunoe nodosa,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
 56312,Eunoe depressa,depressed scale worm,1984,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Eunoe,depressa,Eunoe depressa,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
-56313,Eunoe senta,thorny scaleworm,2006,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Eunoe,senta,Eunoe senta,polychaetes,Polychaetes,NA,Infauna,Infauna,NA
+56313,Eunoe senta,thorny scaleworm,2006,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Eunoe,senta,Eunoe senta,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
 56321,Gattyana ciliata,ciliated scale worm,2006,Animalia,Annelida,Polychaeta,Aciculata,Polynoidae,Gattyana,ciliata,Gattyana ciliata,NA,Polychaetes,Polychaetes,NA,Infauna,Infauna
 57000,Sabellidae,sabellid unid.,1988,Animalia,Annelida,Polychaeta,Canalipalpata,Sabellidae,NA,NA,Sabellidae unid.,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
 57001,Myxicola infundibulum,slime worm,2013,Animalia,Annelida,Polychaeta,Canalipalpata,Sabellidae,Myxicola,infundibulum,Myxicola infundibulum,NA,NA,NA,NA,NA,NA
@@ -1393,7 +1393,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 69328,Cryptolithodes typicus,butterfly crab,1999,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Cryptolithodes,typicus,Cryptolithodes typicus,misc_crabs,NA,Misc. crabs,Motile epifauna,NA,Motile epifauna
 69329,Cryptolithodes sp.,NA,1984,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Cryptolithodes,NA,Cryptolithodes sp.,NA,NA,Misc. crabs,NA,NA,Motile epifauna
 69330,Paralomis sp.,NA,1984,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,NA,Paralomis sp.,NA,King Crab,King Crab,NA,Motile epifauna,Motile epifauna
-69331,Paralomis verrilli,NA,1998,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,verrilli,Paralomis verrilli,NA,NA,NA,NA,NA,NA
+69331,Paralomis verrilli,NA,1998,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,verrilli,Paralomis verrilli,NA,NA,King Crab,NA,NA,Motile epifauna
 69332,Paralomis sp. A (Clark 2006),spiny spider crab,2006,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,"sp. A (Clark, 2006)","Paralomis sp. A (Clark, 2006)",NA,NA,King Crab,NA,NA,Motile epifauna
 69333,Paralomis sp. B (Clark 2006),short spine spider crab,2006,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,"sp. B (Clark, 2006)","Paralomis sp. B (Clark, 2006)",NA,NA,King Crab,NA,NA,Motile epifauna
 69334,Paralomis manningi,NA,2006,Animalia,Arthropoda,Malacostraca,Decapoda,Lithodidae,Paralomis,manningi,Paralomis manningi,NA,NA,NA,NA,NA,NA
@@ -1480,7 +1480,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 71020,Dendronotus dalli,Dall dendronotid,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Dendronotidae,Dendronotus,dalli,Dendronotus dalli,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 71021,Dendronotus frondosus,frond-aeolis,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Dendronotidae,Dendronotus,frondosus,Dendronotus frondosus,snails,NA,NA,Motile epifauna,NA,NA
 71022,Dendronotus subramosus,stubby frond-aeolis,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Dendronotidae,Dendronotus,subramosus,Dendronotus subramosus,snails,NA,NA,Motile epifauna,NA,NA
-71023,Gastropteron pacificum,Pacific batwing seaslug,2006,Animalia,Mollusca,Gastropoda,Cephalaspidea,Gastropteridae,Gastropteron,pacificum,Gastropteron pacificum,NA,NA,NA,NA,NA,NA
+71023,Gastropteron pacificum,Pacific batwing seaslug,2006,Animalia,Mollusca,Gastropoda,Cephalaspidea,Gastropteridae,Gastropteron,pacificum,Gastropteron pacificum,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 71024,Tritonia exsulans,pink tritonia,2024,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 71025,Tritonia sp.,NA,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Tritoniidae,Tritonia,NA,Tritonia sp.,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 71026,Tritonia festiva,festive Tritonia,2006,Animalia,Mollusca,Gastropoda,Nudibranchia,Tritoniidae,Tritonia,festiva,Tritonia festiva,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
@@ -1500,7 +1500,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 71111,Flabellina trophina,red flabellina,2012,Animalia,Cnidaria,Anthozoa,Scleractinia,Flabellidae,Flabellina,trophina,Flabellina trophina,NA,NA,NA,NA,NA,NA
 71112,Flabellinidae,NA,2014,Animalia,Mollusca,Gastropoda,Nudibranchia,Flabellinidae,NA,NA,Flabellinidae unid.,NA,NA,NA,NA,NA,NA
 71202,Chlamylla sp.,NA,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Flabellinidae,Chlamylla,NA,Chlamylla sp.,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
-71210,Dironidae,dironid nudibranchs,2012,Animalia,Mollusca,Gastropoda,Nudibranchia,Dironidae,NA,NA,Dironidae unid.,NA,NA,NA,NA,NA,NA
+71210,Dironidae,dironid nudibranchs,2012,Animalia,Mollusca,Gastropoda,Nudibranchia,Dironidae,NA,NA,Dironidae unid.,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 71212,Dirona pellucida,NA,2006,Animalia,Mollusca,Gastropoda,Nudibranchia,Dironidae,Dirona,aurantia,Dirona aurantia,NA,Snails,Snails,NA,Motile epifauna,Motile epifauna
 71230,Peltodoris nobilis,Pacific sea lemon,1984,Animalia,Mollusca,Gastropoda,Nudibranchia,Discodorididae,Anisodoris,nobilis,Anisodoris nobilis,snails,NA,Snails,Motile epifauna,NA,Motile epifauna
 71235,Peltodoris lentiginosa,mottled pale sea-lemon,2003,Animalia,Mollusca,Gastropoda,Nudibranchia,Discodorididae,Anisodoris,lentiginosa,Anisodoris lentiginosa,NA,Snails,Snails,NA,Motile epifauna,Motile epifauna
@@ -1779,7 +1779,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 72500,Fusitriton oregonensis,Oregon triton,1984,Animalia,Mollusca,Gastropoda,Neotaenioglossa,Ranellidae,Fusitriton,oregonensis,Fusitriton oregonensis,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 72501,Fusitriton sp.,NA,1984,Animalia,Mollusca,Gastropoda,Neotaenioglossa,Ranellidae,Fusitriton,NA,Fusitriton sp.,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 72510,Trochidae,trochid unid.,1984,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Trochidae,NA,NA,Trochidae unid.,snails,NA,NA,Motile epifauna,NA,NA
-72511,Calliostoma sp.,NA,1984,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Calliostomatidae,Calliostoma,NA,Calliostoma sp.,snails,NA,NA,Motile epifauna,NA,NA
+72511,Calliostoma sp.,NA,1984,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Calliostomatidae,Calliostoma,NA,Calliostoma sp.,snails,NA,Snails,Motile epifauna,Motile epifauna,Motile epifauna
 72512,Calliostoma platinum,silvery topsnail,1984,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Calliostomatidae,Calliostoma,platinum,Calliostoma platinum,NA,NA,NA,NA,NA,NA
 72513,Calliostoma titanium,NA,2006,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Calliostomatidae,Calliostoma,titanium,Calliostoma titanium,NA,NA,Snails,NA,NA,Motile epifauna
 72514,Calliostoma variegatum,NA,2006,Animalia,Mollusca,Gastropoda,Archaeogastropoda,Calliostomatidae,Calliostoma,variegatum,Calliostoma variegatum,NA,NA,Snails,NA,NA,Motile epifauna
@@ -2013,7 +2013,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 75203,Tellina nuculoides,salmon tellin,1989,Animalia,Mollusca,Bivalvia,Veneroida,Tellinidae,Tellina,nuculoides,Tellina nuculoides,bivalves,NA,NA,Infauna,NA,NA
 75204,Tellina modesta,NA,2006,Animalia,Mollusca,Bivalvia,Veneroida,Tellinidae,Tellina,modesta,Tellina modesta,NA,NA,Bivalves,NA,NA,Infauna
 75205,Tellina lutea,Alaska great-tellin,1984,Animalia,Mollusca,Bivalvia,Veneroida,Tellinidae,Tellina,lutea,Tellina lutea,bivalves,Bivalves,Bivalves,Infauna,Infauna,Infauna
-75206,Tellina bodegensis,NA,2006,Animalia,Mollusca,Bivalvia,Veneroida,Tellinidae,Tellina,bodegensis,Tellina bodegensis,NA,NA,NA,NA,NA,NA
+75206,Tellina bodegensis,NA,2006,Animalia,Mollusca,Bivalvia,Veneroida,Tellinidae,Tellina,bodegensis,Tellina bodegensis,bivalves,Bivalves,Bivalves,Infauna,Infauna,Infauna
 75218,Entodesma navicula,NA,2006,Animalia,Mollusca,Bivalvia,Pholadomyoida,Lyonsiidae,Entodesma,navicula,Entodesma navicula,NA,NA,NA,NA,NA,NA
 75220,Pandora glacialis,glacial Pandora,2013,Animalia,Mollusca,Bivalvia,Pholadomyoida,Pandoridae,Pandora,glacialis,Pandora glacialis,NA,NA,NA,NA,NA,NA
 75221,Pandora wardiana,NA,2006,Animalia,Mollusca,Bivalvia,Pholadomyoida,Pandoridae,Pandora,wardiana,Pandora wardiana,NA,NA,NA,NA,NA,NA
@@ -2089,7 +2089,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 78502,Vampyroteuthis infernalis,vampire squid,1984,Animalia,Mollusca,Cephalopoda,Vampyromorpha,Vampyroteuthidae,Vampyroteuthis,infernalis,Vampyroteuthis infernalis,NA,Octopi ,Octopi ,NA,Motile epifauna,Motile epifauna
 79000,Decapodiformes,squid unid.,1984,Animalia,Mollusca,Cephalopoda,NA,NA,NA,NA,Decapodiformes unid.,squids,Squids,Squids,Poor Pelagic foragers,Pelagic foragers,Pelagic foragers
 79001,Taningia danae,rhomboid squid,1997,Animalia,Mollusca,Cephalopoda,Oegopsida,Octopoteuthidae,Taningia,danae,Taningia danae,NA,NA,Squids,NA,NA,Pelagic foragers
-79002,Decapodiform egg,squid egg unid.,1998,Animalia,Mollusca,Cephalopoda,NA,NA,NA,NA,Decapodiformes unid.,NA,Squids,NA,NA,Pelagic foragers,NA
+79002,Decapodiform egg,squid egg unid.,1998,Animalia,Mollusca,Cephalopoda,NA,NA,NA,NA,Decapodiformes unid.,squids,Squids,Squids,Poor Pelagic foragers,Pelagic foragers,Pelagic foragers
 79020,Rossia pacifica,eastern Pacific bobtail,1984,Animalia,Mollusca,Cephalopoda,Sepioidea,Sepiolidae,Rossia,pacifica,Rossia pacifica,squids,Squids,Squids,Poor Pelagic foragers,Pelagic foragers,Pelagic foragers
 79021,Rossia pacifica eggs,NA,2004,Animalia,Mollusca,Cephalopoda,Sepioidea,Sepiolidae,Rossia,pacifica,Rossia pacifica,NA,Squids,NA,NA,Pelagic foragers,NA
 79120,Doryteuthis opalescens,California market squid,1984,Animalia,Mollusca,Cephalopoda,Myopsida,Loliginidae,Loligo,(=Doryteuthis) opalescens,Loligo (=Doryteuthis) opalescens,squids,Squids,Squids,Poor Pelagic foragers,Pelagic foragers,Pelagic foragers
@@ -2348,7 +2348,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 82660,Brisaster sp.,NA,1984,Animalia,Echinodermata,Echinoidea,Spatangoida,Schizasteridae,Brisaster,NA,Brisaster sp.,NA,NA,Urchins dollars cucumbers,NA,NA,Motile epifauna
 82670,Brisaster townsendi,NA,1984,Animalia,Echinodermata,Echinoidea,Spatangoida,Schizasteridae,Brisaster,townsendi,Brisaster townsendi,NA,NA,Urchins dollars cucumbers,NA,NA,Motile epifauna
 82672,NA,large green heart urchin,1999,Animalia,Echinodermata,Echinoidea,NA,NA,NA,NA,Echinoidea unid.,NA,NA,NA,NA,NA,NA
-82673,NA,oval heart urchin,1999,Animalia,Echinodermata,Echinoidea,NA,NA,NA,NA,Echinoidea unid.,NA,NA,NA,NA,NA,NA
+82673,NA,oval heart urchin,1999,Animalia,Echinodermata,Echinoidea,NA,NA,NA,NA,Echinoidea unid.,urchins_dollars_cucs,Urchins dollars cucumbers,Urchins dollars cucumbers,Motile epifauna,Motile epifauna,Motile epifauna
 82675,Brisaster latifrons,heart urchin,1989,Animalia,Echinodermata,Echinoidea,Spatangoida,Schizasteridae,Brisaster,latifrons,Brisaster latifrons,NA,Urchins dollars cucumbers,Urchins dollars cucumbers,NA,Motile epifauna,Motile epifauna
 82676,Brisaster owstoni,NA,2003,Animalia,Echinodermata,Echinoidea,Spatangoida,Schizasteridae,Brisaster,owstoni,Brisaster owstoni,NA,NA,Urchins dollars cucumbers,NA,NA,Motile epifauna
 82680,Spatangus californicus,NA,2001,Animalia,Echinodermata,Echinoidea,Spatangoida,Spatangidae,Spatangus,californicus,Spatangus californicus,NA,NA,NA,NA,NA,NA
@@ -2498,7 +2498,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 91038,Phakellia sp.,NA,2006,Animalia,Porifera,Demospongiae,Halichondrida,Axinellidae,Phakellia,NA,Phakellia sp.,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91039,Mycale sp.,NA,2002,Animalia,Porifera,Demospongiae,Poecilosclerida,Mycalidae,Mycale,NA,Mycale sp.,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91040,Mycale loveni,tree sponge,1984,Animalia,Porifera,Demospongiae,Poecilosclerida,Mycalidae,Mycale,loveni,Mycale loveni,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
-91041,Mycale sp. A (Clark 2006),red mycale,2008,Animalia,Porifera,Demospongiae,Poecilosclerida,Mycalidae,Mycale,"sp. A (Clark, 2006)","Mycale sp. A (Clark, 2006)",NA,Sponges,NA,NA,Structural epifauna,NA
+91041,Mycale sp. A (Clark 2006),red mycale,2008,Animalia,Porifera,Demospongiae,Poecilosclerida,Mycalidae,Mycale,"sp. A (Clark, 2006)","Mycale sp. A (Clark, 2006)",sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91042,Mycale adhaerens,smooth scallop sponge,2006,Animalia,Porifera,Demospongiae,Poecilosclerida,Mycalidae,Mycale,adhaerens,Mycale adhaerens,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91044,Geodiidae,NA,2006,Animalia,Porifera,Demospongiae,Astrophorida,Geodiidae,NA,NA,Geodiidae unid.,NA,NA,NA,NA,NA,NA
 91046,Geodia mesotriaena,soccer ball sponge,2003,Animalia,Porifera,Demospongiae,Astrophorida,Geodiidae,Geodia,mesotriaena,Geodia mesotriaena,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
@@ -2559,7 +2559,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 91103,Acanthascus sp. A,angel-hair vase sponge,2017,Animalia,Porifera,Hexactinellida,Lyssacinosida,Rossellidae,Acanthascus,sp. A,Acanthascus sp. A,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91104,Acanthascus sp. B,thin-lipped vase sponge,2017,Animalia,Porifera,Hexactinellida,Lyssacinosida,Rossellidae,Acanthascus,sp. B,Acanthascus sp. B,NA,NA,Sponges,NA,NA,Structural epifauna
 91105,Stelletta sp.,stone sponge,2008,Animalia,Porifera,Demospongiae,Astrophorida,Ancorinidae,Stelletta,NA,Stelletta sp.,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
-91106,Leucilla nuttingi,NA,2018,Animalia,Porifera,Calcarea,Leucosolenida,Amphoriscidae,Leucilla,nuttingi,Leucilla nuttingi,NA,NA,NA,NA,NA,NA
+91106,Leucilla nuttingi,NA,2018,Animalia,Porifera,Calcarea,Leucosolenida,Amphoriscidae,Leucilla,nuttingi,Leucilla nuttingi,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91109,Amphilectus lobatus,cotton ball sponge,2008,Animalia,Porifera,Demospongiae,Poecilosclerida,Esperiopsidae,Amphilectus,lobatus,Amphilectus lobatus,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91110,Polymastia fluegeli,Flugel nippled sponge,2006,Animalia,Porifera,Demospongiae,Hadromerida,Polymastiidae,Polymastia,fluegeli,Polymastia fluegeli,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91111,Polymastia robusta,long nippled sponge,2006,Animalia,Porifera,Demospongiae,Hadromerida,Polymastiidae,Polymastia,robusta,Polymastia robusta,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
@@ -2590,7 +2590,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 91227,Latrunculia sp. B (Clark 2006),smooth green sponge,2008,Animalia,Porifera,Demospongiae,Poecilosclerida,Latrunculiidae,Latrunculia,"sp. B (Clark, 2006)","Latrunculia sp. B (Clark, 2006)",NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91228,Hymeniacidon assimilis,coalescent finger sponge,2015,Animalia,Porifera,Demospongiae,Halichondrida,Halichondriidae,Hymeniacidon,assimilis,Hymeniacidon assimilis,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91230,Axinella sp.,firm gray sponge,2006,Animalia,Porifera,Demospongiae,Halichondrida,Axinellidae,Axinella,NA,Axinella sp.,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
-91231,Axinella rugosa,NA,2015,Animalia,Porifera,Demospongiae,Halichondrida,Axinellidae,Axinella,rugosa,Axinella rugosa,NA,NA,NA,NA,NA,NA
+91231,Axinella rugosa,NA,2015,Animalia,Porifera,Demospongiae,Halichondrida,Axinellidae,Axinella,rugosa,Axinella rugosa,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91233,Tretodictyum sp.,NA,2020,Animalia,Porifera,Hexactinellida,Hexactinosida,Tretodictyidae,Tretodictyum,NA,Tretodictyum sp.,NA,NA,NA,NA,NA,NA
 91234,Melonanchora globogilva,NA,2020,Animalia,Porifera,Demospongiae,Poecilosclerida,Myxillidae,Melonanchora,globogilva,Melonanchora globogilva,NA,NA,NA,NA,NA,NA
 91237,Stelodoryx alaskensis,Alaskan lobed sponge,2007,Animalia,Porifera,Demospongiae,Poecilosclerida,Myxillidae,Stelodoryx,alaskensis,Stelodoryx alaskensis,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
@@ -2642,7 +2642,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 92511,Tubulanus polymorphus,orange ribbon worm,2006,Animalia,Nemertea,Anopla,Paleonemertea,Tubulanidae,Tubulanus,polymorphus,Tubulanus polymorphus,misc_worms,NA,NA,Infauna,NA,NA
 92512,Tubulanus sp. A (Clark 2006),red ribbon worm,2006,Animalia,Nemertea,Anopla,Paleonemertea,Tubulanidae,Tubulanus,"sp. A (Clark, 2006)","Tubulanus sp. A (Clark, 2006)",NA,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
 92802,Cerebratulus californienesis,light-edged ribbon worm,2006,Animalia,Nemertea,Anopla,Heteronemertea,Lineidae,Cerebratulus,californienesis,Cerebratulus californienesis,NA,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
-92900,Maldanidae,bamboo worm unid.,2013,Animalia,Annelida,Polychaeta,NA,Maldanidae,NA,NA,Maldanidae unid.,polychaetes,NA,NA,Infauna,NA,NA
+92900,Maldanidae,bamboo worm unid.,2013,Animalia,Annelida,Polychaeta,NA,Maldanidae,NA,NA,Maldanidae unid.,polychaetes,Polychaetes,Polychaetes,Infauna,Infauna,Infauna
 93100,Priapulida,priapulid worm unid.,1984,Animalia,Priapulida,NA,NA,NA,NA,NA,Priapulida unid.,misc_worms,NA,Misc. worms ,Infauna,NA,Infauna
 93101,Priapulus sp.,NA,2008,Animalia,Priapulida,NA,NA,Priapulidae,Priapulus,NA,Priapulus sp.,NA,NA,NA,NA,NA,NA
 93102,Priapulus caudatus,NA,2013,Animalia,Priapulida,NA,NA,Priapulidae,Priapulus,caudatus,Priapulus caudatus,NA,NA,NA,NA,NA,NA
@@ -2685,7 +2685,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 95072,Hippodiplosia sp.,NA,2008,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Schizoporellidae,Hippodiplosia,NA,Hippodiplosia sp.,NA,Misc. worms ,NA,NA,Infauna,NA
 95080,Celleporina ventricosa,coral bryozoan,1989,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Celleporidae,Celleporina,ventricosa,Celleporina ventricosa,bryozoan,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
 95085,Celleporina sp.,NA,2006,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Celleporidae,Celleporina,NA,Celleporina sp.,NA,Misc. worms ,NA,NA,Infauna,NA
-95090,Tubulipora sp.,tubular bryozoan,2006,Animalia,Ectoprocta,Gymnolaemata,Cyclostomata,Tubuliporidae,Tubulipora,NA,Tubulipora sp.,NA,Misc. worms ,NA,NA,Infauna,NA
+95090,Tubulipora sp.,tubular bryozoan,2006,Animalia,Ectoprocta,Gymnolaemata,Cyclostomata,Tubuliporidae,Tubulipora,NA,Tubulipora sp.,NA,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
 95095,Membranipora sp.,NA,2008,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Membraniporidae,Membranipora,NA,Membranipora sp.,NA,NA,NA,NA,NA,NA
 95100,Microporina articulata,NA,1995,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Calpensiidae,Microporina,articulata,Microporina articulata,bryozoan,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
 95102,Microporina sp.,NA,2011,Animalia,Ectoprocta,Gymnolaemata,Cheilostomata,Calpensiidae,Microporina,NA,Microporina sp.,NA,Misc. worms ,Misc. worms ,NA,Infauna,Infauna
@@ -2763,7 +2763,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 99910,NA,neon yellow ascidian,2006,Animalia,Chordata,Ascidiacea,NA,NA,NA,NA,Ascidiacea unid.,NA,Urochordata,Urochordata,NA,Structural epifauna,Structural epifauna
 99981,Craniella craniana,baseball sponge,2006,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,craniana,Craniella craniana,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 99982,Craniella spinosa,furry ball sponge,2006,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,spinosa,Craniella spinosa,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
-99983,Craniella sputnika,spiky ball sponge,2006,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,sputnika,Craniella sputnika,NA,Sponges,NA,NA,Structural epifauna,NA
+99983,Craniella sputnika,spiky ball sponge,2006,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,sputnika,Craniella sputnika,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 99984,Craniella sp. B,knobby ball sponge,2008,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,sp. B,Craniella sp. B,NA,Sponges,NA,NA,Structural epifauna,NA
 99985,Craniella sigmoancoratum,spiny ball sponge,2006,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,sigmoancoratum,Craniella sigmoancoratum,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 99987,Craniella sp.,puffball sponges,2002,Animalia,Porifera,Demospongiae,Spirophorida,Tetillidae,Craniella,NA,Craniella sp.,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna

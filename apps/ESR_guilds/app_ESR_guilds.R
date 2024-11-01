@@ -112,6 +112,30 @@ get_stratsum_q <- function(cpuedat, q_table){
     spread(guild,bio_tons_q_tot,fill=0)
   
   write.csv(domain_sum_q, "apps/ESR_guilds/AI_domain_sum_2024.csv",row.names=F)
+
+  
+# WGOA GUILDS -----------------------------------------------
+  this.model  <- "WGOA"  
+  race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["goa_ecopath"]])  
+  q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2021_GOA.csv")
+  domains_included <-  c("Chirikof_shelf", "Chirikof_gully", "Chirikof_slope", "Kodiak_shelf", 
+                         "Kodiak_gully", "Kodiak_slope", "Shumagin_shelf", "Shumagin_gully", 
+                         "Shumagin_slope")
+  
+  cpue_dat  <- get_cpue_all(model=this.model)
+  check_RACE_codes(cpue_dat)
+  
+  #stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+  domain_sum_q <- get_domain_sum_q(cpue_dat, q_table)
+  
+  guild_bio_table <-domain_sum_q %>%
+    filter(stratum_bin %in% domains_included) %>%
+    group_by(year,guild) %>%
+    summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
+    spread(guild,bio_tons_q_tot,fill=0)
+  
+  write.csv(domain_sum_q, "apps/ESR_guilds/WGOA_domain_sum_2024.csv",row.names=F)
+  
   
 #cpue_test <- cpue_dat %>%
 #  filter(year==1982 & stratum==10 & race_group =="ak_plaice")    

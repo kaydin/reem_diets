@@ -22,12 +22,14 @@ REEM.loadclean.diets(data_path = "data/local_reem_data")
 REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
                        stratum_bin_column    = "strat_groups",
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
-                       prey_guild_column     = "peec_2023")
+                       prey_guild_column     = "ecopath_prey")
 
 predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
 
 race_lookup <- read.clean.csv("lookups/goa_race_lookup_apr_04_2023.csv") %>% 
   mutate(race_group  = .data[["final_goa"]])
+
+prey_guild_lookup <- read.clean.csv("apps/ESR_ESP_diets/dcat_EBSmerge.csv")
 
 
 # To use a fixed proportion of body weight (biomass), set CA = desired daily proportion of body weight
@@ -46,10 +48,21 @@ output.csv(pred_tot_combined,"pred_tot_combined")
 #write.csv(pred_tot_combined,"pred_tot_combined_PEEC2024.csv",row.names=F)
 
 # Diets
-diet_combined <- NULL
-diet_strat_combined <- NULL
-for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
-  
+diet_combined         <- NULL
+diet_strat_combined   <- NULL
+biomass_cons_combined <- NULL
+test_bio_combined     <- NULL
+juv_adu_combined      <- NULL
+
+source("R/REEM_fooddata_functions.R")
+
+bio_cons_domain_combined  <- NULL
+diet_cons_domain_combined <- NULL
+
+for (this.model in c("WGOA","EBS")){ #for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
+#this.model <- "WGOA"
+  domain_summary <- haul_domain_summary(this.model)
+
   preds      <- predlist %>% filter(model==this.model)
   pred_names <- unique(preds$predator)
   pred_params=list()
@@ -59,44 +72,142 @@ for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
     pred_params[[p]]$LCLASS <- sort(unique(c(0,pdat$juv_cm, pdat$adu_1, pdat$adu_2, pdat$adu_3,999)))
     pred_params[[p]]$jsize  <- paste("[",pred_params[[p]]$LCLASS[1],",",pred_params[[p]]$LCLASS[2],")",sep='')
     pred_params[[p]]$lw_b   <- pdat$b_l_mm_g
-    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)  
+    pred_params[[p]]$lw_a   <- pdat$a_l_mm_g*(10^pdat$b_l_mm_g)
+    pred_params[[p]]$lw_a_mm<- pdat$a_l_mm_g
     pred_params[[p]]$bioen  <- list(CA=pdat$ca, CB=pdat$cb, C_TM=pdat$c_tm, C_T0=pdat$c_t0, C_Q=pdat$c_q)
+    pred_params[[p]]$vonb   <- list(linf_mm = pdat$vb_linf_mm, k=pdat$vb_k, t0=pdat$vb_t0, 
+                                    winf_g = pdat$a_l_mm_g * pdat$vb_linf_mm ^ pdat$b_l_mm_g,
+                                    h = 3 * pdat$vb_k * ((pdat$a_l_mm_g * pdat$vb_linf_mm ^ pdat$b_l_mm_g)^(1/3)) )
   }
   
+  for (p in pred_names){ #p <- "Walleye_pollock"
   
+  # Consumption at the haul level
+    bio_cons_by_haul <- get_cpue_length_cons(predator=p, model=this.model)
+  # Consumption summed to domain and lbin
+    bio_cons_domain <- bio_cons_by_haul %>%
+      group_by(year,model,stratum_bin,species_name,lbin) %>%
+      summarize(sum_wlcpue_t_km2       = sum(WgtLBin_CPUE_kg_km2)/1000,
+                sum_cons_bioen_t_km2   = sum(cons_kg_km2_bioen)/1000,
+                sum_cons_vonb_t_km2    = sum(cons_vonb_kg_km2)/1000,
+                .groups="keep") %>%
+      left_join(domain_summary,by=c("model","stratum_bin","year")) %>%
+      mutate(mean_wlcpue_t_km2  = sum_wlcpue_t_km2     / stations,
+             mean_bioen_t_km2   = sum_cons_bioen_t_km2 / stations,
+             mean_vonb_t_km2    = sum_cons_vonb_t_km2  / stations,
+             tot_wlcpue_tons    = mean_wlcpue_t_km2 * area,
+             tot_bioen_tons     = mean_bioen_t_km2  * area,
+             tot_vonb_tons      = mean_vonb_t_km2 * area)
+    
+    min_sample <- 1
+    diet <- predprey_tables(predator=p, model=this.model) %>%
+      filter(pred_full >= min_sample)
+    
+    len_diet <- bio_cons_domain %>%
+      left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
+      replace_na(list(prey_guild="MISSING", dietprop_wt=1.0,dietprop_sci=1.0)) %>%
+      mutate(preycons_sci_bioen_tons = dietprop_sci * tot_bioen_tons,
+             preycons_sci_vonb_tons  = dietprop_sci * tot_vonb_tons) %>%
+      left_join(prey_guild_lookup, by = c("prey_guild"="nodc_preycat"))
+
+    if (nrow(bio_cons_domain)>0){
+      bio_cons_domain_combined <- rbind(bio_cons_domain_combined, bio_cons_domain)
+    }
+    if (nrow(len_diet)>0){
+      diet_cons_domain_combined <- rbind(diet_cons_domain_combined, len_diet)
+    }    
+  }
+}  
+  
+    output.csv(bio_cons_domain_combined,"bio_cons_domain")
+    output.csv(diet_cons_domain_combined,"diet_cons_domain")
+
+    
+    
+    
+#################################################################################        
   for (p in pred_names){
     
     juv_adu_lencons  <- get_stratum_length_cons(predator=p, model=this.model)
     strat_dietcons <- add_diets_to_strata_length_cons(juv_adu_lencons, predator=p, model=this.model, min_sample=5) %>%
       mutate( jcat = ifelse(lbin==pred_params[[p]]$jsize,"juv","adu"))
 
+    domain_summary <- haul_domain_summary("WGOA")
+    
+    test_bio <- juv_adu_lencons %>%
+      group_by(year,model,stratum_bin,species_name,hauljoin) %>%
+      summarize(wt_tot = mean(tot_wtcpue_t_km2),
+                wl_tot = sum(tot_wlcpue_t_km2),.groups="keep")
+    
+    # Get sums of consumption and biomass without distributing to prey type
+    strat_bio_cons_sum <- juv_adu_lencons %>%
+      group_by(year,model,stratum_bin,species_name,lbin) %>%
+      summarize(strat_cons_bioen_t_km2    = mean(tot_cons_t_km2_bioen),
+                strat_cons_vonb_t_km2     = mean(tot_cons_vonb_rel),
+                strat_bio_t_km2           = mean(tot_wlcpue_t_km2),
+                .groups="keep") %>%
+      left_join(strat_areas,by=c("model","stratum_bin")) %>%
+      mutate(cons_bioen_tons = strat_cons_bioen_t_km2 * area,
+             cons_vonb_tons  = strat_cons_vonb_t_km2 * area,
+             biomass_tons    = strat_bio_t_km2 * area)
+    
+    
     strat_dietprops <- strat_dietcons %>%
       group_by(year, model, species_name, jcat, prey_guild) %>%
       summarize(cons_tot_prey = sum(cons_rel_vonb), .groups="keep") %>%
       group_by(year, model, species_name, jcat) %>%
       mutate(cons_tot = sum(cons_tot_prey)) %>%
       ungroup() %>%
-      mutate(diet_prop = cons_tot_prey/cons_tot)
-  if(nrow(strat_dietcons)>0){  
-    diet_strat_combined <- rbind(diet_strat_combined,strat_dietcons)
-  }
-  if(nrow(strat_dietprops)>0){  
-    diet_combined <- rbind(diet_combined,strat_dietprops)
-  }
-  }
-}
+      mutate(diet_prop = cons_tot_prey/cons_tot) 
+    
+    strat_dietcons <- strat_dietcons %>%
+      left_join(prey_guild_lookup, by = c("prey_guild"="nodc_preycat"))
+    
+    if (nrow(juv_adu_lencons)>0){
+      juv_adu_combined <- rbind (juv_adu_combined,juv_adu_lencons)
+    }
+    if (nrow(test_bio)>0){
+      test_bio_combined <- rbind(test_bio_combined, test_bio)
+    }
+    if(nrow(strat_bio_cons_sum)>0){
+      biomass_cons_combined <- rbind(biomass_cons_combined,strat_bio_cons_sum)  
+    }  
+    if(nrow(strat_dietcons)>0){  
+      diet_strat_combined <- rbind(diet_strat_combined,strat_dietcons)
+    }
+    if(nrow(strat_dietprops)>0){  
+      diet_combined <- rbind(diet_combined,strat_dietprops)
+    }
+  } # pred_names loop
+} # this.model loop
 
+
+#guild_lookup <- read.clean.csv("apps/ESR_ESP_diets/dcat_EBSmerge.csv")
+
+#diet_strat_guild <- diet_strat_combined %>%
+#  left_join(guild_lookup, by = c("prey_guild"="nodc_preycat"))
+
+#output.csv(diet_strat_guild,"diet_strat_guild")
 output.csv(diet_strat_combined,"diet_strat_combined")
 output.csv(diet_combined,"diet_combined")
+output.csv(biomass_cons_combined,"biomass_cons")
+output.csv(juv_adu_combined,"juv_adu_combined")
 #write.csv(diet_strat_combined,"diet_strat_combined_ESR_2024.csv",row.names=F)
 #write.csv(diet_combined,"diet_combined_ESR_2024.csv",row.names=F)
 
-guild_look <- read.clean.csv("apps/ESR_ESP_diets/prey_guild_lookup.csv")
 
-diet_strat_guild <- diet_strat_combined %>%
-  left_join(guild_look, by = "prey_guild")
+# testing vonB
+par(mfrow=c(3,3))
+body_wt <- seq(1,5000)
+for (p in pred_names){
+  print(pred_params[[p]]$vonb$h)
+  plot(body_wt, pred_params[[p]]$vonb$h * (body_wt ^ (2.0/3.0)))
+  title(p)
+}
+  
 
-output.csv(diet_strat_guild,"diet_strat_guild")
+
+#output.csv(diet_strat_guild,"diet_strat_guild")
 
 #################################################
 ### BERING SEA CRAB LENGTH PLOTS
