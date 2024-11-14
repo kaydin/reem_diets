@@ -6,7 +6,8 @@ library("janitor")
 library("lubridate")
 
 ####################################################################
-outfiles   <- "apps/ESR_ESP_diets/ESR_Fall2024_EBSfix_"
+#outfiles   <- "apps/ESR_ESP_diets/ESR_Fall2024_EBSfix_"
+outfiles    <- "apps/ESR_ESP_diets/allsystems_duane_"
 output.csv <- function(df,fname){write.csv(df,paste(outfiles,fname,".csv",sep=""),row.names=F)}
 
 source("R/REEM_fooddata_functions.R")
@@ -59,7 +60,7 @@ source("R/REEM_fooddata_functions.R")
 bio_cons_domain_combined  <- NULL
 diet_cons_domain_combined <- NULL
 
-for (this.model in c("WGOA","EBS")){ #for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
+for (this.model in c("WGOA","EBS","WGOA","NBS","AI")){ #for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
 #this.model <- "WGOA"
   domain_summary <- haul_domain_summary(this.model)
 
