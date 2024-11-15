@@ -49,6 +49,8 @@ load_predators <- function(this.model, predfile){
 ################################################################################  
 # EBS and NBS diet ESR indicators
 
+## DO NOT USE BELOW - DOESN'T ADJUST FOR STATIONS PROPERLY
+##
 diet_combined <- NULL
 diet_strat_combined <- NULL
 just_diets <- NULL
