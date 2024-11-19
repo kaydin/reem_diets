@@ -6,6 +6,7 @@ library(janitor)
 library(lubridate)
 library(ggridges)
 library(ggplot2)
+library(gridExtra)
 
 ####################################################################
 outfiles    <- "apps/ESR_ESP_diets/george_"
@@ -141,17 +142,20 @@ pcons <- dat %>%
 lsizes <- c("[12,25)", "[25,40)", "[40,999)")
 lnames <- c("Pollock fork length 12-25 cm","Pollock fork length 25-40 cm","Pollock fork length 40+ cm")
 
-X11(width=8,height=9)
-par(mfrow=c(3,1))
+#X11(width=8,height=3)
+#par(mfrow=c(3,1))
 
-for(i in 1:3){
+# The loop didn't work for some wierd reason, doing i=1,2,3 by hand
+i<-1# for(i in 1:3){
+   png(paste("pdiet",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
+
   pdat <- pcons %>%
     filter(lbin==lsizes[i])
   
 ord <- c("Copepods", "Euphausiids", "Amphipods", "Other plankton", 
-         "Walleye pollock", "Other fish", "Benthos")
+         "Other fish", "Benthos", "Walleye pollock")
 ggplot(pdat, aes(x=as.factor(year), y=bioen_prop,group=factor(prey_type,levels=ord))) +
-  geom_line(aes(color=factor(prey_type,levels=ord))) + 
+  geom_line(aes(color=factor(prey_type,levels=ord)), size=1.5) + 
   #geom_point(aes(shape=factor(prey_type,levels=ord),color=factor(prey_type,levels=ord))) +
   theme_classic() +
   labs(color="Prey Type",shape="Prey Type") +
@@ -162,12 +166,17 @@ ggplot(pdat, aes(x=as.factor(year), y=bioen_prop,group=factor(prey_type,levels=o
   theme(axis.text.x = element_text(angle=90, vjust=0.5, size=10,face="bold"),
         axis.title.y = element_text(hjust = 0.5,size=12,face="bold"),
         axis.text.y = element_text(hjust = 0.5,size=10),
+        plot.title = element_text(face="bold"),
         legend.text = element_text(size=12),
         legend.title=  element_text(size=12,face="bold"))
-}  
+
+#dev.copy(png,"test.png")
+
+dev.off()
+
+#}  
 
 
-plot(pdat$bioen_prop,pdat$vonb_prop)
 ####################################################################
 
 # For the record, functions to generate data assuming reem data
@@ -186,7 +195,7 @@ poldat <- pdat %>%
   mutate( prey_sz_cat = floor(prey_sz1/10)*10 + 5,
           prey_wt_mm  = 5.63E-06	* (prey_sz1 ^ 3.0434),
           pred_cat    = cut(pred_len,c(0,12,25,40,999),right=F)
-  )
+  ) 
 
 save(poldat,file="poldat.Rdata")
 
@@ -196,44 +205,63 @@ save(poldat,file="poldat.Rdata")
 load("poldat.Rdata")
 
 ldat <- poldat %>%
-  filter(cruise_type %in% c("Race_Groundfish","Race_Other"))
+  filter(cruise_type %in% c("Race_Groundfish","Race_Other")) %>%
+  filter(year>=1981 & year<= 2019) %>%
+  filter(month>=5   & month<=9)
+
 
 Nprey <- nrow(ldat)
 Npred <- length(unique(paste(ldat$vessel,ldat$cruise,ldat$haul,ldat$pred_specn)))
 
-ggplot(ldat, aes(x = prey_sz_cat, y = factor(month.abb[month],levels=month.abb), fill="#5072B2")) +
-  geom_density_ridges() +
+lsizes <- c("[12,25)", "[25,40)", "[40,999)")
+lnames <- c("Pollock fork length 12-25 cm","Pollock fork length 25-40 cm","Pollock fork length 40+ cm")
+
+
+# Why don't loops work for these graphs, check some other time
+i <- 3
+lfdat <- ldat %>% filter(pred_cat==lsizes[i])
+
+Nprey <- nrow(lfdat)
+Npred <- length(unique(paste(lfdat$vessel,lfdat$cruise,lfdat$haul,lfdat$pred_specn)))
+
+p1 <- ggplot(lfdat, aes(x = prey_sz_cat, y = factor(month.abb[month],levels=month.abb))) +
+  geom_density_ridges(bandwidth=10, fill="#308272") +
   theme_ridges() + 
   xlab("Prey standard length (mm)") +
   ylab("") +
-  labs(title="")+
-  xlim(0,200) +
+  labs(title=lnames[i])+
+  xlim(0,250) +
   theme(legend.position = "none",
-        axis.title.x = element_text(hjust = 0.5,size=12,face="bold"),
+        axis.title.x = element_text(hjust = 0.5,size=12),
         plot.title = element_text(hjust = 0.5,size=12,face="bold"),
         axis.text=element_text(size=12),
   )
 
 # convert prey weights to high resolution to then distribute by weight
 # multiplying weights by 100 to give integer values for making vectors
-w_tiny       = 1+floor(ldat$prey_wt_mm * 100)
-month_factor = factor(month.abb[ldat$month],levels=month.abb)
-wcount <- do.call("c",mapply(rep, ldat$prey_sz1, w_tiny))
+w_tiny       = 1+floor(lfdat$prey_wt_mm * 100)
+month_factor = factor(month.abb[lfdat$month],levels=month.abb)
+wcount <- do.call("c",mapply(rep, lfdat$prey_sz1, w_tiny))
 wmons  <- do.call("c",mapply(rep, month_factor,  w_tiny))
 
 wdat <- data.frame(wcount,wmons)  
 
-ggplot(wdat, aes(x = wcount, y = wmons)) +
-  geom_density_ridges(bandwidth=10,color="#5072B2",fill="#5072B2") +
+p2<- ggplot(wdat, aes(x = wcount, y = wmons)) +
+  geom_density_ridges(bandwidth=10,fill="#308272") +
   theme_ridges() + 
   xlab("Prey standard length (mm)") +
   ylab("") +
   labs(title="")+
-  xlim(0,200) +
+  xlim(0,250) +
   theme(legend.position = "none",
-        axis.title.x = element_text(hjust = 0.5,size=12,face="bold"),
+        axis.title.x = element_text(hjust = 0.5,size=12),
         plot.title = element_text(hjust = 0.5,size=12,face="bold"),
         axis.text=element_text(size=12),
   )
 
+png(paste("plens",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
+#X11(width=8,height=3)
+grid.arrange(p1,p2,ncol=2)
+dev.off()
+cat(lsizes[i],Npred,Nprey,"\n")
 
