@@ -138,6 +138,16 @@ pcons <- dat %>%
   mutate(bioen_prop = p_tot_bioen/tot_bioen,
          vonb_prop  = p_tot_vonb/tot_vonb)
   
+samp_size <- dat %>%
+  group_by(year,stratum_bin,lbin) %>%
+  summarize(pred_n = mean(pred_n),.groups="keep") %>%
+  group_by(year,lbin) %>%
+  summarize(tot_n=sum(pred_n),.groups="keep")%>%
+  filter(lbin!="[0,12)") %>%
+  spread(lbin,tot_n,fill=0)
+
+write.csv(samp_size,"geoge_fig7_samples.csv",row.names=F)
+
 
 lsizes <- c("[12,25)", "[25,40)", "[40,999)")
 lnames <- c("Pollock fork length 12-25 cm","Pollock fork length 25-40 cm","Pollock fork length 40+ cm")
