@@ -146,8 +146,8 @@ samp_size <- dat %>%
   filter(lbin!="[0,12)") %>%
   spread(lbin,tot_n,fill=0)
 
-write.csv(samp_size,"geoge_fig7_samples.csv",row.names=F)
-
+write.csv(samp_size,"apps/George_MS/geoge_fig7_sample_sizes.csv",row.names=F)
+write.csv(pcons,"apps/George_MS/geoge_fig7_pcons.csv",row.names=F)
 
 lsizes <- c("[12,25)", "[25,40)", "[40,999)")
 lnames <- c("Pollock fork length 12-25 cm","Pollock fork length 25-40 cm","Pollock fork length 40+ cm")
@@ -156,18 +156,21 @@ lnames <- c("Pollock fork length 12-25 cm","Pollock fork length 25-40 cm","Pollo
 #par(mfrow=c(3,1))
 
 # The loop didn't work for some wierd reason, doing i=1,2,3 by hand
-i<-1# for(i in 1:3){
-   png(paste("pdiet",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
+i<-3# for(i in 1:3){
+   png(paste("apps/George_MS/pdiet",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
 
   pdat <- pcons %>%
     filter(lbin==lsizes[i])
-  
+#  "#F8766D" "#C49A00" "#53B400" "#00C094" "#00B6EB" "#A58AFF" "#FB61D7"  
 ord <- c("Copepods", "Euphausiids", "Amphipods", "Other plankton", 
          "Other fish", "Benthos", "Walleye pollock")
 ggplot(pdat, aes(x=as.factor(year), y=bioen_prop,group=factor(prey_type,levels=ord))) +
   geom_line(aes(color=factor(prey_type,levels=ord)), size=1.5) + 
   #geom_point(aes(shape=factor(prey_type,levels=ord),color=factor(prey_type,levels=ord))) +
   theme_classic() +
+  scale_color_manual(values=c("Copepods"="#F8766D", "Euphausiids"="#C49A00", "Amphipods"="#53B400", 
+                     "Other plankton"="#00C094", "Other fish"="#00B6EB", "Benthos"="#A58AFF", 
+                     "Walleye pollock"="#0000AA")) +
   labs(color="Prey Type",shape="Prey Type") +
   scale_y_continuous(labels = scales::percent) +
   xlab("") + 
@@ -236,6 +239,7 @@ Npred <- length(unique(paste(lfdat$vessel,lfdat$cruise,lfdat$haul,lfdat$pred_spe
 
 p1 <- ggplot(lfdat, aes(x = prey_sz_cat, y = factor(month.abb[month],levels=month.abb))) +
   geom_density_ridges(bandwidth=10, fill="#308272") +
+  geom_vline(xintercept = c(120,250), linetype="dashed") + 
   theme_ridges() + 
   xlab("Prey standard length (mm)") +
   ylab("") +
@@ -258,6 +262,7 @@ wdat <- data.frame(wcount,wmons)
 
 p2<- ggplot(wdat, aes(x = wcount, y = wmons)) +
   geom_density_ridges(bandwidth=10,fill="#308272") +
+  geom_vline(xintercept = c(120,250), linetype="dashed") + 
   theme_ridges() + 
   xlab("Prey standard length (mm)") +
   ylab("") +
@@ -269,7 +274,7 @@ p2<- ggplot(wdat, aes(x = wcount, y = wmons)) +
         axis.text=element_text(size=12),
   )
 
-png(paste("plens",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
+png(paste("apps/George_MS/plens",lsizes[i],"george.png",sep="_"),width=8,height=3,units="in",res=600,type="cairo-png")
 #X11(width=8,height=3)
 grid.arrange(p1,p2,ncol=2)
 dev.off()
