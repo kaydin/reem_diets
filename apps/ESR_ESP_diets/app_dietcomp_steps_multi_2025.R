@@ -23,7 +23,7 @@ REEM.loadclean.diets(data_path = "data/local_reem_data")
 REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv",
                        stratum_bin_column    = "strat_groups",
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
-                       prey_guild_column     = "ecopath_prey")
+                       prey_guild_column     = "ecopath_prey_chion")
 
 predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
 
@@ -48,6 +48,7 @@ for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
 output.csv(pred_tot_combined,"pred_tot_combined")
 #write.csv(pred_tot_combined,"pred_tot_combined_PEEC2024.csv",row.names=F)
 
+######################
 # Diets
 diet_combined         <- NULL
 diet_strat_combined   <- NULL
@@ -60,7 +61,8 @@ source("R/REEM_fooddata_functions.R")
 bio_cons_domain_combined  <- NULL
 diet_cons_domain_combined <- NULL
 
-for (this.model in c("WGOA","EBS","WGOA","NBS","AI")){ #for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
+for (this.model in c("EBS","NBS")){
+#for (this.model in c("WGOA","EBS","WGOA","NBS","AI")){ #for (this.model in c("EBS","NBS","AI","WGOA","EGOA")){
 #this.model <- "WGOA"
   domain_summary <- haul_domain_summary(this.model)
 
@@ -108,8 +110,8 @@ for (this.model in c("WGOA","EBS","WGOA","NBS","AI")){ #for (this.model in c("EB
       left_join(diet, by=c("species_name"="predator", "model", "stratum_bin", "year", "lbin")) %>%
       replace_na(list(prey_guild="MISSING", dietprop_wt=1.0,dietprop_sci=1.0)) %>%
       mutate(preycons_sci_bioen_tons = dietprop_sci * tot_bioen_tons,
-             preycons_sci_vonb_tons  = dietprop_sci * tot_vonb_tons) %>%
-      left_join(prey_guild_lookup, by = c("prey_guild"="nodc_preycat"))
+             preycons_sci_vonb_tons  = dietprop_sci * tot_vonb_tons) #%>%
+      #left_join(prey_guild_lookup, by = c("prey_guild"="nodc_preycat"))
 
     if (nrow(bio_cons_domain)>0){
       bio_cons_domain_combined <- rbind(bio_cons_domain_combined, bio_cons_domain)
@@ -123,6 +125,31 @@ for (this.model in c("WGOA","EBS","WGOA","NBS","AI")){ #for (this.model in c("EB
     output.csv(bio_cons_domain_combined,"bio_cons_domain")
     output.csv(diet_cons_domain_combined,"diet_cons_domain")
 
+######
+# ESP cod calculations - EBS and NBS
+    cod <- diet_cons_domain_combined %>% 
+      filter(species_name=="Pacific_cod") %>%
+      select(year:tot_sci, prey_guild, preycons_sci_bioen_tons) %>%
+      pivot_wider(names_from=prey_guild, values_from=preycons_sci_bioen_tons, values_fill = 0)
+    
+    names(cod) <- make_clean_names(names(cod))
+      
+    codcrab <- cod %>%
+        select(year:missing, "opilio",	"bairdi", "hybrid_chion", "misc_chion", "unid_chion") %>%
+        mutate(opilio_extrap = ifelse(opilio+bairdi>0, opilio + unid_chion*opilio/(opilio+bairdi), 0),
+               bairdi_extrap = ifelse(opilio+bairdi>0, bairdi + unid_chion*bairdi/(opilio+bairdi), 0),
+               chion_unknown = ifelse(opilio+bairdi>0, 0, unid_chion),
+               pred_n = ifelse(is.na(pred_n), 0, pred_n))
+    
+    codcrab_sum <- codcrab %>%
+      group_by(model, year) %>%
+      summarize(pred_n        = sum(pred_n), 
+                opilio_extrap = sum(opilio_extrap),
+                bairdi_extrap = sum(bairdi_extrap),
+                chion_unknown = sum(chion_unknown),
+                .groups="keep")
+
+    write.csv(codcrab_sum,"EBS_NBS_codcrab_sum.csv",row.names=F)
     
     
     

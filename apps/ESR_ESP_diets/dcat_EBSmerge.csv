@@ -1,0 +1,133 @@
+nodc_preycat,ebs_ecopath_preycat,ebs_preyguild,Walleye_pollock_EBS,Pacific_cod_EBS
+Empty,MISC_NA,NA,NA,NA
+Complete Misc,MISC_NA,UNID,Benthos,Benthos
+Algae,macroalgae,Pelagic production,Other plankton,Plankton
+Protozoan,benthic_microbes,Benthic production,Other plankton,Plankton
+Sponge,sponges,Structural epifauna,Benthos,Benthos
+Gen. Hydrozoa,hydroids,Structural epifauna,Benthos,Benthos
+Benth. Hydroid,hydroids,Structural epifauna,Benthos,Benthos
+Pel. Gel. Filter Feeder,gelatinous_filter_feeders,Mesozooplankton,Other plankton,Plankton
+Scypho Jellies,scyphozoid_jellies,Pelagic foragers,Other plankton,Plankton
+Anemones,anemones,Structural epifauna,Benthos,Benthos
+Sea Pens,sea_pens,Structural epifauna,Benthos,Benthos
+Misc. Worm. Etc.,misc_worms,Infauna,Benthos,Benthos
+Polychaete,polychaetes,Infauna,Benthos,Benthos
+Gen. Mollusc,GEN_mollusk,Motile epifauna,Benthos,Benthos
+Snail,snails,Motile epifauna,Benthos,Benthos
+Pteropod,pteropods,Mesozooplankton,Other plankton,Plankton
+Clam,bivalves,Infauna,Benthos,Benthos
+Gen. Cephalopod,GEN_cephalopod,Pelagic foragers,Other fish,Other fish
+Squid,squids,Pelagic foragers,Other fish,Other fish
+Octopus,octopus,Motile epifauna,Other fish,Octopus
+Misc. Crustacean,misc_crustaceans,Infauna,Benthos,Benthos
+Gen. Crustacea,GEN_crustacea,Motile epifauna,Benthos,Benthos
+Copepod,copepods,Copepods,Copepods,Plankton
+Mysid,mysids,Mesozooplankton,Other plankton,Plankton
+Benth Amph,benthic_amphipods,Infauna,Amphipods,Plankton
+Pel Amph,pelagic_amphipods,Mesozooplankton,Amphipods,Plankton
+Euphausiid,euphausiids,Mesozooplankton,Euphausiids,Plankton
+Gen. Particulate,GEN_particulate,Structural epifauna,Benthos,Benthos
+NP Shrimp,np_shrimp,Shrimp,Shrimp,Plankton
+Pandalidae,pandalid,Shrimp,Shrimp,Plankton
+Gen. Crab,GEN_crab,Motile epifauna,Benthos,Benthos
+Misc. Crab,misc_crabs,Motile epifauna,Benthos,Benthos
+Hermit Crab,hermits,Motile epifauna,Benthos,Benthos
+King Crab,king_crabs,Motile epifauna,Benthos,Benthos
+Unid Chion,hybrid_chion,Motile epifauna,Benthos,Snow crab
+Opilio,opilio,Motile epifauna,Benthos,Snow crab
+Bairdi,bairdi,Motile epifauna,Benthos,Tanner crab
+Dungeness,misc_crabs,Motile epifauna,Benthos,Benthos
+Gen. Echinoderm,GEN_echinoderm,Motile epifauna,Benthos,Benthos
+Sea Star,sea_stars,Motile epifauna,Benthos,Benthos
+Brittle Star,brittle_stars,Motile epifauna,Benthos,Benthos
+Urchins dollars cucumbers,urchins_dollars_cucs,Motile epifauna,Benthos,Benthos
+Chaeteg etc.,chaetognaths,Mesozooplankton,Benthos,Benthos
+Benth. Urochordata,urochordata,Structural epifauna,Benthos,Benthos
+Prickle squish round,misc_fish_shallow,Pelagic foragers,Other fish,Other fish
+Gen. Shark Skate,GEN_sharkskate,Apex predators,Other fish,Other fish
+Sleeper Shark,sleeper_shark,Apex predators,Other fish,Other fish
+Dogfish,NM_dogfish,Pelagic foragers,Other fish,Other fish
+Unid Rajidae,oth_skate,Apex predators,Other fish,Other fish
+Deepsea Skate,oth_skate,Apex predators,Other fish,Other fish
+Aleutian Skate,oth_skate,Apex predators,Other fish,Other fish
+Big Skate,oth_skate,Apex predators,Other fish,Other fish
+Bering Skate,oth_skate,Apex predators,Other fish,Other fish
+AK Skate,ak_skate,Apex predators,Other fish,Other fish
+Longnose Skate,oth_skate,Apex predators,Other fish,Other fish
+Leopard Skate,oth_skate,Apex predators,Other fish,Other fish
+Unid Bathyraja,oth_skate,Apex predators,Other fish,Other fish
+Black Skate,oth_skate,Apex predators,Other fish,Other fish
+Okhotsk Skate,oth_skate,Apex predators,Other fish,Other fish
+Commander Skate,oth_skate,Apex predators,Other fish,Other fish
+Whitebrow Skate,oth_skate,Apex predators,Other fish,Other fish
+Mud Skate,oth_skate,Apex predators,Other fish,Other fish
+WhtBlotch Skate,oth_skate,Apex predators,Other fish,Other fish
+Ratfish,NM_ratfish,Benthic foragers,Other fish,Other fish
+Gen. Fish,GEN_fish,Pelagic foragers,Other fish,Other fish
+Fish Eggs,GEN_fish,Pelagic foragers,Other fish,Other fish
+Gen. Clupeids,GEN_clupeids,Pelagic foragers,Other fish,Other fish
+Herring,herring,Pelagic foragers,Other fish,Other fish
+Gen. Salmoniformes,salmon_returning,Pelagic foragers,Other fish,Other fish
+Salmon,salmon_returning,Pelagic foragers,Other fish,Other fish
+Gen. Smelt,oth_pelagic_smelt,Pelagic foragers,Other fish,Other fish
+Oth pel. smelt,oth_pelagic_smelt,Pelagic foragers,Other fish,Other fish
+Capelin,capelin,Pelagic foragers,Other fish,Other fish
+Oth pel. Smelt,oth_pelagic_smelt,Pelagic foragers,Other fish,Other fish
+Eulachon,eulachon,Pelagic foragers,Other fish,Other fish
+Bathylagidae,bathylagid,Pelagic foragers,Other fish,Other fish
+Prickle squish deep,misc_fish_deep,Apex predators,Other fish,Other fish
+Myctophidae,myctophid,Pelagic foragers,Other fish,Other fish
+Gen. Gadid,GEN_gadid,Pelagic foragers,Other fish,Other fish
+P. Cod,pcod,Apex predators,Other fish,Other fish
+W. Pollock,pollock,Pelagic foragers,Walleye pollock,Walleye pollock
+Hake,misc_fish_shallow,Pelagic foragers,Other fish,Other fish
+Eelpout,eelpouts,Motile epifauna,Other fish,Other fish
+Macrouridae,grenadiers,Apex predators,Other fish,Other fish
+Pacific Grenadier,grenadiers,Apex predators,Other fish,Other fish
+Giant Grenadier,grenadiers,Apex predators,Other fish,Other fish
+Gen. Rocks et al,GEN_rockfish,Pelagic foragers,Other fish,Other fish
+Gen. Rockfish,GEN_rockfish,Pelagic foragers,Other fish,Other fish
+Gen. Sebastes,GEN_rockfish,Pelagic foragers,Other fish,Other fish
+Rougheye Rock,rougheye_rock,Pelagic foragers,Other fish,Other fish
+POP,pac_ocean_perch,Pelagic foragers,Other fish,Other fish
+Sebastes,GEN_rockfish,Pelagic foragers,Other fish,Other fish
+Shortraker Rock,shortraker_rock,Pelagic foragers,Other fish,Other fish
+Dusky Rock,dusky_rock,Pelagic foragers,Other fish,Other fish
+Widow Rock,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Yellowtail Rock,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Bocaccio,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Canary Rock,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Northern Rock,north_rockfish,Pelagic foragers,Other fish,Other fish
+Sharpchin Rock,sharpchin_rock,Pelagic foragers,Other fish,Other fish
+Gen Thorny,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Shortsp Thorny,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Longsp Thorny,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Bighand Thorny,oth_sebastes,Pelagic foragers,Other fish,Other fish
+Gen. Hexagrammidae,GEN_greenlings,Benthic foragers,Other fish,Other fish
+Greenlings,greenlings,Benthic foragers,Other fish,Other fish
+Lingcod,greenlings,Benthic foragers,Other fish,Other fish
+Atka,atka,Pelagic foragers,Other fish,Other fish
+Sablefish,sablefish,Apex predators,Other fish,Other fish
+Sculpin,oth_sculpins,Benthic foragers,Other fish,Other fish
+Lg Sculpin,lg_sculpins,Apex predators,Other fish,Other fish
+Managed Forage,oth_managed_forage,Pelagic foragers,Other fish,Other fish
+Sandlance,sandlance,Pelagic foragers,Other fish,Other fish
+Gen. Flatfish,GEN_flatfish,Benthic foragers,Other fish,Other fish
+Misc. Flatfish,misc_flats,Benthic foragers,Other fish,Other fish
+Arrow or Kam,GEN_arrowkam,Apex predators,Other fish,Other fish
+Kamchat fl,kamchatka,Apex predators,Other fish,Other fish
+Arrowtooth,arrowtooth,Apex predators,Other fish,Other fish
+Rex sole,rex_sole,Benthic foragers,Other fish,Other fish
+FH Sole,fh_sole,Benthic foragers,Other fish,Other fish
+Gen Rock Sole,nr_sole,Benthic foragers,Other fish,Other fish
+S Rock Sole,nr_sole,Benthic foragers,Other fish,Other fish
+N Rock Sole,nr_sole,Benthic foragers,Other fish,Other fish
+YF Sole,yf_sole,Benthic foragers,Other fish,Other fish
+Dover Sole,dover_sole,Benthic foragers,Other fish,Other fish
+AK Plaice,ak_plaice,Benthic foragers,Other fish,Other fish
+Gr. Turbot,gr_turbot,Apex predators,Other fish,Other fish
+P. Halibut,halibut,Apex predators,Other fish,Other fish
+Birds,GEN_birds,Apex predators,Benthos,Benthos
+Glopp,GEN_glopp,UNID,Benthos,Benthos
+Offal,GEN_offal,Offal,Benthos,Benthos
+MISSING,MISSING,MISSING,MISSING,MISSING

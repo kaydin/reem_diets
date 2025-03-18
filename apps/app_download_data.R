@@ -11,7 +11,7 @@ source("R/REEM_download_functions.R")
 channel <- oracle.connect("AFSC")  
 
 # Download clean version of food habits data (filters so race surveys only)
-#reem.download.rawfood(channel, path="data/local_reem_data")
+reem.download.rawfood(channel, path="data/local_reem_data")
 reem.download.bts.predprey(channel, path="data/local_reem_data")
 reem.download.bts.preylengths(channel, path="data/local_reem_data")
 
