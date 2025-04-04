@@ -15,6 +15,8 @@ REEM.loadclean.lookups(strata_lookup_file    = "lookups/combined_BTS_strata.csv"
                        preynames_lookup_file = "lookups/Alaska_PreyLookup_MASTER.csv",
                        prey_guild_column     = "ecopath_prey")
 
+### Make predator table.  
+### this.model is only used to get predator parameters (a and b for body weight)
 this.model <- "EBS"
 this.species <- "Walleye_pollock"
 predlist <- read.clean.csv("lookups/Alaska_Predators_GOA.csv")
@@ -36,21 +38,28 @@ for (p in pred_names){
 }
 
 
-diet <- predprey_tables(predator=this.species, model=this.model, all.data=T)
+#diet <- predprey_tables(predator=this.species, model=this.model, all.data=T)
+diet <- rbind(
+  predprey_tables(predator=this.species, model="EBS", all.data=T)$predprey_table,
+  predprey_tables(predator=this.species, model="NBS", all.data=T)$predprey_table,
+  predprey_tables(predator=this.species, model="WGOA", all.data=T)$predprey_table,
+  predprey_tables(predator=this.species, model="AI", all.data=T)$predprey_table
+)
+  #source("apps/right_whales/neighbors_to_logit.r")
 
-#source("apps/right_whales/neighbors_to_logit.r")
-#this.prey <- "Euphausiid"
+################################
+this.prey <- "Copepod"
 
-ddat <- diet$predprey_table %>% 
-  pivot_wider(names_from=prey_guild, values_from=prey_wt, values_fill=0)
+ddat <- diet %>% 
+  pivot_wider(names_from=prey_guild, values_from=prey_wt, values_fill=0) %>%
+  mutate(prey_sci = .data[[this.prey]]/bodywt)
 
 library(sf)
 library(magrittr)
 library(ggplot2)
-dsn <- "C:/Users/kerim.aydin/Work/src/bering-sea-spatial/arcmap/Bering_Sea_Spatial_Products_2022.gdb"
-sel_layer <- sf::st_read(dsn = dsn, layer = "EBS_strata_Conner2022") #%>% st_transform(4326)
-
-#test <- st_read("iho")
+# If Bering Survey Grid is needed
+  #dsn <- "C:/Users/kerim.aydin/Work/src/bering-sea-spatial/arcmap/Bering_Sea_Spatial_Products_2022.gdb"
+  #sel_layer <- sf::st_read(dsn = dsn, layer = "EBS_strata_Conner2022") #%>% st_transform(4326)
 
 # Create a grid.  Transform to AK Albers projection (3338) to do boxes in meters.
 grid_lats <- c(48,  48,   68,    68)
@@ -63,15 +72,6 @@ grid_base <- st_as_sf(data.frame(grid_lons,grid_lats), coords=c("grid_lons","gri
 
 grid_centroids <- st_centroid(grid_base) %>% st_transform(4326) %>% as.data.frame
 
-#grid_50 <- st_make_grid(sel_layer, cellsize = c(40000, 40000)) %>% 
-#  st_sf(grid_id = 1:length(.))
-#sample_locs <- ddat %>% select(predjoin, rlat, rlong) 
-##raw_pts <- data.frame(point=ddat$predjoin, lat=ddat$rlat, long=ddat$rlong)
-#sample_sf <- st_as_sf(sample_locs, coords=c("rlong","rlat"), crs=4326) %>%
-#  st_transform(3338)
-#sample_grid <- sample_sf %>% st_join(grid_base, join = st_intersects) %>% 
-#  as.data.frame
-
 sample_grid <- ddat %>% 
   select(predjoin, rlat, rlong) %>%                 # get lat lon of samples
   st_as_sf(coords=c("rlong","rlat"), crs=4326) %>%  # make lat/lon sf object
@@ -82,14 +82,13 @@ sample_grid <- ddat %>%
 ddat_grid <- ddat %>%
   left_join(sample_grid, by="predjoin")
 
-this.prey <- c("Euphausiid","Copepod")
-
 ddat_mean <- ddat_grid %>% 
-  select(predjoin, grid_id, all_of(this.prey)) %>%
-  group_by(grid_id) %>% summarize(n=n(), 
-  eup=mean(Euphausiid), cop=mean(Copepod)) %>%
+  select(predjoin, grid_id, prey_sci) %>%
+  group_by(grid_id) %>% 
+  summarize(n=n(), prey_sci=mean(prey_sci)) %>%
   left_join(grid_centroids, by="grid_id")
 
+ddat_filter <- ddat_mean %>% filter(n>=25)
 
 #ggplot() + 
 #  geom_sf(data = sel_layer) +
@@ -97,8 +96,10 @@ ddat_mean <- ddat_grid %>%
 #  geom_sf(data=points, col="red", size=1)
 
 library(marmap)
-b = getNOAA.bathy(lon1 = 170, lon2 = -140, lat1 = 48, lat2 = 68, 
-                  resolution = 2, antimeridian = TRUE)
+#b = getNOAA.bathy(lon1 = 170, lon2 = -140, lat1 = 48, lat2 = 68, 
+#                  resolution = 2, antimeridian = TRUE)
+#save(b, file="apps/right_whales/NOAA_bathy.Rdata")
+load("apps/right_whales/NOAA_bathy.Rdata")
 bf = fortify.bathy(b) # convert to data frame
 
 library(mapdata)
@@ -109,34 +110,29 @@ reg = subset(reg, region %in% c('USSR', 'USA'))
 lons = c(180, 210)
 lats = c(52, 66)
 
-lat_layer <- sel_layer %>% st_transform(4326) %>% st_shift_longitude()
+dot_scale = 500
+#lat_layer <- sel_layer %>% st_transform(4326) %>% st_shift_longitude()
 #lat_grid  <- grid_50   %>% st_transform(4326) %>% st_shift_longitude()
 lat_grid  <- grid_base   %>% st_transform(4326) %>% st_shift_longitude()
-lat_data  <- ddat_mean$`.` %>% st_shift_longitude()
-dat_vals <- ddat_mean$eup
+lat_data  <- ddat_filter$`.` %>% st_shift_longitude()
+dat_vals <- ddat_filter$prey_sci
 
 ggplot()+
   
   # add 100m contour
-  geom_contour(data = bf, 
-               aes(x=x, y=y, z=z),
-               breaks=c(-50),
-               size=c(0.3),
-               colour="grey")+
+  geom_contour(data = bf, aes(x=x, y=y, z=z),
+               breaks=c(-50), size=c(0.3), colour="grey") +
   
-  # add 250m contour
-  geom_contour(data = bf, 
-               aes(x=x, y=y, z=z),
-               breaks=c(-200),
-               size=c(0.6),
-               colour="grey")+
+  # add 200m contour
+  geom_contour(data = bf,  aes(x=x, y=y, z=z),
+               breaks=c(-200), size=c(0.6), colour="grey") +
   
   # add coastline
   geom_polygon(data = reg, aes(x = long, y = lat, group = group), 
                fill = "darkgrey", color = NA) +
 
-  geom_sf(data=lat_layer, col="red", size=1) + 
-  geom_sf(data=lat_grid, fill = 'transparent', lwd = 0.3) +
-  geom_sf(data=lat_data, col="red", size=dat_vals) +
+  #geom_sf(data=lat_layer, col="red", size=1) + 
+  #geom_sf(data=lat_grid, fill = 'transparent', lwd = 0.3) +
+  geom_sf(data=lat_data, col="red", size=dat_vals * dot_scale) +
  coord_sf(xlim = lons, ylim = lats)
 
