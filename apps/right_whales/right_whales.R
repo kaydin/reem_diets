@@ -48,11 +48,13 @@ diet <- rbind(
   #source("apps/right_whales/neighbors_to_logit.r")
 
 ################################
-this.prey <- "Copepod"
+this.prey <- "Euphausiid"
 
 ddat <- diet %>% 
   pivot_wider(names_from=prey_guild, values_from=prey_wt, values_fill=0) %>%
   mutate(prey_sci = .data[[this.prey]]/bodywt)
+
+ddat <- ddat %>% filter(lbin!="[0,20)")
 
 library(sf)
 library(magrittr)
@@ -107,15 +109,22 @@ reg = map_data("world2Hires")
 reg = subset(reg, region %in% c('USSR', 'USA'))
 
 
-lons = c(180, 210)
+#lons = c(180, 210)
+lons = c(180, 208)
 lats = c(52, 66)
 
-dot_scale = 500
+dot_scale = 100
 #lat_layer <- sel_layer %>% st_transform(4326) %>% st_shift_longitude()
 #lat_grid  <- grid_50   %>% st_transform(4326) %>% st_shift_longitude()
 lat_grid  <- grid_base   %>% st_transform(4326) %>% st_shift_longitude()
 lat_data  <- ddat_filter$`.` %>% st_shift_longitude()
 dat_vals <- ddat_filter$prey_sci
+
+point_dat <- st_coordinates(lat_data)
+dsize <- dat_vals * dot_scale
+point_dat <- cbind(point_dat,dsize)
+
+#X11()
 
 ggplot()+
   
@@ -130,9 +139,72 @@ ggplot()+
   # add coastline
   geom_polygon(data = reg, aes(x = long, y = lat, group = group), 
                fill = "darkgrey", color = NA) +
+  
+  # EBS Survey Grid
+  # Transparent SF grid used to set/shape geometry and axes better
+    #geom_sf(data=lat_layer, col="red", size=1) + 
+    geom_sf(data=lat_grid, fill = 'transparent', lwd = 0.3, col="transparent") +
+  
+  # Data points
+  # The below geom_sf works, but with limited control of scaling
+     # geom_sf(data=lat_data, col="red", size=dat_vals * dot_scale) +
 
-  #geom_sf(data=lat_layer, col="red", size=1) + 
-  #geom_sf(data=lat_grid, fill = 'transparent', lwd = 0.3) +
-  geom_sf(data=lat_data, col="red", size=dat_vals * dot_scale) +
- coord_sf(xlim = lons, ylim = lats)
+  geom_point(data=point_dat, aes(x = X, y = Y, size=dsize), col="red") +
+  scale_size(range=c(0,2)) + 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank() ) + 
+  labs(size=paste(this.prey,"SCI")) + 
+  #scale_x_discrete(labels = NULL, breaks = NULL) + 
+  #scale_size_continuous() + 
+ coord_sf(xlim = lons, ylim = lats) 
+ 
+ggsave(paste("apps/right_whales/",this.prey,".png",sep=""),
+       width=1600, height=900, units="px")
+
+pie_list <- list(
+  # "Empty"
+  "Copepods"    = c("Copepod"),
+  "Euphausiids" = c("Euphausiid"),
+  "Other invertebrates" = c(
+    "Hermit Crab", "Benth Amph","Pel. Gel. Filter Feeder","NP Shrimp", "Pel Amph", "Pteropod",
+    "Pandalidae", "Mysid", "Gen. Particulate", "Glopp", "Chaeteg etc.", 
+    "Brittle Star", "Unid Chion", "Gen. Crab", "Misc. Crab",
+    "Polychaete", "Misc. Crustacean", "Snail", "Gen. Hydrozoa",
+    "Gen. Crustacea",  "Clam", "Misc. Worm. Etc.", "Anemones", "Squid", 
+    "Scypho Jellies", "Gen. Mollusc", "King Crab", "Urchins dollars cucumbers",  
+    "Gen. Cephalopod", "Octopus", "Opilio","Sea Star", "Benth. Hydroid",
+    "Protozoan",  "Benth. Urochordata", "Bairdi", "Sponge","Gen. Echinoderm") ,
+  "Fish" = c(
+    "Gen. Fish", "W. Pollock","P. Halibut","Gen. Gadid","Gen. Flatfish", 
+    "Prickle squish round", "Managed Forage", "Eelpout", "Sculpin", "Gr. Turbot",
+    "Herring", "Gen. Rocks et al", "Offal", "Kamchat fl", "Lg Sculpin",
+    "Gen. Rockfish",  "Gen. Smelt", "Fish Eggs",
+    "Gen. Sebastes", "N Rock Sole", "Sandlance", "Oth pel. Smelt", 
+    "FH Sole", "Capelin",   
+    "AK Plaice", "Gen. Clupeids",  "P. Cod", "YF Sole", "Birds", 
+    "Misc. Flatfish",  "Gen Rock Sole", "Arrowtooth",  
+    "Arrow or Kam", "S Rock Sole", "Myctophidae", 
+    "Gen. Hexagrammidae",  "Eulachon", 
+    "Dover Sole", "Algae", "Bathylagidae", "Salmon", 
+    "Shortsp Thorny", "Prickle squish deep", "Atka", "Rex sole", "Northern Rock")
+  )
+  
+
+dtot <- NULL
+for (n in names(pie_list)){
+  dd <- rowSums(ddat[,pie_list[[n]] ])/ddat[,"bodywt"]
+  dtot[n] <- sum(dd)
+}
+png("apps/right_whales/diet_pie.png",width=900,height=900)
+pie(dtot,cex=3)
+dev.off()
+
+
+#write.csv(ddat,"apps/right_whales/pol_diets.csv",row.names=F)
+
+
 
