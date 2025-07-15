@@ -1,0 +1,7 @@
+nodc_code,race,base_name,predator,model,juv_cm,adu_1,adu_2,adu_3,a_l_mm_g,b_l_mm_g,vb_linf_mm,vb_k,vb_t0,rec_age_months,von_b_rec_len_cm,ca,cb,c_tm,c_t0,c_q
+8791030701,21740,Gadus chalcogrammus (walleye pollock),pollock,EBS,20,40,55,9999,5.18E-06,3.037605,NA,NA,NA,24,NA,0.119,-0.46,15,10,2.6
+8791030401,21720,Gadus macrocephalus (Pacific cod),pcod,EBS,20,30,60,85,2.36E-06,3.242304,NA,NA,NA,24,NA,0.041,-0.122,21,13.7,2.41
+8857040102,10110,Atheresthes stomias (arrowtooth flounder),arrowtooth,EBS,20,30,50,9999,2.10E-06,3.23879,NA,NA,NA,26,NA,0.125,-0.199,26,20.512,2.497
+8857041801,10115,Reinhardtius hippoglossoides (Greenland turbot),gr_turbot,EBS,20,30,50,9999,1.26E-06,3.308056,NA,NA,NA,24,NA,NA,NA,NA,NA,NA
+8857041901,10120,Hippoglossus stenolepis (Pacific halibut),halibut,EBS,20,50,70,9999,5.13E-06,3.115733,NA,NA,NA,24,NA,0.0625,-0.1076,18,12.97,3.084
+8827020101,20510,Anoplopoma fimbria (sablefish),sablefish,EBS,20,55,9999,9999,1.86E-07,3.639349,NA,NA,NA,24,NA,NA,NA,NA,NA,NA
