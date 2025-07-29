@@ -41,6 +41,7 @@ write.csv(AI_Atka,"AI_Atka_2025_07_24.csv",row.names=F)
 codes <- c(8791030701, 8791030401, 8857040102, 8857041901)
 maurice <- BT %>%
   filter(Region=="BS" & Pred_nodc %in% codes & Cruise_type=="Race_Groundfish")
+write.csv(maurice, "BS_preds_forMaurice_2025_07_25.csv", row.names=F)
 
 
 
