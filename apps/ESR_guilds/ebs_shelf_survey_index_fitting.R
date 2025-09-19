@@ -255,9 +255,9 @@ colnames(ebs_fitting_shelf_index) <- c("Year","Group","Value","Stdev","CV","Scal
 # Reorganize columns
 ebs_fitting_shelf_index <- ebs_fitting_shelf_index[,c(1,2,7,4,8,3,6,5,9:12)]
 # output file
-write.csv(ebs_fitting_shelf_index,
-          "C:/Users/andy.whitehouse/Work/Andy/REEM/ACLIM/ACLIM_3/ebs_shelf_fitting_shelf_index.csv",
-          row.names = FALSE)
+# write.csv(ebs_fitting_shelf_index,
+#           "C:/Users/andy.whitehouse/Work/Andy/REEM/ACLIM/ACLIM_3/ebs_shelf_fitting_shelf_index.csv",
+#           row.names = FALSE)
 
 
 ################################################################################
