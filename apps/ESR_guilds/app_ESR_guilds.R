@@ -4,6 +4,7 @@
 library("tidyverse")
 library("janitor") 
 library("lubridate")
+library("dplyr")
 
 ####################################################################
 
@@ -123,6 +124,7 @@ get_stratsum_q <- function(cpuedat, q_table){
                          "Shumagin_slope")
   
   cpue_dat  <- get_cpue_all(model=this.model)
+  # write.csv(cpue_dat, "C:/Users/andy.whitehouse/Work/Andy/REEM/Eco_Considerations/Contributions/Guilds/GOA/2025_cpue_dat.csv")
   check_RACE_codes(cpue_dat)
   
   #stratsum_q <- get_stratsum_q(cpue_dat, q_table)
@@ -134,9 +136,42 @@ get_stratsum_q <- function(cpuedat, q_table){
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
   
-  write.csv(domain_sum_q, "apps/ESR_guilds/WGOA_domain_sum_2024.csv",row.names=F)
+  write.csv(domain_sum_q, "apps/ESR_guilds/WGOA_domain_sum_2025.csv",row.names=F)
+  wgoa_esr_guild_names <- colnames(guild_bio_table)[c(1,2,6)] # EBS ESR report card guild names
+  wgoa_esr_guilds <- guild_bio_table[,wgoa_esr_guild_names] # select report card guilds
+  # convert to 1,000 t
+  wgoa_esr_guilds[, wgoa_esr_guild_names[-1]] <- wgoa_esr_guilds[, wgoa_esr_guild_names[-1]]/1000
+  write.csv(wgoa_esr_guilds, "apps/ESR_guilds/WGOA_ESR_guilds_2025.csv",row.names=F)
+  
+  # EGOA GUILDS -----------------------------------------------
+  this.model  <- "EGOA"  
+  race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["goa_ecopath"]])  
+  q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2021_GOA.csv")
+  domains_included <-  c("Southeastern_shelf", "Southeastern_gully", 
+                         "Southeastern_slope", "Yakutat_shelf", 
+                         "Yakutat_gully", "Yakutat_slope")
+  
+  cpue_dat  <- get_cpue_all(model=this.model)
+  check_RACE_codes(cpue_dat)
+  
+  #stratsum_q <- get_stratsum_q(cpue_dat, q_table)
+  domain_sum_q <- get_domain_sum_q(cpue_dat, q_table)
+  
+  guild_bio_table <-domain_sum_q %>%
+    filter(stratum_bin %in% domains_included) %>%
+    group_by(year,guild) %>%
+    summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
+    spread(guild,bio_tons_q_tot,fill=0)
+  
+  write.csv(domain_sum_q, "apps/ESR_guilds/EGOA_domain_sum_2025.csv",row.names=F)
+  egoa_esr_guild_names <- colnames(guild_bio_table)[c(1,2,6)] # EBS ESR report card guild names
+  egoa_esr_guilds <- guild_bio_table[,egoa_esr_guild_names] # select report card guilds
+  # convert to 1,000 t
+  egoa_esr_guilds[, egoa_esr_guild_names[-1]] <- egoa_esr_guilds[, egoa_esr_guild_names[-1]]/1000
+  write.csv(egoa_esr_guilds, "apps/ESR_guilds/EGOA_ESR_guilds_2025.csv",row.names=F)
   
   
+    
 #cpue_test <- cpue_dat %>%
 #  filter(year==1982 & stratum==10 & race_group =="ak_plaice")    
 # These two lines then sum stratsum to the total biomass and biomass density
