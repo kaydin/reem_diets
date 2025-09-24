@@ -1339,7 +1339,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 69035,Pagurus sp.,NA,1984,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,NA,Pagurus sp.,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
 69041,Pagurus armatus,blackeyed hermit,2007,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,armatus,Pagurus armatus,NA,NA,Hermit crabs,NA,NA,Motile epifauna
 69042,Pagurus brandti,sponge hermit,1997,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,brandti,Pagurus brandti,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
-69050,Pagurus townsendi,Townsend hermit crab,2008,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,townsendi,Pagurus townsendi,NA,Hermit crabs,Hermit crabs,NA,Motile epifauna,Motile epifauna
+69050,Pagurus townsendi,Townsend hermit crab,2008,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,townsendi,Pagurus townsendi,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
 69060,Pagurus aleuticus,Aleutian hermit,1984,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,aleuticus,Pagurus aleuticus,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
 69061,Labidochirus splendescens,splendid hermit,1984,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Labidochirus,splendescens,Labidochirus splendescens,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
 69070,Pagurus confragosus,knobbyhand hermit,1997,Animalia,Arthropoda,Malacostraca,Decapoda,Paguridae,Pagurus,confragosus,Pagurus confragosus,hermits,Hermit crabs,Hermit crabs,Motile epifauna,Motile epifauna,Motile epifauna
@@ -1650,14 +1650,14 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 71786,Beringius sp. G (McLean and Clark),NA,2005,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Beringius,sp. G (McLean and Clark),Beringius sp. G (McLean and Clark),NA,Snails,Snails,NA,Motile epifauna,Motile epifauna
 71788,Beringius sp. H (McLean and Clark),NA,2005,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Beringius,sp. H (McLean and Clark),Beringius sp. H (McLean and Clark),NA,Snails,NA,NA,Motile epifauna,NA
 71789,Beringius sp. I (McLean and Clark),NA,2005,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Beringius,sp. I (McLean and Clark),Beringius sp. I (McLean and Clark),NA,Snails,Snails,NA,Motile epifauna,Motile epifauna
-71790,Neoberingius sp.,NA,1995,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neoberingius,NA,Neoberingius sp.,NA,Snails,NA,NA,Motile epifauna,NA
+71790,Neoberingius sp.,NA,1995,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neoberingius,NA,Neoberingius sp.,snails,Snails,NA,Motile epifauna,Motile epifauna,NA
 71792,Beringius sp. J (McLean and Clark),NA,2005,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Beringius,sp. J (McLean and Clark),Beringius sp. J (McLean and Clark),snails,NA,NA,Motile epifauna,NA,NA
 71793,Beringius sp. K (McLean and Clark),NA,2005,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Beringius,sp. K (McLean and Clark),Beringius sp. K (McLean and Clark),NA,NA,NA,NA,NA,NA
 71794,Beringius marshalli,Marshall's neptune,2024,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 71795,Calinaticina oldroyi,NA,1998,Animalia,Mollusca,Gastropoda,Neotaenioglossa,Naticidae,Calinaticina,oldroyi,Calinaticina oldroyi,NA,NA,NA,NA,NA,NA
 71798,Volutharpa ampullacea,paper whelk,2009,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Volutharpa,ampullacea,Volutharpa ampullacea,NA,NA,NA,NA,NA,NA
 71800,Neptunea sp.,NA,1984,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,NA,Neptunea sp.,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
-71801,Neptunea ventricosa egg,fat whelk egg,2013,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,ventricosa,Neptunea ventricosa,NA,NA,NA,NA,NA,NA
+71801,Neptunea ventricosa egg,fat whelk egg,2013,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,ventricosa,Neptunea ventricosa,snails,NA,NA,Motile epifauna,NA,NA
 71802,Neptunea phoenicea,NA,1998,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,phoenicia,Neptunea phoenicia,snails,NA,NA,Motile epifauna,NA,NA
 71803,Neptunea meridionalis,NA,2016,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,meridionalis,Neptunea meridionalis,NA,NA,NA,NA,NA,NA
 71810,Neptunea amianta,white neptune,1984,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Neptunea,amianta,Neptunea amianta,snails,Snails,Snails,Motile epifauna,Motile epifauna,Motile epifauna
@@ -1883,7 +1883,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 72809,Velutina sp. C (Clark and McLean),NA,2006,Animalia,Mollusca,Gastropoda,Neotaenioglossa,Velutinidae,Velutina,sp. C (Clark and McLean),Velutina sp. C (Clark and McLean),NA,NA,NA,NA,NA,NA
 72810,Velutina rubra,NA,2006,Animalia,Mollusca,Gastropoda,Neotaenioglossa,Velutinidae,Velutina,rubra,Velutina rubra,NA,Snails,NA,NA,Motile epifauna,NA
 72811,Velutina bartschi,NA,2024,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-72820,Clinopegma,NA,2024,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+72820,Clinopegma,NA,2024,NA,NA,NA,NA,NA,NA,NA,NA,snails,NA,NA,Motile epifauna,NA,NA
 72821,Clinopegma unicum,unique whelk,2008,Animalia,Mollusca,Gastropoda,Neogastropoda,Buccinidae,Clinopegma,unicum,Clinopegma unicum,NA,NA,NA,NA,NA,NA
 73183,Admete virdula,northern Admete,1984,Animalia,Mollusca,Gastropoda,Neogastropoda,Cancellariidae,Admete,virdula,Admete virdula,NA,NA,NA,NA,NA,NA
 73185,Admete laevior,smooth nutmeg shell,1989,Animalia,Mollusca,Gastropoda,Neogastropoda,Cancellariidae,Admete,laevior,Admete laevior,snails,NA,NA,Motile epifauna,NA,NA
@@ -2316,7 +2316,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 81908,Cheiraster sp.,NA,2015,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Cheiraster,NA,Cheiraster sp.,NA,Sea stars,Sea stars,NA,Motile epifauna,Motile epifauna
 81909,Cheiraster sp. A (Clark 2006),Aleutian fragile sea star,2005,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Cheiraster,"sp. A (Clark, 2006)","Cheiraster sp. A (Clark, 2006)",NA,Sea stars,Sea stars,NA,Motile epifauna,Motile epifauna
 81910,Cheiraster dawsoni,fragile sea star,1984,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Cheiraster,dawsoni,Cheiraster dawsoni,sea_stars,Sea stars,Sea stars,Motile epifauna,Motile epifauna,Motile epifauna
-81912,Nearchaster variabilis,NA,1999,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Nearchaster,variabilis,Nearchaster variabilis,NA,Sea stars,Sea stars,NA,Motile epifauna,Motile epifauna
+81912,Nearchaster variabilis,NA,1999,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Nearchaster,variabilis,Nearchaster variabilis,sea_stars,Sea stars,Sea stars,Motile epifauna,Motile epifauna,Motile epifauna
 81919,Nearchaster sp.,NA,1998,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Nearchaster,NA,Nearchaster sp.,NA,Sea stars,Sea stars,NA,Motile epifauna,Motile epifauna
 81920,Nearchaster aciculosus,NA,1996,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Nearchaster,aciculosus,Nearchaster aciculosus,NA,NA,Sea stars,NA,NA,Motile epifauna
 81921,Nearchaster pedicellaris,NA,1999,Animalia,Echinodermata,Asteroidea,Notomyotida,Benthopectinidae,Nearchaster,pedicellaris,Nearchaster pedicellaris,NA,NA,Sea stars,NA,NA,Motile epifauna
@@ -2492,6 +2492,7 @@ species_code,species_name,common_name,year_added,kingdom_taxon,phylum_taxon,clas
 91019,Suberites montalbidus,stinky sponge,2014,Animalia,Porifera,Demospongiae,Hadromerida,Suberitidae,Suberites,montalbidus,Suberites montalbidus,sponges,Sponges,NA,Structural epifauna,Structural epifauna,NA
 91020,Suberites domuncula,hermit sponge,1984,Animalia,Porifera,Demospongiae,Hadromerida,Suberitidae,Suberites,domuncula,Suberites domuncula,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
 91030,Aphrocallistes vastus,clay pipe sponge,1984,Animalia,Porifera,Hexactinellida,Hexactinosida,Aphrocallistidae,Aphrocallistes,vastus,Aphrocallistes vastus,sponges,Sponges,Sponges,Structural epifauna,Structural epifauna,Structural epifauna
+91031,NA,sponge unid.,1996,Animalia,Porifera,NA,NA,NA,NA,NA,Porifera unid.,NA,NA,Sponges,NA,NA,Structural epifauna
 91035,Heterochone calyx,goblet sponge,2008,Animalia,Porifera,Hexactinellida,Hexactinosida,Aphrocallistidae,Heterochone,calyx,Heterochone calyx,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91036,Heterochone tenera,crusty tube sponge,2006,Animalia,Porifera,Hexactinellida,Hexactinosida,Aphrocallistidae,Heterochone,tenera,Heterochone tenera,NA,Sponges,Sponges,NA,Structural epifauna,Structural epifauna
 91037,Rhabdocalyptus mirabilis,NA,2017,Animalia,Porifera,Hexactinellida,Lyssacinosida,Rossellidae,Rhabdocalyptus,mirabilis,Rhabdocalyptus mirabilis,NA,NA,NA,NA,NA,NA
