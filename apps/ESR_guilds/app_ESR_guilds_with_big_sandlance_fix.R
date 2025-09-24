@@ -4,6 +4,7 @@
 library("tidyverse")
 library("janitor") 
 library("lubridate")
+library("dplyr")
 
 ####################################################################
 
@@ -105,14 +106,14 @@ get_stratsum_q <- function(cpuedat, q_table){
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
 
-  write.csv(domain_sum_q, "apps/ESR_guilds/EBS_domain_sum_2024test.csv",row.names=F)
-  write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2024_domaintest.csv",row.names=F)
+  write.csv(domain_sum_q, "apps/ESR_guilds/EBS_domain_sum_2025.csv",row.names=F)
+  # write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2025.csv",row.names=F)
 
   ebs_esr_guild_names <- colnames(guild_bio_table)[c(1:3,6:7)] # EBS ESR report card guild names
   ebs_esr_guilds <- guild_bio_table[,ebs_esr_guild_names] # select report card guilds
   # convert to 1,000 t
   ebs_esr_guilds[, ebs_esr_guild_names[-1]] <- ebs_esr_guilds[, ebs_esr_guild_names[-1]]/1000
-  write.csv(ebs_esr_guilds, "apps/ESR_guilds/EBS_ESR_guild_bio_2024.csv",row.names=F)
+  write.csv(ebs_esr_guilds, "apps/ESR_guilds/EBS_ESR_guilds_2025.csv",row.names=F)
   
   
 # AI GUILDS -----------------------------------------------
