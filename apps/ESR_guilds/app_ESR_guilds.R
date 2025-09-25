@@ -71,12 +71,28 @@ get_stratsum_q <- function(cpuedat, q_table){
 #
 # Note: BS Survey filter (for slope stations) moved to core loading code
 
-# EBS GUILDS ------------------------------------------------
+# EBS GUILDS ----------------------------------------------------------------- #
   this.model  <- "EBS"
 
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["ebs_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
   domains_included <- c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", "StMatt", "SE_outer", "NW_outer")
+  
+  # FIX big sandlance in 1982, vessel 1, haul 24 ---------------------
+  # here's the problem: each sandlance weighs 0.9 kg
+  big_sandlance <- catch %>% filter(catch$vessel==1 & catch$cruise==198203 &
+                                      catch$haul==24 & catch$hauljoin==880 & 
+                                      catch$species_code==20202); big_sandlance
+  # here's the fix: Original data sheet shows total sandlance wt should be 0.8 kg
+  # source: email with Duane Stevenson October 4, 2024
+  catch <- catch %>% mutate(weight = replace(weight,
+                                             vessel==1 & cruise==198203 & 
+                                               haul==24 & hauljoin==880 & 
+                                               species_code==20202,
+                                             0.8))
+  # Did the fix work? ---------------------
+  catch %>% filter(catch$vessel==1 & catch$cruise==198203 & catch$haul==24 & 
+                     catch$hauljoin==880 & catch$species_code==20202)
   
   cpue_dat  <- get_cpue_all(model=this.model)
   check_RACE_codes(cpue_dat)
@@ -89,12 +105,18 @@ get_stratsum_q <- function(cpuedat, q_table){
     group_by(year,guild) %>%
     summarize(bio_tons_q_tot = sum(bio_tons_q), .groups="keep") %>%
     spread(guild,bio_tons_q_tot,fill=0)
-
-  write.csv(domain_sum_q, "apps/ESR_guilds/EBS_domain_sum_2024test.csv",row.names=F)
-  write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2024_domaintest.csv",row.names=F)
+  
+  write.csv(domain_sum_q, "apps/ESR_guilds/EBS_domain_sum_2025.csv",row.names=F)
+  # write.csv(guild_bio_table, "apps/ESR_guilds/EBS_guild_bio_2025.csv",row.names=F)
+  
+  ebs_esr_guild_names <- colnames(guild_bio_table)[c(1:3,6:7)] # EBS ESR report card guild names
+  ebs_esr_guilds <- guild_bio_table[,ebs_esr_guild_names] # select report card guilds
+  # convert to 1,000 t
+  ebs_esr_guilds[, ebs_esr_guild_names[-1]] <- ebs_esr_guilds[, ebs_esr_guild_names[-1]]/1000
+  write.csv(ebs_esr_guilds, "apps/ESR_guilds/EBS_ESR_guilds_2025.csv",row.names=F)
 
   
-# AI GUILDS -----------------------------------------------
+# AI GUILDS ------------------------------------------------------------------ #
   this.model  <- "AI"  
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["ai_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2018_AI.csv")
@@ -115,7 +137,7 @@ get_stratsum_q <- function(cpuedat, q_table){
   write.csv(domain_sum_q, "apps/ESR_guilds/AI_domain_sum_2024.csv",row.names=F)
 
   
-# WGOA GUILDS -----------------------------------------------
+# WGOA GUILDS ---------------------------------------------------------------- #
   this.model  <- "WGOA"  
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["goa_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2021_GOA.csv")
@@ -143,7 +165,7 @@ get_stratsum_q <- function(cpuedat, q_table){
   wgoa_esr_guilds[, wgoa_esr_guild_names[-1]] <- wgoa_esr_guilds[, wgoa_esr_guild_names[-1]]/1000
   write.csv(wgoa_esr_guilds, "apps/ESR_guilds/WGOA_ESR_guilds_2025.csv",row.names=F)
   
-  # EGOA GUILDS -----------------------------------------------
+  # EGOA GUILDS -------------------------------------------------------------- #
   this.model  <- "EGOA"  
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["goa_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2021_GOA.csv")
