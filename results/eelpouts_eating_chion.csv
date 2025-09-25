@@ -1,0 +1,5 @@
+"Pred_name","n_samples","chion_n","chion_FreqOccur","totpreywt_g","totchionwt_g","propdiet_bywt","minlen_cm","maxlen_cm","min_chioneater_cm","max_chioneater_cm"
+"Lycodes brevipes (shortfin eelpout)",287,2,0.00696864111498258,41.238,0.431,0.0104515252922062,9,38,24,38
+"Lycodes palearis (wattled eelpout)",687,44,0.0640465793304221,493.158,40.82,0.082772661094416,11,67,25,51
+"Lycodes raridens (marbled eelpout)",734,4,0.00544959128065395,1621.479,5.49,0.00338579778091483,10,75,45,61
+"Lycodes turneri (polar eelpout)",44,1,0.0227272727272727,163.067,2.886,0.017698246732938,13,67,67,67

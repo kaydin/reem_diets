@@ -1,0 +1,4 @@
+"Quarter","Year","Vessel","Cruise","Type","Sta_id_let","Sta_id_num","Seq_num","Haul","Pred_specn","Pred_nodc","Pred_lh","Pred_len","Pred_sex","Prey_nodc","Prey_lh","Prey_sz1","Prey_sz2","Prey_sz3","Empty_1","Prey_sex","Hauljoin","Predjoin","Preylenjoin"
+3,2013,89,201301,9,NA,NA,NA,138,912,8791030701,NA,69,1,8842120904,"C",118,NA,NA,NA,3,11111135,11112732,NA
+3,2013,89,201301,9,NA,NA,NA,138,904,8791030701,NA,59,1,8755030201,"C",93,NA,NA,NA,3,11111135,11112724,NA
+3,2013,89,201301,9,NA,NA,NA,138,904,8791030701,NA,59,1,6179180100,"C",12.6,NA,NA,NA,3,11111135,11112724,NA
