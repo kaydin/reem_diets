@@ -6,7 +6,7 @@ library("janitor")
 library("lubridate")
 library("dplyr")
 
-####################################################################
+################################################################################
 
 source("R/REEM_fooddata_functions.R")
 
@@ -23,7 +23,7 @@ source("R/REEM_fooddata_functions.R")
 
 #race_lookup_col <- c("EBS"="ebs_ecopath", "AI"="ai_ecopath", "WGOA"= "goa_ecopath")
 
-##############################################################################
+################################################################################
 # Biomass extraction by item
 #for (this.model in c("EBS")){  #c("EBS","NBS","EGOA","WGOA","AI")
 source("R/REEM_fooddata_functions.R")
@@ -45,7 +45,7 @@ get_stratsum_q <- function(cpuedat, q_table){
 
   return(stratsum_q)
 }
-  ##############################################################################
+################################################################################
   get_domain_sum_q <- function(cpuedat, q_table){
   
     domain_sum <- cpuedat %>%
@@ -64,7 +64,7 @@ get_stratsum_q <- function(cpuedat, q_table){
     return(domain_sum_q)
   } 
   
-  ##############################################################################  
+################################################################################  
 #  get_cpue_all() mirrors the RACE get_cpue function (returning by haul), except it gets
 # biomasses for all groups at once, binned by the race_lookup names (race_group column)
 # haul_stratum_summary() gets the total stations and area for each model domain.
@@ -76,7 +76,8 @@ get_stratsum_q <- function(cpuedat, q_table){
 
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["ebs_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_EBS_2022.csv")
-  domains_included <- c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", "StMatt", "SE_outer", "NW_outer")
+  domains_included <- c("SE_inner","NW_inner","SE_middle","Pribs","NW_middle", 
+                        "StMatt", "SE_outer", "NW_outer")
   
   # FIX big sandlance in 1982, vessel 1, haul 24 ---------------------
   # here's the problem: each sandlance weighs 0.9 kg
@@ -141,9 +142,9 @@ get_stratsum_q <- function(cpuedat, q_table){
   this.model  <- "WGOA"  
   race_lookup      <- race_lookup_base %>% mutate(race_group  = .data[["goa_ecopath"]])  
   q_table          <- read.clean.csv("apps/ESR_guilds/GroupQ_2021_GOA.csv")
-  domains_included <-  c("Chirikof_shelf", "Chirikof_gully", "Chirikof_slope", "Kodiak_shelf", 
-                         "Kodiak_gully", "Kodiak_slope", "Shumagin_shelf", "Shumagin_gully", 
-                         "Shumagin_slope")
+  domains_included <-  c("Chirikof_shelf", "Chirikof_gully", "Chirikof_slope", 
+                         "Kodiak_shelf", "Kodiak_gully", "Kodiak_slope", 
+                         "Shumagin_shelf", "Shumagin_gully", "Shumagin_slope")
   
   cpue_dat  <- get_cpue_all(model=this.model)
   # write.csv(cpue_dat, "C:/Users/andy.whitehouse/Work/Andy/REEM/Eco_Considerations/Contributions/Guilds/GOA/2025_cpue_dat.csv")
